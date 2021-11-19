@@ -6,14 +6,14 @@ let width = canvas.width;
 let height = canvas.height;
 
 if (window.innerWidth < 800) {
-    width = canvas.width = window.innerWidth -50;
+  width = canvas.width = window.innerWidth - 20;
 } else {
   width = canvas.width = 800;
 }
-if (window.innerHeight < 800) {
-    height = canvas.height = window.innerHeight - 160;
+if (window.innerHeight < 850) {
+    height = canvas.height = window.innerHeight - 300;
 } else {
-  height = canvas.height = 800;
+  height = canvas.height = 750;
 }
   
 var size = width / 23; // наружный радиус
