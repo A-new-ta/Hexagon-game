@@ -5,12 +5,8 @@ import Hex from './hex.js';
 import { width } from './hex.js'
 import { height } from './hex.js'
 
-// найти способ как импортировать переменную ширины канваса, чтобы не указывать ее в нескольких местах
 
-// const canvas = document.getElementById("game");
-// canvas.width = 850;
 
-// let q = width / 23;
 export let hexHelper = {
   // module.exports = {
   // # convert cube to odd-r offset

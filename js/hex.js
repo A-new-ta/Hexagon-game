@@ -96,6 +96,6 @@ function cubeRound(floatedCube) {
   return new Hex(rx, ry, rz);
 }
 
-// module.exports = Hex;
+
 
 
