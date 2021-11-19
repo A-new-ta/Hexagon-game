@@ -1,0 +1,34 @@
+body {
+    background: #000000;
+    /* overflow: hidden;
+    position: fixed;
+    border: 0px;
+    padding: 0px;
+    margin: 0px; */
+    /* width: 100%;
+    height: 100%; */
+    /* overscroll-behavior: none; */
+}
+
+#game {
+    margin: 0 auto;
+    display: block;
+    /* position: fixed; */
+}
+
+/* @media (max-width: 800px) {
+    #game {
+    width: 100%;
+}
+} */
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 50px;
+    padding-right: 4vw;
+}
+
+#score-value {
+    display: block;
+}
