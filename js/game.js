@@ -52,6 +52,7 @@ function drawShapesInWaiting() {
   shapesInWaiting.third.draw(thirdHexX, thirdHexY, .5); // 650, 450
 }
 
+// увеличение фигур при нажатии мышью или тачем
 function drawShapeInHand(){
   if(isMouseDown && shapeInHand) {
     shapeInHand.draw(mouseCoords.x, mouseCoords.y);
@@ -140,11 +141,12 @@ function getMousePos(canvas, eo) {
   };
 }
 
+// сделала по Y меньше чтобы при таче была видна фигура 
 function getTouchPos(canvas, eo) {
   var rect = canvas.getBoundingClientRect();
   return {
     x: eo.touches[0].clientX - rect.left,
-    y: eo.touches[0].clientY - rect.top
+    y: eo.touches[0].clientY - rect.top - 60,
   };
 }
 
