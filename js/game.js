@@ -8,11 +8,8 @@ import { width } from './hex.js'
 import { height } from './hex.js'
 
 
-
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext('2d');
-// export let width = canvas.width = 850;// ширина задется в модуле Hex
-// let height = canvas.height = 800;
 
 // пропорции положения боковых фигур относительно размера канваса
 let firstHexX = width * 0.25; //0.76
