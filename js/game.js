@@ -26,12 +26,14 @@ let proportion = width * 0.1 //
 var score = 0;
 
 var isMouseDown = false;
+var isTouch = false;
 var board = new Board(ctx);
 
 var shapeInHand = false;
 var shapeFrom = "zero";
 
 var mouseCoords = {};
+var touchCoords = {};
 
 var shapesInWaiting = {
   first: new Shape(ctx),
@@ -82,6 +84,7 @@ requestAnimationFrame(function gameLoop() {
   requestAnimationFrame(gameLoop);
 });
 
+
 document.addEventListener('mousedown', function(eo) {
   mouseCoords = getMousePos(canvas, eo);
   isMouseDown = true;
@@ -102,6 +105,7 @@ document.addEventListener('mouseup', function(eo) {
 
   isMouseDown = false;
   shapeInHand = false;
+  isTouch = false;
   // console.log(shapeInHand);
 })
 
@@ -111,6 +115,32 @@ document.addEventListener('mousemove', function(eo) {
   }
 })
 
+// window.addEventListener('resize', resize); // для изменения размера
+
+document.addEventListener('touchstart', function(eo) {
+  touchCoords = getTouchPos(canvas, eo);
+  isTouch = true;
+  shapeInHand = whichShapeDidYouPickTouch();
+})
+
+document.addEventListener('touchmove', function(eo) {
+  if(isTouch){
+    touchCoords = getTouchPos(canvas, eo);
+  }
+})
+
+
+function whichShapeDidYouPickTouch() {
+  return shapesInWaitingBoxes.reduce(function(shape, box) {
+    var bounds = box.bounds;
+    if(touchCoords.x > bounds[0] && touchCoords.x < bounds[1] && touchCoords.y > bounds[2] && touchCoords.y < bounds[3]){
+      shape = shapesInWaiting[box.key];
+      shapeFrom = box.key;
+    }
+    return shape;
+  }, false)
+}
+
 function getMousePos(canvas, eo) {
   var rect = canvas.getBoundingClientRect();
   return {
@@ -119,6 +149,13 @@ function getMousePos(canvas, eo) {
   };
 }
 
+function getTouchPos(canvas, eo) {
+  var rect = canvas.getBoundingClientRect();
+  return {
+    x: eo.touches[0].clientX - rect.left,
+    y: eo.touches[0].clientY - rect.top
+  };
+}
 
 // не перерисовывает доску с фигурами
 // window.addEventListener('resize', function (eo) {
