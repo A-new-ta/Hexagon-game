@@ -26,14 +26,14 @@ let proportion = width * 0.1 //
 var score = 0;
 
 var isMouseDown = false;
-var isTouch = false;
+// var isTouch = false;
 var board = new Board(ctx);
 
 var shapeInHand = false;
 var shapeFrom = "zero";
 
 var mouseCoords = {};
-var touchCoords = {};
+// var touchCoords = {};
 
 var shapesInWaiting = {
   first: new Shape(ctx),
@@ -91,7 +91,17 @@ document.addEventListener('mousedown', function(eo) {
   shapeInHand = whichShapeDidYouPick();
 })
 
-document.addEventListener('mouseup', function(eo) {
+document.addEventListener('touchstart', function (eo) {
+  // eo = eo || window.event;
+  mouseCoords = getTouchPos(canvas, eo);
+  isMouseDown = true;
+  shapeInHand = whichShapeDidYouPick();
+})
+
+document.addEventListener('mouseup', mouseAndTouchEnd);
+document.addEventListener('touchend', mouseAndTouchEnd);
+
+function mouseAndTouchEnd(eo) {
   let pixels = hexHelper.subVector2(mouseCoords, hexHelper.boardOffset);
   if(shapeInHand && board.validDrop(pixels, shapeInHand)){
     board.addTilesFromShape(pixels, shapeInHand);
@@ -102,44 +112,28 @@ document.addEventListener('mouseup', function(eo) {
     if(!board.movesRemaining(_.values(shapesInWaiting)))
       alert("Игра окончена! Ходов больше нет!");
   }
-
   isMouseDown = false;
   shapeInHand = false;
-  isTouch = false;
+  // isTouch = false;
   // console.log(shapeInHand);
-})
+}
 
-document.addEventListener('mousemove', function(eo) {
+document.addEventListener('mousemove', function (eo) {
   if(isMouseDown){
     mouseCoords = getMousePos(canvas, eo);
   }
 })
 
-// window.addEventListener('resize', resize); // для изменения размера
-
-document.addEventListener('touchstart', function(eo) {
-  touchCoords = getTouchPos(canvas, eo);
-  isTouch = true;
-  shapeInHand = whichShapeDidYouPickTouch();
-})
-
-document.addEventListener('touchmove', function(eo) {
-  if(isTouch){
-    touchCoords = getTouchPos(canvas, eo);
+document.addEventListener('touchmove', function (eo) {
+  if (isMouseDown) {
+    mouseCoords = getTouchPos(canvas, eo);
   }
 })
+  
+
+// window.addEventListener('resize', resize); // для изменения размера
 
 
-function whichShapeDidYouPickTouch() {
-  return shapesInWaitingBoxes.reduce(function(shape, box) {
-    var bounds = box.bounds;
-    if(touchCoords.x > bounds[0] && touchCoords.x < bounds[1] && touchCoords.y > bounds[2] && touchCoords.y < bounds[3]){
-      shape = shapesInWaiting[box.key];
-      shapeFrom = box.key;
-    }
-    return shape;
-  }, false)
-}
 
 function getMousePos(canvas, eo) {
   var rect = canvas.getBoundingClientRect();
