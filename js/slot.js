@@ -2,31 +2,13 @@
 
 import { hexHelper } from './hex-helper.js';
 // import {width} from './game.js'
-// const hexHelper = require('./hex-helper');
+
 
 var defaultImage = new Image();
 defaultImage.src = "images/slot_hex.svg"
 
 
 
-// const canvas = document.getElementById("game");
-// const ctx = canvas.getContext('2d');
-// canvas.width = 800;
-// canvas.height = 600;
-// let size = canvas.width / 22;
-// let x = canvas.width / 22;
-// let y = canvas.width / 22;
-// ctx.beginPath();
-// ctx.moveTo(x + size * Math.cos(0), y + size * Math.sin(0));
-
-// for (let side; side < 7; side++) {
-// ctx.lineTo(x + size * Math.cos(side * 2 * Math.PI / 6), y + size * Math.sin(side * 2 * Math.PI / 6));
-// }
-// ctx.fillStyle = "#fff";
-// ctx.fill();
-
-
-    
 var image_width = (hexHelper.size * 1.9) - 2;
 
 export default class Slot {
@@ -44,4 +26,3 @@ export default class Slot {
 }
 
 
-// module.exports = Slot;

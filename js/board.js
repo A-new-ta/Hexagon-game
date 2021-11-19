@@ -1,6 +1,5 @@
 'use strict'
 
-// const _ = require('underscore');
 
 import Slot from './slot.js';
 import Tile from './tile.js';
@@ -10,10 +9,7 @@ import _, { every } from './underscore.js'
 import { width } from './hex.js'
 import { height } from './hex.js'
 
-// const Slot = require('./slot');
-// const Tile = require('./tile');
-// const Hex = require('./hex');
-// const hexHelper = require('./hex-helper');
+
 
 export default class Board {
   constructor(context) {
@@ -150,4 +146,3 @@ export default class Board {
 
 
 
-// module.exports = Board;

@@ -6,10 +6,7 @@ import { hexHelper } from './hex-helper.js';
 import Hex from './hex.js';
 import _, { sample } from './underscore.js'
 // import {width} from './game.js'
-// const _ = require('underscore');
-// const Tile = require('./tile');
-// const hexHelper = require('./hex-helper');
-// const Hex = require('./hex')
+
 
 // var image_width = (hexHelper.size * 1.9) - 2;
 // варианты возможных форм для фигурок
@@ -160,4 +157,3 @@ export default class Shape {
     
 
 
-// module.exports = Shape;

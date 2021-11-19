@@ -7,10 +7,7 @@ import _, { values } from './underscore.js'
 import { width } from './hex.js'
 import { height } from './hex.js'
 
-// const _ = require('underscore');
-// const Board = require('./board');
-// const Shape = require('./shape');
-// const hexHelper = require('./hex-helper');
+
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext('2d');
