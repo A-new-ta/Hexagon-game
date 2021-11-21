@@ -151,4 +151,20 @@ svg {
   }
 }
 
+li {
+    display: inline;
+    margin-right: 1vw;
+}
+
+.social__icons {
+    position: absolute;
+    top: 90vh;
+}
+img{
+    width: 5vw;
+    height: 5vh;
+}
+
+
+
 
