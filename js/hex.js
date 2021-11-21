@@ -5,18 +5,18 @@ const canvas = document.getElementById("game");
 let width = canvas.width;
 let height = canvas.height;
 
-if (window.innerWidth < 800) {
+if (window.innerWidth < 1000) {
   width = canvas.width = window.innerWidth - 20;
 } else {
-  width = canvas.width = 800;
+  width = canvas.width = 1000;
 }
-if (window.innerHeight < 850) {
+if (window.innerHeight < 1080) {
     height = canvas.height = window.innerHeight - 300;
 } else {
-  height = canvas.height = 750;
+  height = canvas.height = 1080;
 }
   
-var size = width / 23; // наружный радиус
+var size = width / 18; // наружный радиус 23
 // var boardOffset = {x: 300, y: 300};
 export { width };
 export { height };

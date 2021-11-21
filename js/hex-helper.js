@@ -12,10 +12,10 @@ export let hexHelper = {
   // # convert cube to odd-r offset
   // col = x + (z - (z&1)) / 2
   // row = z
-  size: width / 23,
+  size: width / 18,//21
   // size: 36,
-  vector2Size: { x: width / 23, y: width / 23 }, //40 35
-  boardOffset: { x: width / 2.1, y: height / 2.4 }, //300 300
+  vector2Size: { x: width / 18, y: width / 18 }, //40 35//23 23
+  boardOffset: { x: width / 2.1, y: height / 2.5 }, //300 300//2.1 2.4
   // hexToOffset: function(x,y,z) {
   //   col = x + (z - (z&1)) / 2;
   //   row = z;

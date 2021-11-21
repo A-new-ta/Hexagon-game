@@ -54,7 +54,7 @@ const possibleShapes = [
     ],
   },
   {
-    image: "images/tile_hex_4.svg",
+    image: "images/tile_hex_3.svg",
     coords: [
       [0,-1,1],
       [0,0,0],
@@ -72,7 +72,7 @@ const possibleShapes = [
     ],
   },
   {
-    image: "images/tile_hex_4.svg",
+    image: "images/tile_hex_1.svg",
     coords: [
       [-1,1,0],
       [0,0,0],
@@ -81,7 +81,7 @@ const possibleShapes = [
     ],
   },
   {
-    image: "images/tile_hex_4.svg",
+    image: "images/tile_hex_2.svg",
     coords: [
       [-1,0,1],
       [0,0,0],
@@ -116,6 +116,7 @@ const possibleShapes = [
       [0,1,-1],
     ],
   },
+  
 ]
 
 export default class Shape {
@@ -151,6 +152,25 @@ export default class Shape {
       ctx.drawImage(img, pixels.x, pixels.y, image_width * scale, image_width * scale);
     });
   }
+
+
+
+  drawScale(xOffset, yOffset, scale = 1) {
+    var ctx = this._context;
+    this.tiles.forEach(function (tileOpts) {
+      // var [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);
+      let pixels = tileOpts.hex.toPixels();
+      
+      pixels.x = pixels.x * scale + xOffset - hexHelper.size;
+      pixels.y = pixels.y * scale + yOffset - hexHelper.size;
+
+      let img = tileOpts.tile.image;
+      
+      ctx.drawImage(img, pixels.x, pixels.y, image_width *0.8 * scale, image_width *0.8 * scale);
+      
+    });
+  }
+
 }
 
 

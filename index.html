@@ -6,14 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="style.css">
   <link href="images/favicon.png" rel="icon"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
   <title>hexagon</title>
 </head>
 <body>
+  
+  <div class="main__container">
 
-  <h1>Score: <span id="score-value">0</span></h1>
-  <canvas id="game"></canvas>
+    <div class="game__start hidden">
+    <div class="score"><h1>Score: <span id="score-value">0</span></h1></div>
+    
+    <!-- <canvas id='c'></canvas> -->
+    
+    <canvas id="game"></canvas>
+    </div>
+
+    <div class="game__menu hidden"></div>
+
+    <div class="enter__name-menu">
+
+      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	    width="87.59px" height="99.306px" viewBox="0 0 87.59 99.306"  xml:space="preserve">
+      <g>
+	    <path stroke="#777" stroke-miterlimit="10" d="M45.377,98.392c-0.953,0.55-2.513,0.552-3.467,0.005l-39.68-22.75c-0.954-0.547-1.732-1.895-1.729-2.995l0.139-45.739c0.003-1.1,0.785-2.45,1.738-3l39.837-23c0.953-0.55,2.513-0.552,3.467-0.005l39.68,22.75c0.954,0.547,1.732,1.895,1.729,2.995l-0.139,45.739c-0.003,1.1-0.785,2.45-1.738,3L45.377,98.392z"/>
+      </g>
+      </svg>
+
+      <div class="callout">HEXAGON</div>
+
+      <div class="text__name">Введите имя</div>
+      <input type="text" class="text__input">
+      <button class="play__game-button">Начать игру</button>
+
+      
+
+    </div>
+  
+  </div>
+
+
 
   <script type="module" src="js/index.js"></script>
+  <script src="background.js"></script>
   
 
 </body>

@@ -13,11 +13,11 @@ const ctx = canvas.getContext('2d');
 
 // пропорции положения боковых фигур относительно размера канваса
 let firstHexX = width * 0.25; //0.76
-let firstHexY = height * 0.875; //0.18
+let firstHexY = height * 0.9 //0.18
 let secondHexX = width * 0.5; //0.82
-let secondHexY = height * 0.875; //0.35
+let secondHexY = height * 0.9; //0.35
 let thirdHexX = width * 0.75; // 0.76
-let thirdHexY = height * 0.875; //0.53
+let thirdHexY = height * 0.9; //0.53
 let proportion = width * 0.1 // 
 
 var score = 0;
@@ -55,10 +55,12 @@ function drawShapesInWaiting() {
 // увеличение фигур при нажатии мышью или тачем
 function drawShapeInHand(){
   if(isMouseDown && shapeInHand) {
-    shapeInHand.draw(mouseCoords.x, mouseCoords.y);
+    shapeInHand.drawScale(mouseCoords.x, mouseCoords.y);
   }
 }
 
+
+// проверяем какая фигура взята
 function whichShapeDidYouPick() {
   return shapesInWaitingBoxes.reduce(function(shape, box) {
     var bounds = box.bounds;
