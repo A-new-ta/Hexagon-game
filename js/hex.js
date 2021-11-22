@@ -3,27 +3,27 @@
 // import { width } from './index.js';
 // import { height } from './index.js';
 
-// const canvas = document.getElementById('game');
-// const ctx = canvas.getContext('2d');
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
 
-// let width = canvas.width;
-// let height = canvas.height;
+let width = canvas.width;
+let height = canvas.height;
 
-// if (window.innerWidth < 800) {
-//   width = canvas.width = window.innerWidth - 20;
-// } else {
-//   width = canvas.width = 800;
-// }
-// if (window.innerHeight < 800) {
-//     height = canvas.height = window.innerHeight - 300;
-// } else {
-//   height = canvas.height = 800;
-// }
+if (window.innerWidth < 800) {
+  width = canvas.width = window.innerWidth - 20;
+} else {
+  width = canvas.width = 800;
+}
+if (window.innerHeight < 800) {
+    height = canvas.height = window.innerHeight - 300;
+} else {
+  height = canvas.height = 800;
+}
   
 var size = width / 18; // наружный радиус 23
-// var boardOffset = {x: 300, y: 300};
-// export { width };
-// export { height };
+var boardOffset = {x: 300, y: 300};
+export { width };
+export { height };
 
 export default class Hex {
   constructor(x, y, z) {

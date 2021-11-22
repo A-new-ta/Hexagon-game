@@ -160,7 +160,7 @@ function getTouchPos(canvas, eo) {
   var rect = canvas.getBoundingClientRect();
   return {
     x: eo.touches[0].clientX - rect.left,
-    y: eo.touches[0].clientY - rect.top - 60,
+    y: eo.touches[0].clientY - rect.top - 50,
   };
 }
 

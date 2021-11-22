@@ -12,21 +12,33 @@
 </head>
 <body>
   
-  <div class="main__container">
+  
 
-    <div class="game__start hidden">
+    <div class="game__start">
     <div class="score"><h2>Score: <span id="score-value">0</span></h2></div>
     
-    <!-- <canvas id='c'></canvas>
+    <canvas id='c'></canvas>
     
-    <canvas id="game"></canvas> -->
+    <canvas id="game"></canvas>
 
     </div>
 
-    <div class="game__menu hidden"></div>
+    
 
-    <div class="enter__name-menu">
+    <div class="enter__name-menu hidden">
 
+      <div class="option">
+        <ul>
+          <li class="option__button"><a href="#Rules">Правила</a></li>
+          <li class="option__button"><a href="#Records">Таблица рекордов</a></li>
+        </ul>
+      </div>
+      <div class="info__block">
+        <div class="block__content">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis debitis quam cumque, eveniet ullam expedita natus dignissimos quod reiciendis facilis quos, alias qui odit rerum impedit, ad ipsa adipisci sit.</p>
+          <div class="close__button"><a href="#">закрыть</a></div>
+        </div>
+      </div>
       <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	    width="87.59px" height="99.306px" viewBox="0 0 87.59 99.306"  xml:space="preserve">
       <g>
@@ -40,7 +52,7 @@
       <input type="text" class="text__input">
       <button class="play__game-button">Начать игру</button>
       <div class="social__icons">
-        <div class="github__icon"><a href="https://github.com/"><img src="/images/github_icon.svg" alt="github"></a></div>
+        <div class="github__icon"><a href="https://github.com/A-new-ta/"><img src="/images/github_icon.svg" alt="github"></a></div>
         <div><img class="sound" src="/images/sound_on_icon.svg" alt="sound_on"><img class="sound hidden" src="/images/sound_off_icon.svg" alt=""></a></div>
            
         
@@ -49,12 +61,12 @@
 
     </div>
   
-  </div>
+  
 
 
 
   <script type="module" src="js/index.js"></script>
-  <!-- <script src="background.js"></script> -->
+  <script src="background.js"></script>
   
 
 </body>
