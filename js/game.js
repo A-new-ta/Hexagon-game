@@ -8,6 +8,17 @@ import { width } from './hex.js'
 import { height } from './hex.js'
 
 
+// let button = document.querySelector('.play__game-button');
+// button.addEventListener('click', start);
+
+// function start() {
+//   let playerName = document.querySelector('.text__input');
+//   if (playerName) {
+//     const canvas = document.createElement('canvas');
+//     canvas.className = 'game';
+//   }
+// }
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext('2d');
 
@@ -18,7 +29,8 @@ let secondHexX = width * 0.5; //0.82
 let secondHexY = height * 0.9; //0.35
 let thirdHexX = width * 0.75; // 0.76
 let thirdHexY = height * 0.9; //0.53
-let proportion = width * 0.1 // 
+let proportion1 = width * 0.05 // 
+let proportion2 = width * 0.1 // 
 
 var score = 0;
 
@@ -41,9 +53,9 @@ var shapesInWaiting = {
 
 // размеры контейнера когда срабатывает событие мыши при клике на фигуру
 const shapesInWaitingBoxes = [
-  {key: "first", bounds: [firstHexX - proportion, firstHexX + proportion, firstHexY - proportion, firstHexY + proportion]}, //600, 700, 100, 200
-  {key: "second", bounds: [secondHexX - proportion, secondHexX + proportion, secondHexY - proportion, secondHexY + proportion]}, //600, 700, 250, 350
-  {key: "third", bounds: [thirdHexX - proportion, thirdHexX + proportion, thirdHexY - proportion, thirdHexY + proportion]}, //600, 700, 400, 500
+  {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
+  {key: "second", bounds: [secondHexX - proportion2, secondHexX + proportion1, secondHexY - proportion2, secondHexY + proportion1]}, //600, 700, 250, 350
+  {key: "third", bounds: [thirdHexX - proportion2, thirdHexX + proportion1, thirdHexY - proportion2, thirdHexY + proportion1]}, //600, 700, 400, 500
 ]
 
 function drawShapesInWaiting() {

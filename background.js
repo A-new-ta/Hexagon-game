@@ -5,10 +5,7 @@ const ctx = c.getContext('2d');
 let space = 70;
 let baseSize = 25;
 let addSize = 20;
-// let multX = 1;
-// let multY = 2;
-// let tickSpeed = 0.008;
-// let hueMult = 5;
+
 
 let speed = 0;
 let rad = Math.PI / 6;
@@ -38,8 +35,6 @@ function tick() {
 			++i;
 			
 			let x1 = x + difX * ( i % 2 );
-      
-      // let hueX = x1 / limitX * 180 + speed * hueMult;
       let size = baseSize + addSize * Math.sin( ( x1 + y * 2 ) * 0.01 + speed );
       ctx.fillStyle = 'rgba(100,100,100,0.085)';
 			ctx.beginPath();
