@@ -72,7 +72,7 @@ h2 {
 .game__start {
   margin-top: 30px;
 }
-.enter__name-menu{
+.main__menu {
     margin: 0 auto;
     max-width: 1450px;
     max-height: 900px;
@@ -80,17 +80,17 @@ h2 {
     /* width: 50%; */
     text-align: center;
 }
-.text__name, .play__game-button, .text__input, img, .option__button {
+.menu__entername, .menu__play-button, .menu__name-input, img, .option__button {
     opacity: 0;
     animation: fade .5s ease-in-out forwards;
     animation-delay:2.5s;
 }
-.text__name {
+.menu__entername {
     color: rgb(167, 166, 166);
     margin-bottom: 50px;
     
 }
-.play__game-button {
+.menu__play-button {
     display: block;
     margin: 0 auto;
     border-radius: 10px;
@@ -103,7 +103,7 @@ h2 {
     cursor: pointer;
     
 }
-.text__input {
+.menu__name-input {
     margin: 50px auto;
     border-radius: 10px;
     height: 4vh;
@@ -115,7 +115,7 @@ h2 {
     font-size: 24px;
 }
 
-.play__game-button:active {
+.menu__play-button:active {
     cursor: pointer;
     transition: 1s;
     box-shadow: 0px 0px 20px #000000 inset;
@@ -155,7 +155,7 @@ svg {
   }
 }
 
-.callout {
+.menu__hexagon {
   opacity: 0;
   width: 100%;
   text-align: center;
@@ -179,9 +179,9 @@ svg {
   }
 }
 
-.social__icons {
+.menu__icons {
     display: flex;
-    margin-top: 20vh;
+    margin-top: 15vh;
     justify-content: center;
 }
 
@@ -201,7 +201,7 @@ ul {
   display: flex;
   justify-content: end;
 }
-.option__button {
+.menu__rules-button, .menu__records-button, .menu__close-button {
   margin-right: 20px;
   border-radius: 10px;
   font-size: 24px;
@@ -210,16 +210,17 @@ ul {
   cursor: pointer;
   padding: 10px 10px 10px 10px;
 }
-.option__button a, .close__button a {
+.menu__records-button a, .menu__rules-button a, .menu__close-button a, .menu__play-button a {
   color: black;
   text-align: center;
 }
-.option__button:active, .close__button:active {
+.menu__records-button:active, .menu__rules-button:active, .menu__close-button:active {
   cursor: pointer;
   transition: 1s;
   box-shadow: 0px 0px 20px #000000 inset;
 }
-.info__block{
+.menu__rules{
+  visibility: hidden;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -238,22 +239,49 @@ ul {
   border-radius: 4vh;
   background-color: rgb(97, 97, 97);
 }
-.info__block p{
-  padding: 50px;
+.menu__rules p{
+  padding: 30px;
   text-align: center;
 }
-.close__button {
+.menu__close-button {
   display: inline-block;
   background: grey;
   transition: 0.5s;
-  margin-right: 20px;
   border-radius: 10px;
   font-size: 24px;
   box-shadow: 0px 0px 50px #dbdada;
   background-color: rgb(187, 186, 186);
   cursor: pointer;
   padding: 10px 10px 10px 10px;
-  margin-bottom: 40px;
+  /* margin-bottom: 30px; */
+}
+
+@keyframes info-show {
+  0% {
+    transform: translate3d(-50%, -200%, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+@keyframes info-hide {
+  0% {
+    transform: translate3d(-50%, -50%, 0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  100% {
+    transform: translate3d(-50%, -200%, 0);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 }
 
 

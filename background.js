@@ -36,9 +36,8 @@ function tick() {
 			
 			let x1 = x + difX * ( i % 2 );
       let size = baseSize + addSize * Math.sin( ( x1 + y * 2 ) * 0.01 + speed );
-      ctx.fillStyle = 'rgba(100,100,100,0.085)';
+      ctx.fillStyle = 'rgba(100,100,100,0.15)';
 			ctx.beginPath();
-			
 			ctx.moveTo( xs[0] * size + x1, ys[0] * size + y );
 			for( let n = 1; n < xs.length; ++n )
 				ctx.lineTo( xs[n] * size + x1, ys[n] * size + y );

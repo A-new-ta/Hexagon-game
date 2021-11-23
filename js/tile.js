@@ -11,7 +11,6 @@ export default class Tile {
     this._context = context;
     
   }
-
 }
 
 

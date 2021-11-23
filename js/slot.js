@@ -7,8 +7,6 @@ import { hexHelper } from './hex-helper.js';
 var defaultImage = new Image();
 defaultImage.src = "images/slot_hex.svg"
 
-
-
 var image_width = (hexHelper.size * 1.9) - 2;
 
 export default class Slot {
