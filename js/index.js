@@ -1,6 +1,6 @@
 'use strict'
 
-import './game.js';
+// import './game.js';
 
 
 
@@ -30,62 +30,105 @@ function switchToStateFromURLHash() {
     console.log(spaState);
     
     // обновляем вариабельную часть страницы под текущее состояние
-    let addtoHTML = '';
+    // let addtoHTML = '';
     switch (spaState.pagename) {
         case 'Main':
-            addtoHTML = `<div class="main__window">
-            <div class="menu__option">
-              <ul>
-                <li class="menu__rules-button"><a href="#Rules">Rules</a></li>
-                <li class="menu__records-button"><a href="#Records">Records</a></li>
-              </ul>
-            </div>
-           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-              width="87.59px" height="99.306px" viewBox="0 0 87.59 99.306"  xml:space="preserve">
-            <g>
-              <path stroke="#777" stroke-miterlimit="10" d="M45.377,98.392c-0.953,0.55-2.513,0.552-3.467,0.005l-39.68-22.75c-0.954-0.547-1.732-1.895-1.729-2.995l0.139-45.739c0.003-1.1,0.785-2.45,1.738-3l39.837-23c0.953-0.55,2.513-0.552,3.467-0.005l39.68,22.75c0.954,0.547,1.732,1.895,1.729,2.995l-0.139,45.739c-0.003,1.1-0.785,2.45-1.738,3L45.377,98.392z"/>
-            </g>
-            </svg>
-            <div class="menu__hexagon">HEXAGON</div>
-            <div class="menu__entername">Enter your name</div>
-            <input type="text" class="menu__name-input">
-            <button class="menu__play-button"><a href="#Game">Play</a></button>
-            <div class="menu__icons">
-              <div class="github__icon"><a target="_blank" href="https://github.com/A-new-ta/"><img src="/images/github_icon.svg" alt="github"></a></div>
-              <div class="sound__button"><img class="sound" src="/images/sound_on_icon.svg" alt="sound_on"><img class="sound hidden" src="/images/sound_off_icon.svg" alt=""></a></div>
-            </div>
-          </div>`;
+            hideInfo();
             break;
-        case 'Game':
-            addtoHTML = `<div class="game__start">
-            <div class="score"><h2>Score: <span id="score-value">0</span></h2></div>
-            <canvas id='c'></canvas>
-            <canvas id="game"></canvas>
-            </div>`;
-            break;
+        // case 'Game':
+        //     startGame();
+        //     break;
         case 'Rules':
-            addtoHTML = `<div class="menu__rules">
-            <div class="menu__rules-content">
-              <p>The player can choose one of three pieces to add onto an empty board at a time, made up of several small tiles. Linking tiles in a line from one edge of the board to another will remove all the tiles in the completed line. The game ends when the player can no longer place anymore tiles.</p>
-              <div class="menu__close-button"><a href="#">Close</a></div>
-            </div>
-          </div>`;
+            showInfo('Rules');
             break;
         case 'Records':
-            addtoHTML = `<div class="menu__rules">
-            <div class="menu__records-content">
-              <p>1</p>
-              <p>2</p>
-              <p>3</p>
-              <p>4</p>
-              <p>5</p>
-            <div class="menu__close-button"><a href="#">Close</a></div>
-            </div>
-          </div>`;
+            showInfo('Records');
             break;
     }
-    document.body.innerHTML = addtoHTML;
+    if (document.querySelector('.menu__close-button')) {
+        let closeButton = document.querySelector('.menu__close-button');
+        closeButton.addEventListener('click', switchToMainPage);
+    }
 }
+
+function showInfo(infoType) {
+    
+    if (!document.querySelector('.menu__rules')) {
+
+        let mainWindow = document.body;
+        let wrapper = document.createElement('div');
+        wrapper.className = 'wrapper';
+        mainWindow.appendChild(wrapper);
+        let menuRules = document.createElement('div');
+        menuRules.className = 'menu__rules';
+        // menuRules.style.position = 'absolute';
+        // menuRules.style.top = '-1100px';
+        // menuRules.style.left = '50%';
+        // menuRules.style.width = 'auto';
+        // menuRules.style.height = 'auto';
+        // menuRules.style.maxWidth = '600px';
+        // menuRules.style.maxHeight = '600px';
+        // menuRules.style.backgroundColor = '#daddca';
+        // menuRules.style.padding = '20px';
+        // menuRules.style.zIndex = 10;
+
+        menuRules.style.animationName = 'info-show';
+        menuRules.style.animationDuration = '0.5s';
+        
+        // menuRules.style.animationTimingFunction = 'linear';
+        // menuRules.style.animationFillMode = 'forwards';
+        // menuRules.style.boxShadow = '0px 0px 30px #dbdada';
+        // menuRules.style.borderRadius = '4vh';
+        // menuRules.style.backgroundColor = 'rgb(97, 97, 97)';
+        wrapper.appendChild(menuRules);
+        let menuContent = document.createElement('div');
+        menuContent.className = 'menu__rules-content';
+        menuRules.appendChild(menuContent);
+        let infoContent = document.createElement('p');
+        infoContent.className = 'info__content';
+        // infoContent.style.padding = '30px';
+        // infoContent.style.textAlign = 'center';
+        menuContent.appendChild(infoContent);
+        let closeButton = document.createElement('div');
+        closeButton.className = 'menu__close-button';
+        menuContent.appendChild(closeButton);
+        let a = document.createElement('a');
+        a.textContent = 'Close';
+        closeButton.appendChild(a);
+    }
+    
+// в зависимости нажатой кнопки, будем менять содержимое
+    switch (infoType) {
+        case 'Rules':
+            let infoRules = document.querySelector('.info__content');
+            infoRules.textContent = 'The player can choose one of three pieces to add onto an empty board at a time, made up of several small tiles. Linking tiles in a line from one edge of the board to another will remove all the tiles in the completed line. The game ends when the player can no longer place anymore tiles.';
+            break;
+        
+        case 'Records':
+            let infoRecords = document.querySelector('.info__content');
+            infoRecords.textContent = 'таблица рекордов подгруженная из AJAX';
+            break;
+    }
+}
+
+function hideInfo() {
+    if (document.querySelector('.menu__rules')) {
+        let menuRules = document.querySelector('.menu__rules');
+        menuRules.style.animationName='info-hide';
+        menuRules.style.animationDuration='0.5s';
+        menuRules.style.animationTimingFunction='linear';
+        menuRules.style.animationFillMode='forwards';
+        setTimeout(removeInfo, 500);
+      }
+      function removeInfo() {    
+        let menuRules = document.querySelector('.menu__rules');
+        let mainWindow = document.body;
+        mainWindow.removeChild(menuRules);
+      }
+}
+
+
+
 
 // устанавливает в закладке УРЛа новое состояние приложения
 // и затем устанавливает+отображает это состояние
@@ -103,7 +146,7 @@ location.hash = stateStr;
 function switchToMainPage() {
     switchToState({ pagename: 'Main' });
 }
-function switchToGamePage(photoId) {
+function switchToGamePage() {
     switchToState({ pagename: 'Game' });
 }
 function switchToRulesPage() {
@@ -128,7 +171,7 @@ const toogle = document.querySelector('.menu__mobile-toogle'); // для мен�
 // для ресайзинга самой игры, написать когда-нибудь
 // window.addEventListener('resize', resizeCanvas);
 // изменение хэша урла
-window.addEventListener('hashchange', switchToStateFromURLHash);  
+window.addEventListener('hashchange', switchToStateFromURLHash);
 // перезагрузка или закрытие страницы
 // window.addEventListener('beforeunload', beforeUnload);
 // для меню бургер
@@ -143,7 +186,7 @@ recordsButton.addEventListener('click', switchToRecordPage);
 // кнопка вкл/выкл звук
 // soundButton.addEventListener('click', sound);
 // кнопка закрытия модального окна
-closeButton.addEventListener('click', switchToMainPage);
+
 // свайп окна
 // window.addEventListener('touchstart', windowTouchStart, {passive: false});
 // window.addEventListener('touchend', windowTouchEnd, {passive: false});
