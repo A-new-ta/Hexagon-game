@@ -1,10 +1,6 @@
 'use strict'
-
-// import './game.js';
-
-
-
-
+import './game.js';
+import { getCanvasSize, start } from './game.js'
 
 // предупреждение о потере данных
 // function beforeUnload(EO) {
@@ -35,9 +31,9 @@ function switchToStateFromURLHash() {
         case 'Main':
             hideInfo();
             break;
-        // case 'Game':
-        //     startGame();
-        //     break;
+        case 'Game':
+            startGame();
+            break;
         case 'Rules':
             showInfo('Rules');
             break;
@@ -56,38 +52,20 @@ function showInfo(infoType) {
     if (!document.querySelector('.menu__rules')) {
 
         let mainWindow = document.body;
-        let wrapper = document.createElement('div');
-        wrapper.className = 'wrapper';
-        mainWindow.appendChild(wrapper);
+        let overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        mainWindow.appendChild(overlay);
         let menuRules = document.createElement('div');
         menuRules.className = 'menu__rules';
-        // menuRules.style.position = 'absolute';
-        // menuRules.style.top = '-1100px';
-        // menuRules.style.left = '50%';
-        // menuRules.style.width = 'auto';
-        // menuRules.style.height = 'auto';
-        // menuRules.style.maxWidth = '600px';
-        // menuRules.style.maxHeight = '600px';
-        // menuRules.style.backgroundColor = '#daddca';
-        // menuRules.style.padding = '20px';
-        // menuRules.style.zIndex = 10;
-
         menuRules.style.animationName = 'info-show';
         menuRules.style.animationDuration = '0.5s';
-        
-        // menuRules.style.animationTimingFunction = 'linear';
-        // menuRules.style.animationFillMode = 'forwards';
-        // menuRules.style.boxShadow = '0px 0px 30px #dbdada';
-        // menuRules.style.borderRadius = '4vh';
-        // menuRules.style.backgroundColor = 'rgb(97, 97, 97)';
-        wrapper.appendChild(menuRules);
+        menuRules.style.transform = 'translate(-50%, 0)'
+        overlay.appendChild(menuRules);
         let menuContent = document.createElement('div');
         menuContent.className = 'menu__rules-content';
         menuRules.appendChild(menuContent);
         let infoContent = document.createElement('p');
         infoContent.className = 'info__content';
-        // infoContent.style.padding = '30px';
-        // infoContent.style.textAlign = 'center';
         menuContent.appendChild(infoContent);
         let closeButton = document.createElement('div');
         closeButton.className = 'menu__close-button';
@@ -121,10 +99,38 @@ function hideInfo() {
         setTimeout(removeInfo, 500);
       }
       function removeInfo() {    
-        let menuRules = document.querySelector('.menu__rules');
+        let overlay = document.querySelector('.overlay');
         let mainWindow = document.body;
-        mainWindow.removeChild(menuRules);
+        mainWindow.removeChild(overlay);
       }
+}
+
+function startGame() {
+    let mainWindow = document.body;
+    let gameStart = document.createElement('div');
+    gameStart.className = 'game__start';
+    mainWindow.appendChild(gameStart);
+    let score = document.createElement('div');
+    score.className = 'score';
+    gameStart.appendChild(score);
+    let text = document.createElement('h2');
+    text.textContent = 'Score';
+    score.appendChild(text);
+    let value = document.createElement('span');
+    value.setAttribute('id', 'score-value');
+    value.textContent = '0';
+    text.appendChild(value);
+    let background = document.createElement('canvas');
+    background.setAttribute('id', 'c');
+    gameStart.appendChild(background);
+    let mainGame = document.createElement('canvas');
+    mainGame.setAttribute('id', 'game');
+    gameStart.appendChild(mainGame);
+    let startPage = document.querySelector('.main__window');
+    mainWindow.removeChild(startPage);
+    getCanvasSize();
+    start();
+    
 }
 
 
@@ -177,7 +183,7 @@ window.addEventListener('hashchange', switchToStateFromURLHash);
 // для меню бургер
 // toggle.addEventListener('click', mobileMenu);
 // кнопка Play
-playButton.addEventListener('click', switchToGamePage);
+playButton.addEventListener('click', switchToGamePage, true);
 // playButton.addEventListener('tap', play, { passive: false });
 // кнопка Rules
 rulesButton.addEventListener('click', switchToRulesPage);
@@ -232,6 +238,5 @@ recordsButton.addEventListener('click', switchToRecordPage);
 // export { height };
 
 // const canvas = document.getElementById("game");
-
 
 

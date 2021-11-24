@@ -1,6 +1,8 @@
+let c = document.getElementById('c');
+const ctx = c.getContext('2d');
 let w = c.width = window.innerWidth;
 let h = c.height = window.innerHeight;
-const ctx = c.getContext('2d');
+
 
 let space = 70;
 let baseSize = 25;

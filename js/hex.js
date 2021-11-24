@@ -1,29 +1,14 @@
 'use strict'
 
-// import { width } from './index.js';
-// import { height } from './index.js';
+import { width } from './game.js';
+import { height } from './game.js';
 
-const canvas = document.getElementById('game');
-const ctx = canvas.getContext('2d');
 
-let width = canvas.width;
-let height = canvas.height;
 
-if (window.innerWidth < 800) {
-  width = canvas.width = window.innerWidth - 20;
-} else {
-  width = canvas.width = 800;
-}
-if (window.innerHeight < 800) {
-    height = canvas.height = window.innerHeight - 300;
-} else {
-  height = canvas.height = 800;
-}
-  
-var size = width / 18; // наружный радиус 23
+// var size = width / 18; // наружный радиус 23
 var boardOffset = {x: 300, y: 300};
-export { width };
-export { height };
+// export { width };
+// export { height };
 
 export default class Hex {
   constructor(x, y, z) {
@@ -53,8 +38,8 @@ export default class Hex {
 
 function pixelsToAxial(pixels) {
   var axial = {};
-  axial.q = (pixels.x * Math.sqrt(3)/3 - pixels.y / 3) / size;
-  axial.r = pixels.y * 2/3 / size;
+  axial.q = (pixels.x * Math.sqrt(3)/3 - pixels.y / 3) / width / 18;
+  axial.r = pixels.y * 2/3 / width / 18;
   let roundedAxial = axialRound(axial);
   return roundedAxial;
 }
@@ -69,8 +54,8 @@ function axialToCube(axial) {
 
 function axialToPixels(axial) {
   var pixels = {};
-  pixels.x = size * Math.sqrt(3) * (axial.q + axial.r/2);
-  pixels.y = size * 3/2 * axial.r;
+  pixels.x = (width / 18) * Math.sqrt(3) * (axial.q + axial.r/2);
+  pixels.y = (width / 18) * 3/2 * axial.r;
   return pixels;
 }
 
@@ -99,6 +84,8 @@ function cubeRound(floatedCube) {
 
   return new Hex(rx, ry, rz);
 }
+
+
 
 
 

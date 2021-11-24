@@ -1,6 +1,6 @@
 'use strict'
 
-import * as Game from './game.js';
+// import * as Game from './game.js';
 
 
 export default class Tile {
@@ -12,6 +12,8 @@ export default class Tile {
     
   }
 }
+
+
 
 
 

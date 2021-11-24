@@ -2,12 +2,12 @@
 
 
 import Slot from './slot.js';
-import Tile from './tile.js';
+// import Tile from './tile.js';
 import Hex from './hex.js';
-import { hexHelper } from './hex-helper.js';
+// import { hexHelper } from './hexhelper.js';
 import _, { every } from './underscore.js'
-import { width } from './hex.js'
-import { height } from './hex.js'
+// import { width } from './hex.js'
+// import { height } from './hex.js'
 
 
 
@@ -135,6 +135,8 @@ export default class Board {
   }
 
 }
+
+
 
 
 

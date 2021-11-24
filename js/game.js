@@ -2,53 +2,83 @@
 
 import Board from './board.js';
 import Shape from './shape.js';
-import { hexHelper } from './hex-helper.js';
+import { hexHelperF } from './hexhelper.js';
 import _, { values } from './underscore.js'
-import { width } from './hex.js'
-import { height } from './hex.js'
+// import { width } from './hex.js'
+// import { height } from './hex.js'
 
+let canvas;
+let ctx;
+let width;
+let height;
+let firstHexX;
+let firstHexY;
+let secondHexX;
+let secondHexY;
+let thirdHexX;
+let thirdHexY;
+let proportion1;
+let proportion2;
+let board;
+let mouseCoords;
+let score;
+let isMouseDown;
+let shapeInHand;
+let shapeFrom;
+let shapesInWaiting;
 
-// let button = document.querySelector('.play__game-button');
-// button.addEventListener('click', start);
-
-// function start() {
-//   let playerName = document.querySelector('.text__input');
-//   if (playerName) {
-//     const canvas = document.createElement('canvas');
-//     canvas.className = 'game';
-//   }
-// }
-
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext('2d');
-
+export function getCanvasSize() {
+  canvas = document.getElementById("game");
+  ctx = canvas.getContext('2d')
+width = canvas.width;
+height = canvas.height;
+if (window.innerWidth < 800) {
+  width = canvas.width = window.innerWidth - 20;
+} else {
+  width = canvas.width = 800;
+}
+if (window.innerHeight < 800) {
+    height = canvas.height = window.innerHeight - 300;
+} else {
+  height = canvas.height = 800;
+}
 // пропорции положения боковых фигур относительно размера канваса
-let firstHexX = width * 0.25; //0.76
-let firstHexY = height * 0.9 //0.18
-let secondHexX = width * 0.5; //0.82
-let secondHexY = height * 0.9; //0.35
-let thirdHexX = width * 0.75; // 0.76
-let thirdHexY = height * 0.9; //0.53
-let proportion1 = width * 0.05 // 
-let proportion2 = width * 0.1 // 
-
-var score = 0;
-
-var isMouseDown = false;
+firstHexX = width * 0.25; //0.76
+firstHexY = height * 0.9 //0.18
+secondHexX = width * 0.5; //0.82
+secondHexY = height * 0.9; //0.35
+thirdHexX = width * 0.75; // 0.76
+thirdHexY = height * 0.9; //0.53
+proportion1 = width * 0.05 // 
+proportion2 = width * 0.1 // 
+score = 0;
+isMouseDown = false;
 // var isTouch = false;
-var board = new Board(ctx);
-
-var shapeInHand = false;
-var shapeFrom = "zero";
-
-var mouseCoords = {};
+board = new Board(ctx);
+shapeInHand = false;
+shapeFrom = "zero";
+mouseCoords = {};
 // var touchCoords = {};
-
-var shapesInWaiting = {
+shapesInWaiting = {
   first: new Shape(ctx),
   second: new Shape(ctx),
   third: new Shape(ctx)
 }
+}
+
+// var score = 0;
+// var isMouseDown = false;
+// // var isTouch = false;
+// var board = new Board(ctx);
+// var shapeInHand = false;
+// var shapeFrom = "zero";
+// var mouseCoords = {};
+// // var touchCoords = {};
+// var shapesInWaiting = {
+//   first: new Shape(ctx),
+//   second: new Shape(ctx),
+//   third: new Shape(ctx)
+// }
 
 
 // размеры контейнера когда срабатывает событие мыши при клике на фигуру
@@ -86,7 +116,7 @@ function whichShapeDidYouPick() {
 
 
 // board.addRandomTiles();
-
+export function start (){
 requestAnimationFrame(function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   board.draw();
@@ -95,26 +125,43 @@ requestAnimationFrame(function gameLoop() {
   drawShapeInHand();
   requestAnimationFrame(gameLoop);
 });
+}
 
+// function listeners() {
+  // if (document.querySelector('.canvas')) {
+    document.addEventListener('mousedown', function (eo) {
+      mouseCoords = getMousePos(canvas, eo);
+      isMouseDown = true;
+      shapeInHand = whichShapeDidYouPick();
+    })
 
-document.addEventListener('mousedown', function(eo) {
-  mouseCoords = getMousePos(canvas, eo);
-  isMouseDown = true;
-  shapeInHand = whichShapeDidYouPick();
-})
+    document.addEventListener('touchstart', function (eo) {
+      // eo = eo || window.event;
+      mouseCoords = getTouchPos(canvas, eo);
+      isMouseDown = true;
+      shapeInHand = whichShapeDidYouPick();
+    })
 
-document.addEventListener('touchstart', function (eo) {
-  // eo = eo || window.event;
-  mouseCoords = getTouchPos(canvas, eo);
-  isMouseDown = true;
-  shapeInHand = whichShapeDidYouPick();
-})
+    document.addEventListener('mouseup', mouseAndTouchEnd);
+    document.addEventListener('touchend', mouseAndTouchEnd);
 
-document.addEventListener('mouseup', mouseAndTouchEnd);
-document.addEventListener('touchend', mouseAndTouchEnd);
+    document.addEventListener('mousemove', function (eo) {
+      if(isMouseDown){
+        mouseCoords = getMousePos(canvas, eo);
+      }
+    })
+    
+    document.addEventListener('touchmove', function (eo) {
+      if (isMouseDown) {
+        mouseCoords = getTouchPos(canvas, eo);
+      }
+    })
+  // }
+// }
 
 function mouseAndTouchEnd(eo) {
-  let pixels = hexHelper.subVector2(mouseCoords, hexHelper.boardOffset);
+  let helper = hexHelperF();
+  let pixels = helper.subVector2(mouseCoords, helper.boardOffset);
   if(shapeInHand && board.validDrop(pixels, shapeInHand)){
     board.addTilesFromShape(pixels, shapeInHand);
     shapesInWaiting[shapeFrom] = new Shape(ctx);
@@ -130,17 +177,17 @@ function mouseAndTouchEnd(eo) {
   // console.log(shapeInHand);
 }
 
-document.addEventListener('mousemove', function (eo) {
-  if(isMouseDown){
-    mouseCoords = getMousePos(canvas, eo);
-  }
-})
+// document.addEventListener('mousemove', function (eo) {
+//   if(isMouseDown){
+//     mouseCoords = getMousePos(canvas, eo);
+//   }
+// })
 
-document.addEventListener('touchmove', function (eo) {
-  if (isMouseDown) {
-    mouseCoords = getTouchPos(canvas, eo);
-  }
-})
+// document.addEventListener('touchmove', function (eo) {
+//   if (isMouseDown) {
+//     mouseCoords = getTouchPos(canvas, eo);
+//   }
+// })
   
 
 // window.addEventListener('resize', resize); // для изменения размера
@@ -149,6 +196,7 @@ document.addEventListener('touchmove', function (eo) {
 
 function getMousePos(canvas, eo) {
   var rect = canvas.getBoundingClientRect();
+  console.log(canvas);
   return {
     x: eo.clientX - rect.left,
     y: eo.clientY - rect.top
@@ -190,3 +238,5 @@ function getTouchPos(canvas, eo) {
 //   }
 // })
 
+export { width };
+export { height };
