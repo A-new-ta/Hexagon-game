@@ -123,16 +123,18 @@ function whichShapeDidYouPick() {
 
 
 // board.addRandomTiles();
-export function start (){
+// export function start (){
 requestAnimationFrame(function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   board.draw();
   board.drawPotentialSlots(mouseCoords, shapeInHand);
+  // console.log(mouseCoords);
+  // console.log(shapeInHand);
   drawShapesInWaiting();
   drawShapeInHand();
   requestAnimationFrame(gameLoop);
 });
-}
+// }
 // start();
 
 export function listeners() {
@@ -172,7 +174,7 @@ function mouseAndTouchEnd(eo) {
     board.addTilesFromShape(pixels, shapeInHand);
     shapesInWaiting[shapeFrom] = new Shape(ctx);
     score += board.removeFullLines();
-    console.log("score:", score);
+    // console.log("score:", score);
     document.getElementById("score-value").innerText = score;
     if(!board.movesRemaining(_.values(shapesInWaiting)))
       alert("Игра окончена! Ходов больше нет!");

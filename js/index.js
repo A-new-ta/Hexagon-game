@@ -1,6 +1,6 @@
 'use strict'
-import './game.js';
-import { getCanvasSize, start, listeners } from './game.js'
+// import * as Game from'./game.js';
+import { getCanvasSize,  listeners } from './game.js'
 
 // предупреждение о потере данных
 // function beforeUnload(EO) {
@@ -141,7 +141,7 @@ function startGame() {
     startPage.classList.add('hidden');
     console.log(startPage.className);
     getCanvasSize();
-    start();
+    // start();
     listeners();
 }
 

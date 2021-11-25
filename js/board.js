@@ -36,15 +36,25 @@ export default class Board {
     });
   }
   drawPotentialSlots(mouseCoords, shape) {
+    // console.log(shape);
     if (!shape)
       return;
-    
-    let pixels = this.hexHelper.subVector2(mouseCoords, this.hexHelper.boardOffset);
+    let hexHelper = this.hexHelper;
+    let pixels = hexHelper.subVector2(mouseCoords, hexHelper.boardOffset);
+    // console.log(hexHelper);
     if (!this.validDrop(pixels, shape))
+      // console.log(pixels);
+      // console.log(shape);
       return;
 
-    var center = this.hexHelper.nearestHexCenterFromPixels(pixels);
-    center = this.hexHelper.addVector2(center, this.hexHelper.boardOffset);
+    var center = hexHelper.nearestHexCenterFromPixels(pixels);
+    
+    // console.log(hexHelper);
+    // console.log(center);
+    // console.log(pixels);
+
+    center = hexHelper.addVector2(center, hexHelper.boardOffset);
+    
     shape.draw(center.x, center.y);
   }
   validDrop(pixels, shape) {
@@ -52,10 +62,16 @@ export default class Board {
       return;
 
     var hex = (new Hex()).fromPixels(pixels);
+    // console.log(hex);
+    // console.log(shape);
+    // console.log(this);
     return this.validShapeAtCoords(hex, shape);
   }
   coordsToSlot(x, y, z) {
     var matchCoords = [x, y, z];
+    // console.log(matchCoords);
+    // console.log(this);
+    // console.log(this.slots);
     return this.slots.reduce(function (slot, slotToCheck) {
       let currentCoords = [slotToCheck.hex.x, slotToCheck.hex.y, slotToCheck.hex.z];
       return _.isEqual(matchCoords, currentCoords) ? slotToCheck : slot;
@@ -103,20 +119,26 @@ export default class Board {
   validShapeAtCoords(hex, shape) {
     if (!shape)
       return;
+    // console.log(shape);
     var hexesToCheck = shape.tiles.map(function (tile) {
       return hex.add(tile.hex);
     });
+    // console.log(hexesToCheck);
 
     var board = this;
     return _.every(hexesToCheck, function (hex) {
       let slot = board.hexToSlot(hex);
+      // console.log(slot);
       return slot && slot.tile == undefined;
     });
+    
   }
   hexToSlot(hex) {
     var board = this;
+    // console.log(hex.x, hex.y, hex.z);
     return board.coordsToSlot(hex.x, hex.y, hex.z);
   }
+
   getRow(axis, rowNumber) {
     return this.slots.filter(function (slot) {
       return slot.hex[axis] == rowNumber;
