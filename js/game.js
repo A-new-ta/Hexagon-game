@@ -26,6 +26,7 @@ let isMouseDown;
 let shapeInHand;
 let shapeFrom;
 let shapesInWaiting;
+let shapesInWaitingBoxes;
 
 export function getCanvasSize() {
   canvas = document.getElementById("game");
@@ -63,7 +64,13 @@ shapesInWaiting = {
   first: new Shape(ctx),
   second: new Shape(ctx),
   third: new Shape(ctx)
-}
+  }
+  
+shapesInWaitingBoxes = [
+  {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
+  {key: "second", bounds: [secondHexX - proportion2, secondHexX + proportion1, secondHexY - proportion2, secondHexY + proportion1]}, //600, 700, 250, 350
+  {key: "third", bounds: [thirdHexX - proportion2, thirdHexX + proportion1, thirdHexY - proportion2, thirdHexY + proportion1]}, //600, 700, 400, 500
+  ]
 }
 
 // var score = 0;
@@ -82,11 +89,11 @@ shapesInWaiting = {
 
 
 // размеры контейнера когда срабатывает событие мыши при клике на фигуру
-const shapesInWaitingBoxes = [
-  {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
-  {key: "second", bounds: [secondHexX - proportion2, secondHexX + proportion1, secondHexY - proportion2, secondHexY + proportion1]}, //600, 700, 250, 350
-  {key: "third", bounds: [thirdHexX - proportion2, thirdHexX + proportion1, thirdHexY - proportion2, thirdHexY + proportion1]}, //600, 700, 400, 500
-]
+// let shapesInWaitingBoxes = [
+//   {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
+//   {key: "second", bounds: [secondHexX - proportion2, secondHexX + proportion1, secondHexY - proportion2, secondHexY + proportion1]}, //600, 700, 250, 350
+//   {key: "third", bounds: [thirdHexX - proportion2, thirdHexX + proportion1, thirdHexY - proportion2, thirdHexY + proportion1]}, //600, 700, 400, 500
+// ]
 
 function drawShapesInWaiting() {
   shapesInWaiting.first.draw(firstHexX, firstHexY, .5); // координаты и размер для ожидающих фигур 650,150
@@ -126,38 +133,37 @@ requestAnimationFrame(function gameLoop() {
   requestAnimationFrame(gameLoop);
 });
 }
+// start();
 
-// function listeners() {
-  // if (document.querySelector('.canvas')) {
+export function listeners() {
+
     document.addEventListener('mousedown', function (eo) {
       mouseCoords = getMousePos(canvas, eo);
       isMouseDown = true;
       shapeInHand = whichShapeDidYouPick();
     })
-
     document.addEventListener('touchstart', function (eo) {
       // eo = eo || window.event;
       mouseCoords = getTouchPos(canvas, eo);
       isMouseDown = true;
       shapeInHand = whichShapeDidYouPick();
     })
-
     document.addEventListener('mouseup', mouseAndTouchEnd);
     document.addEventListener('touchend', mouseAndTouchEnd);
-
     document.addEventListener('mousemove', function (eo) {
       if(isMouseDown){
         mouseCoords = getMousePos(canvas, eo);
       }
     })
-    
     document.addEventListener('touchmove', function (eo) {
       if (isMouseDown) {
         mouseCoords = getTouchPos(canvas, eo);
       }
     })
-  // }
-// }
+  window.addEventListener('beforeunload', goodbye);
+  
+  }
+
 
 function mouseAndTouchEnd(eo) {
   let helper = hexHelperF();
@@ -192,11 +198,9 @@ function mouseAndTouchEnd(eo) {
 
 // window.addEventListener('resize', resize); // для изменения размера
 
-
-
 function getMousePos(canvas, eo) {
   var rect = canvas.getBoundingClientRect();
-  console.log(canvas);
+  // console.log(canvas);
   return {
     x: eo.clientX - rect.left,
     y: eo.clientY - rect.top
@@ -212,6 +216,22 @@ function getTouchPos(canvas, eo) {
   };
 }
 
+// реакция на закрытие и перезагрузку окна, добавить еще на уход со страницы
+function goodbye(e) {
+  if(!e) e = window.event;
+  e.cancelBubble = true;
+  e.returnValue = 'You sure you want to leave?'; 
+  if (e.stopPropagation) {
+      e.stopPropagation();
+      e.preventDefault();
+  }
+}
+// window.onbeforeunload=goodbye; 
+// function beforeUnload(eo) { // указать какое то условие при котором должно выдаваться сообщение
+  
+//       eo.returnValue = 'А у вас есть несохранённые изменения!';
+  
+// }
 // не перерисовывает доску с фигурами
 // window.addEventListener('resize', function (eo) {
 //   if (window.innerWidth < 800) {

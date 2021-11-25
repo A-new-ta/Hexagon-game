@@ -1,6 +1,6 @@
 'use strict'
 import './game.js';
-import { getCanvasSize, start } from './game.js'
+import { getCanvasSize, start, listeners } from './game.js'
 
 // предупреждение о потере данных
 // function beforeUnload(EO) {
@@ -30,6 +30,7 @@ function switchToStateFromURLHash() {
     switch (spaState.pagename) {
         case 'Main':
             hideInfo();
+            hideGame();
             break;
         case 'Game':
             startGame();
@@ -59,7 +60,7 @@ function showInfo(infoType) {
         menuRules.className = 'menu__rules';
         menuRules.style.animationName = 'info-show';
         menuRules.style.animationDuration = '0.5s';
-        menuRules.style.transform = 'translate(-50%, 0)'
+        // menuRules.style.transform = 'translate(-50%, 0)';
         overlay.appendChild(menuRules);
         let menuContent = document.createElement('div');
         menuContent.className = 'menu__rules-content';
@@ -105,6 +106,16 @@ function hideInfo() {
       }
 }
 
+function hideGame() {
+    if (document.querySelector('.game__start')) {
+        let gameStart = document.querySelector('.game__start');
+        let mainWindow = document.body;
+        mainWindow.removeChild(gameStart);
+        let startPage = document.querySelector('.main__window');
+        startPage.classList.remove('hidden');
+    }
+}
+
 function startGame() {
     let mainWindow = document.body;
     let gameStart = document.createElement('div');
@@ -127,10 +138,11 @@ function startGame() {
     mainGame.setAttribute('id', 'game');
     gameStart.appendChild(mainGame);
     let startPage = document.querySelector('.main__window');
-    mainWindow.removeChild(startPage);
+    startPage.classList.add('hidden');
+    console.log(startPage.className);
     getCanvasSize();
     start();
-    
+    listeners();
 }
 
 
@@ -183,7 +195,7 @@ window.addEventListener('hashchange', switchToStateFromURLHash);
 // для меню бургер
 // toggle.addEventListener('click', mobileMenu);
 // кнопка Play
-playButton.addEventListener('click', switchToGamePage, true);
+playButton.addEventListener('click', switchToGamePage);
 // playButton.addEventListener('tap', play, { passive: false });
 // кнопка Rules
 rulesButton.addEventListener('click', switchToRulesPage);

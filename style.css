@@ -182,7 +182,7 @@ svg {
 .menu__icons {
     display: flex;
     margin-top: 15vh;
-    justify-content: center;
+    margin-left: 10px;
 }
 
 img{
@@ -231,11 +231,11 @@ ul {
   
   /* pointer-events: none; */
   position: relative;
-  transform:translate(50%, 50%);
-  top:-50%;
+  /* transform:translate(50%, 50%); */
+  top:-100%;
   margin: 0 auto;
-  width: auto;
-  height: auto;
+  /* width: auto;
+  height: auto; */
   min-width: 70%;
   max-width: 600px;
   max-height: 600px;

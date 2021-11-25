@@ -125,6 +125,7 @@ export default class Shape {
     // this.tiles = this.makeTilesFromCoords((possibleShapes));
     this.tiles = this.makeTilesFromCoords(_.sample(possibleShapes));
     this.hexHelper = hexHelperF();
+    
   }
   makeTilesFromCoords(shapeOpts) {
     var shape = this;
@@ -140,16 +141,16 @@ export default class Shape {
 
   
   draw(xOffset, yOffset, scale = 1) {
-    let k = this.hexHelper;
-    var image_width = (k.size * 1.9) - 2;
+    let hexHelper = this.hexHelper;
+    var image_width = (hexHelper.size * 1.9) - 2;
     var ctx = this._context;
     // console.log(this.hexHelper);
     this.tiles.forEach(function (tileOpts) {
       // var [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);
       let pixels = tileOpts.hex.toPixels();
       
-      pixels.x = pixels.x * scale + xOffset - k.size;
-      pixels.y = pixels.y * scale + yOffset - k.size;
+      pixels.x = pixels.x * scale + xOffset - hexHelper.size;
+      pixels.y = pixels.y * scale + yOffset - hexHelper.size;
       // console.log(k);
       let img = tileOpts.tile.image;
       ctx.drawImage(img, pixels.x, pixels.y, image_width * scale, image_width * scale);
@@ -159,14 +160,15 @@ export default class Shape {
 
 
   drawScale(xOffset, yOffset, scale = 1) {
-    var image_width = (this.hexHelper.size * 1.9) - 2;
+    let hexHelper = this.hexHelper;
+    var image_width = (hexHelper.size * 1.9) - 2;
     var ctx = this._context;
     this.tiles.forEach(function (tileOpts) {
       // var [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);
       let pixels = tileOpts.hex.toPixels();
       
-      pixels.x = pixels.x * scale + xOffset - this.hexHelper.size;
-      pixels.y = pixels.y * scale + yOffset - this.hexHelper.size;
+      pixels.x = pixels.x * scale + xOffset - hexHelper.size;
+      pixels.y = pixels.y * scale + yOffset - hexHelper.size;
 
       let img = tileOpts.tile.image;
       

@@ -2,12 +2,13 @@
 
 
 import Slot from './slot.js';
-// import Tile from './tile.js';
+import Tile from './tile.js';
 import Hex from './hex.js';
 // import { hexHelper } from './hexhelper.js';
 import _, { every } from './underscore.js'
 // import { width } from './hex.js'
 // import { height } from './hex.js'
+import { hexHelperF } from './hexhelper.js';
 
 
 
@@ -15,7 +16,7 @@ export default class Board {
   constructor(context) {
     this.boardSize = 4;
     this.slots = [];
-
+    this.hexHelper = hexHelperF();
     for (var x = -this.boardSize; x <= this.boardSize; x++) {
       for (var y = -this.boardSize; y <= this.boardSize; y++) {
         for (var z = -this.boardSize; z <= this.boardSize; z++) {
@@ -37,12 +38,13 @@ export default class Board {
   drawPotentialSlots(mouseCoords, shape) {
     if (!shape)
       return;
-    let pixels = hexHelper.subVector2(mouseCoords, hexHelper.boardOffset);
+    
+    let pixels = this.hexHelper.subVector2(mouseCoords, this.hexHelper.boardOffset);
     if (!this.validDrop(pixels, shape))
       return;
 
-    var center = hexHelper.nearestHexCenterFromPixels(pixels);
-    center = hexHelper.addVector2(center, hexHelper.boardOffset);
+    var center = this.hexHelper.nearestHexCenterFromPixels(pixels);
+    center = this.hexHelper.addVector2(center, this.hexHelper.boardOffset);
     shape.draw(center.x, center.y);
   }
   validDrop(pixels, shape) {
