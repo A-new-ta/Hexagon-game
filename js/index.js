@@ -8,8 +8,8 @@ import { getCanvasSize,  listeners, start } from './game.js'
 //     if ( myModel.choiseArr.length != 0 ) // прописать какое то условие
 //       EO.returnValue='При смене страницы данные не будут сохранены!';
 //   };
-let windowStartMoveX;
-let windowEndMoveX;
+let windowStartMoveY;
+let windowEndMoveY;
 let spaState = {};
 //изменение состояния в зависимости от хэша
 
@@ -180,7 +180,7 @@ function switchToRecordPage() {
 switchToStateFromURLHash();
 
 
-
+let menuRulesBlock = document.querySelector('.menu__rules');
 let playButton = document.querySelector('.menu__play-button');
 let soundButton = document.querySelector('.sound__button');
 let rulesButton = document.querySelector('.menu__rules-button');
@@ -217,41 +217,24 @@ recordsButtonBurger.addEventListener('click', switchToRecordPage);
 // soundButton.addEventListener('click', sound);
 // кнопка закрытия модального окна
 
-// свайп окна
+// свайп окна дописать чтобы работал только выпадающем меню
 window.addEventListener('touchstart', windowTouchStart, {passive: false});
 window.addEventListener('touchend', windowTouchEnd, {passive: false});
 window.addEventListener('touchmove', windowMove, { passive: false });
 
 function windowTouchStart(eo) {     
     let touches = eo.changedTouches;
-    windowStartMoveX = touches[0].pageX;
+    windowStartMoveY = touches[0].pageY;
 }
 
 function windowTouchEnd(eo) {
     let touches = eo.changedTouches;
-    windowEndMoveX = touches[0].pageX;
-    
-    if ((Math.abs(windowEndMoveX - windowStartMoveX) > 200)) {
-        if (Math.abs(windowEndMoveX - windowStartMoveX) > 200) {
-            switchToMainPage();
-        }
+    windowEndMoveY = touches[0].pageY;
+    if ((windowStartMoveY - windowEndMoveY) > 150 ) {
+        switchToMainPage();
     }
-            // } else {
-            //     switchToRecordPage();
-            // }
-        
-    
-    // if ((Math.abs(windowEndMoveX - windowStartMoveX) > 200)) {
-    //     if (Math.abs(windowEndMoveX - windowStartMoveX) > 200) {
-    //         if (windowEndMoveX - windowStartMoveX > 0) {
-    //             switchToRulesPage();
-    //         } else {
-    //             switchToRecordPage();
-    //         }
-    //     }
-    // }
 }
-
+       
 function windowMove(eo) {
     eo = eo || window.event
     eo.preventDefault();

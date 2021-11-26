@@ -407,7 +407,8 @@ svg{
   display: inline-block;
   color: rgb(226, 226, 226);
   font-size: 30px;
-  margin-bottom:50px;
+  margin-bottom:25px;
+  margin-top: 25px;
   text-decoration:none;
 }
 .menu__rules {
