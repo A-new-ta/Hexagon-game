@@ -1,6 +1,6 @@
 'use strict'
 // import * as Game from'./game.js';
-import { getCanvasSize,  listeners } from './game.js'
+import { getCanvasSize,  listeners, start } from './game.js'
 
 // предупреждение о потере данных
 // function beforeUnload(EO) {
@@ -8,7 +8,8 @@ import { getCanvasSize,  listeners } from './game.js'
 //     if ( myModel.choiseArr.length != 0 ) // прописать какое то условие
 //       EO.returnValue='При смене страницы данные не будут сохранены!';
 //   };
-
+let windowStartMoveX;
+let windowEndMoveX;
 let spaState = {};
 //изменение состояния в зависимости от хэша
 
@@ -141,9 +142,10 @@ function startGame() {
     startPage.classList.add('hidden');
     console.log(startPage.className);
     getCanvasSize();
-    // start();
+    start();
     listeners();
 }
+
 
 
 
@@ -179,12 +181,13 @@ switchToStateFromURLHash();
 
 
 
-const playButton = document.querySelector('.menu__play-button');
-const soundButton = document.querySelector('.sound__button');
-const rulesButton = document.querySelector('.menu__rules-button');
-const recordsButton = document.querySelector('.menu__records-button');
-const closeButton = document.querySelector('.menu__close-button');
-const toogle = document.querySelector('.menu__mobile-toogle'); // для меню бургер
+let playButton = document.querySelector('.menu__play-button');
+let soundButton = document.querySelector('.sound__button');
+let rulesButton = document.querySelector('.menu__rules-button');
+let recordsButton = document.querySelector('.menu__records-button');
+let closeButton = document.querySelector('.menu__close-button');
+let rulesButtonBurger = document.querySelector('.menu__rules-burger');
+let recordsButtonBurger = document.querySelector('.menu__records-burger');
 // слушатели всех событий
 // для ресайзинга самой игры, написать когда-нибудь
 // window.addEventListener('resize', resizeCanvas);
@@ -192,24 +195,67 @@ const toogle = document.querySelector('.menu__mobile-toogle'); // для мен�
 window.addEventListener('hashchange', switchToStateFromURLHash);
 // перезагрузка или закрытие страницы
 // window.addEventListener('beforeunload', beforeUnload);
+
 // для меню бургер
-// toggle.addEventListener('click', mobileMenu);
+let menuMobile = document.querySelector('.menu__mobile');
+let overlay = document.querySelector('.menu__burger');
+menuMobile.addEventListener('click',function(){
+  menuMobile.classList.toggle("close"); // this
+  overlay.classList.toggle("overlayM");
+});
+
 // кнопка Play
 playButton.addEventListener('click', switchToGamePage);
 // playButton.addEventListener('tap', play, { passive: false });
 // кнопка Rules
 rulesButton.addEventListener('click', switchToRulesPage);
+rulesButtonBurger.addEventListener('click', switchToRulesPage);
 // кнопка Records
 recordsButton.addEventListener('click', switchToRecordPage);
+recordsButtonBurger.addEventListener('click', switchToRecordPage);
 // кнопка вкл/выкл звук
 // soundButton.addEventListener('click', sound);
 // кнопка закрытия модального окна
 
 // свайп окна
-// window.addEventListener('touchstart', windowTouchStart, {passive: false});
-// window.addEventListener('touchend', windowTouchEnd, {passive: false});
-// window.addEventListener('touchmove', windowMove, { passive: false });
+window.addEventListener('touchstart', windowTouchStart, {passive: false});
+window.addEventListener('touchend', windowTouchEnd, {passive: false});
+window.addEventListener('touchmove', windowMove, { passive: false });
 
+function windowTouchStart(eo) {     
+    let touches = eo.changedTouches;
+    windowStartMoveX = touches[0].pageX;
+}
+
+function windowTouchEnd(eo) {
+    let touches = eo.changedTouches;
+    windowEndMoveX = touches[0].pageX;
+    
+    if ((Math.abs(windowEndMoveX - windowStartMoveX) > 200)) {
+        if (Math.abs(windowEndMoveX - windowStartMoveX) > 200) {
+            switchToMainPage();
+        }
+    }
+            // } else {
+            //     switchToRecordPage();
+            // }
+        
+    
+    // if ((Math.abs(windowEndMoveX - windowStartMoveX) > 200)) {
+    //     if (Math.abs(windowEndMoveX - windowStartMoveX) > 200) {
+    //         if (windowEndMoveX - windowStartMoveX > 0) {
+    //             switchToRulesPage();
+    //         } else {
+    //             switchToRecordPage();
+    //         }
+    //     }
+    // }
+}
+
+function windowMove(eo) {
+    eo = eo || window.event
+    eo.preventDefault();
+}
 
 
 // let button = document.querySelector('.play__game-button');

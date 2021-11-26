@@ -123,7 +123,7 @@ function whichShapeDidYouPick() {
 
 
 // board.addRandomTiles();
-// export function start (){
+export function start (){
 requestAnimationFrame(function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   board.draw();
@@ -134,7 +134,7 @@ requestAnimationFrame(function gameLoop() {
   drawShapeInHand();
   requestAnimationFrame(gameLoop);
 });
-// }
+}
 // start();
 
 export function listeners() {
@@ -163,8 +163,7 @@ export function listeners() {
       }
     })
   window.addEventListener('beforeunload', goodbye);
-  
-  }
+}
 
 
 function mouseAndTouchEnd(eo) {
