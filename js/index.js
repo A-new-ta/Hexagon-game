@@ -214,10 +214,10 @@ rulesButtonBurger.addEventListener('click', switchToRulesPage);
 recordsButton.addEventListener('click', switchToRecordPage);
 recordsButtonBurger.addEventListener('click', switchToRecordPage);
 // кнопка вкл/выкл звук
-// soundButton.addEventListener('click', sound);
+soundButton.addEventListener('click', sound);
 // кнопка закрытия модального окна
 
-// свайп окна дописать чтобы работал только выпадающем меню
+// свайп окна, работает только на страницах rules и records
 window.addEventListener('touchstart', windowTouchStart, {passive: false});
 window.addEventListener('touchend', windowTouchEnd, {passive: false});
 window.addEventListener('touchmove', windowMove, { passive: false });
@@ -228,7 +228,6 @@ function windowTouchStart(eo) {
         windowStartMoveY = touches[0].pageY;
     }
 }
-
 function windowTouchEnd(eo) {
     let touches = eo.changedTouches;
     windowEndMoveY = touches[0].pageY;
@@ -236,50 +235,22 @@ function windowTouchEnd(eo) {
         switchToMainPage();
     }
 }
-       
 function windowMove(eo) {
     eo = eo || window.event
     eo.preventDefault();
 }
 
-
-// let button = document.querySelector('.play__game-button');
-// button.addEventListener('click', start);
-
-// function start() {
-//   let playerName = document.querySelector('.text__input');
-//   if (playerName) {
-//     const canvas = document.createElement('canvas');
-//     const ctx = canvas.getContext('2d');
-//     canvas.id = 'game';
-//     }
-//     requestAnimationFrame(function gameLoop() {
-//         ctx.clearRect(0, 0, canvas.width, canvas.height);
-//         board.draw();
-//         board.drawPotentialSlots(mouseCoords, shapeInHand);
-//         drawShapesInWaiting();
-//         drawShapeInHand();
-//         requestAnimationFrame(gameLoop);
-//       });
+// function sound() {
+//     checkerText = checker.textContent;
+//         if (checkerText === 'Включить звук') {
+//             checker.textContent = 'Выключить звук';
+//             backAudio.currentTime = 0;
+//             backAudio.play();
+//         } else if (checkerText === 'Выключить звук') {
+//             checker.textContent = 'Включить звук';
+//             backAudio.pause();
+//         }
 // }
 
-// let width = canvas.width;
-// let height = canvas.height;
-
-// if (window.innerWidth < 1000) {
-//   width = canvas.width = window.innerWidth - 20;
-// } else {
-//   width = canvas.width = 1000;
-// }
-// if (window.innerHeight < 1080) {
-//     height = canvas.height = window.innerHeight - 300;
-// } else {
-//   height = canvas.height = 1080;
-// }
-
-// export { width };
-// export { height };
-
-// const canvas = document.getElementById("game");
 
 
