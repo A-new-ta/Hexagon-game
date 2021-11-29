@@ -73,27 +73,7 @@ shapesInWaitingBoxes = [
   ]
 }
 
-// var score = 0;
-// var isMouseDown = false;
-// // var isTouch = false;
-// var board = new Board(ctx);
-// var shapeInHand = false;
-// var shapeFrom = "zero";
-// var mouseCoords = {};
-// // var touchCoords = {};
-// var shapesInWaiting = {
-//   first: new Shape(ctx),
-//   second: new Shape(ctx),
-//   third: new Shape(ctx)
-// }
 
-
-// размеры контейнера когда срабатывает событие мыши при клике на фигуру
-// let shapesInWaitingBoxes = [
-//   {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
-//   {key: "second", bounds: [secondHexX - proportion2, secondHexX + proportion1, secondHexY - proportion2, secondHexY + proportion1]}, //600, 700, 250, 350
-//   {key: "third", bounds: [thirdHexX - proportion2, thirdHexX + proportion1, thirdHexY - proportion2, thirdHexY + proportion1]}, //600, 700, 400, 500
-// ]
 
 function drawShapesInWaiting() {
   shapesInWaiting.first.draw(firstHexX, firstHexY, .5); // координаты и размер для ожидающих фигур 650,150
@@ -227,6 +207,8 @@ function goodbye(e) {
       e.preventDefault();
   }
 }
+
+
 // window.onbeforeunload=goodbye; 
 // function beforeUnload(eo) { // указать какое то условие при котором должно выдаваться сообщение
   

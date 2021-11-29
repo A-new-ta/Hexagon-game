@@ -38,8 +38,8 @@ export default class Hex {
 
 function pixelsToAxial(pixels) {
   var axial = {};
-  axial.q = (pixels.x * Math.sqrt(3)/3 - pixels.y / 3) / width / 18;
-  axial.r = pixels.y * 2/3 / width / 18;
+  axial.q = (pixels.x * Math.sqrt(3)/3 - pixels.y / 3) / (width / 18);
+  axial.r = pixels.y * 2/3 / (width / 18);
   let roundedAxial = axialRound(axial);
   return roundedAxial;
 }

@@ -222,9 +222,11 @@ window.addEventListener('touchstart', windowTouchStart, {passive: false});
 window.addEventListener('touchend', windowTouchEnd, {passive: false});
 window.addEventListener('touchmove', windowMove, { passive: false });
 
-function windowTouchStart(eo) {     
-    let touches = eo.changedTouches;
-    windowStartMoveY = touches[0].pageY;
+function windowTouchStart(eo) {
+    if (spaState.pagename == 'Rules' || spaState.pagename == 'Records') {
+        let touches = eo.changedTouches;
+        windowStartMoveY = touches[0].pageY;
+    }
 }
 
 function windowTouchEnd(eo) {
