@@ -1,7 +1,5 @@
 'use strict'
 
-// import * as Game from './game.js';
-
 
 export default class Tile {
   constructor(image, context) {

@@ -1,7 +1,7 @@
 'use strict'
 
 import { hexHelperF } from './hexhelper.js';
-// import {width} from './game.js'
+
 
 
 var defaultImage = new Image();

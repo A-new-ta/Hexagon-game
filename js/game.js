@@ -4,8 +4,7 @@ import Board from './board.js';
 import Shape from './shape.js';
 import { hexHelperF } from './hexhelper.js';
 import _, { values } from './underscore.js'
-// import { width } from './hex.js'
-// import { height } from './hex.js'
+
 
 let canvas;
 let ctx;
@@ -155,8 +154,10 @@ function mouseAndTouchEnd(eo) {
     score += board.removeFullLines();
     // console.log("score:", score);
     document.getElementById("score-value").innerText = score;
+    // вставить звук
     if(!board.movesRemaining(_.values(shapesInWaiting)))
       alert("Игра окончена! Ходов больше нет!");
+    // тоже можно звук
   }
   isMouseDown = false;
   shapeInHand = false;

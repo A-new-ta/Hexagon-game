@@ -5,7 +5,7 @@ import Tile from './tile.js';
 import { hexHelperF } from './hexhelper.js';
 import Hex from './hex.js';
 import _, { sample } from './underscore.js'
-// import {width} from './game.js'
+
 
 
 // var image_width = (hexHelper.size * 1.9) - 2;
@@ -161,7 +161,7 @@ export default class Shape {
 
   drawScale(xOffset, yOffset, scale = 1) {
     let hexHelper = this.hexHelper;
-    var image_width = (hexHelper.size * 1.9) - 2;
+    var image_width = (hexHelper.size * 2.0) - 2;
     var ctx = this._context;
     this.tiles.forEach(function (tileOpts) {
       // var [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);

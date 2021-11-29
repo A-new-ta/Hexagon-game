@@ -1,6 +1,6 @@
 'use strict'
 
-// const Hex = require('./hex')
+
 import Hex from './hex.js';
 import { width } from './game.js'
 import { height } from './game.js'

@@ -1,5 +1,5 @@
 'use strict'
-// import * as Game from'./game.js';
+
 import { getCanvasSize,  listeners, start } from './game.js'
 
 // предупреждение о потере данных
