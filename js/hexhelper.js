@@ -1,6 +1,5 @@
 'use strict'
 
-
 import Hex from './hex.js';
 import { width } from './game.js'
 import { height } from './game.js'

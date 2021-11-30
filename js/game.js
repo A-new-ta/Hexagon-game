@@ -141,7 +141,7 @@ export function listeners() {
         mouseCoords = getTouchPos(canvas, eo);
       }
     })
-  window.addEventListener('beforeunload', goodbye);
+  // window.addEventListener('beforeunload', goodbye);
 }
 
 
@@ -199,15 +199,27 @@ function getTouchPos(canvas, eo) {
 }
 
 // реакция на закрытие и перезагрузку окна, добавить еще на уход со страницы
-function goodbye(e) {
-  if(!e) e = window.event;
-  e.cancelBubble = true;
-  e.returnValue = 'You sure you want to leave?'; 
-  if (e.stopPropagation) {
-      e.stopPropagation();
-      e.preventDefault();
-  }
-}
+// function goodbye(e) {
+//   if(!e) e = window.event;
+//   e.cancelBubble = true;
+//   e.returnValue = 'You sure you want to leave?'; 
+//   if (e.stopPropagation) {
+//       e.stopPropagation();
+//       e.preventDefault();
+//   }
+// }
+// function goodbye(eo) {
+//   if (startFlag) {
+//       // if (!e) e = window.event;
+//       // e.cancelBubble = true;
+//       eo.returnValue = 'You sure you want to leave?';
+//       // if (e.stopPropagation) {
+//       //     e.stopPropagation();
+//       //     e.preventDefault();
+//       // }
+//   }
+  
+// }
 
 
 // window.onbeforeunload=goodbye; 

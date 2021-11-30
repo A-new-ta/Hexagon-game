@@ -1,13 +1,9 @@
 'use strict'
 
-import { getCanvasSize,  listeners, start } from './game.js'
+import { getCanvasSize, listeners, start } from './game.js'
+import { backGroundStart } from './background.js';
 
-// предупреждение о потере данных
-// function beforeUnload(EO) {
-//     EO=EO||window.event;
-//     if ( myModel.choiseArr.length != 0 ) // прописать какое то условие
-//       EO.returnValue='При смене страницы данные не будут сохранены!';
-//   };
+let startFlag = false;
 let windowStartMoveY;
 let windowEndMoveY;
 let spaState = {};
@@ -15,6 +11,7 @@ let spaState = {};
 
 // Переключение на УРЛ из Хэша
 function switchToStateFromURLHash() {
+    let toClose;
     let URLHash = window.location.hash;
     // убираем из закладки УРЛа решётку
     let stateStr = URLHash.substr(1);
@@ -30,6 +27,14 @@ function switchToStateFromURLHash() {
     // let addtoHTML = '';
     switch (spaState.pagename) {
         case 'Main':
+            // переход в меню из игры
+            // if (startFlag) {
+            //     toClose = confirm("В случае перезагрузки страницы прогресс игры будет утрачен!");
+            //     if (toClose) { // если подтвердили переход
+            //         hideGame();
+            //     }
+            //     else location.hash = 'Game';
+            // }
             hideInfo();
             hideGame();
             break;
@@ -104,7 +109,8 @@ function hideInfo() {
         let overlay = document.querySelector('.overlay');
         let mainWindow = document.body;
         mainWindow.removeChild(overlay);
-      }
+    }
+    
 }
 
 function hideGame() {
@@ -114,6 +120,7 @@ function hideGame() {
         mainWindow.removeChild(gameStart);
         let startPage = document.querySelector('.main__window');
         startPage.classList.remove('hidden');
+        startFlag = false;
     }
 }
 
@@ -141,9 +148,11 @@ function startGame() {
     let startPage = document.querySelector('.main__window');
     startPage.classList.add('hidden');
     console.log(startPage.className);
+    startFlag = true;
     getCanvasSize();
     start();
     listeners();
+    backGroundStart();
 }
 
 
@@ -214,7 +223,7 @@ rulesButtonBurger.addEventListener('click', switchToRulesPage);
 recordsButton.addEventListener('click', switchToRecordPage);
 recordsButtonBurger.addEventListener('click', switchToRecordPage);
 // кнопка вкл/выкл звук
-soundButton.addEventListener('click', sound);
+// soundButton.addEventListener('click', sound);
 // кнопка закрытия модального окна
 
 // свайп окна, работает только на страницах rules и records
@@ -251,6 +260,17 @@ function windowMove(eo) {
 //             backAudio.pause();
 //         }
 // }
+window.addEventListener('beforeunload', goodbye);
+// реакция на закрытие и перезагрузку окна, добавить еще на уход со страницы
+function goodbye(eo) {
+    if (startFlag) {
+        eo.returnValue = 'В случае перезагрузки страницы прогресс игры будет утрачен!';
+    }
+}
 
-
-
+  // предупреждение о потере данных
+// function beforeUnload(EO) {
+//     EO=EO||window.event;
+//     if ( myModel.choiseArr.length != 0 ) // прописать какое то условие
+//       EO.returnValue='При смене страницы данные не будут сохранены!';
+//   };
