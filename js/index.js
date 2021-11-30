@@ -1,4 +1,5 @@
 'use strict'
+// controller
 
 import { getCanvasSize, listeners, start } from './game.js'
 import { backGroundStart } from './background.js';
@@ -7,6 +8,9 @@ let startFlag = false;
 let windowStartMoveY;
 let windowEndMoveY;
 let spaState = {};
+let backGroundMusic;
+let gameSound;
+let gameOverSound;
 //изменение состояния в зависимости от хэша
 
 // Переключение на УРЛ из Хэша
@@ -223,7 +227,7 @@ rulesButtonBurger.addEventListener('click', switchToRulesPage);
 recordsButton.addEventListener('click', switchToRecordPage);
 recordsButtonBurger.addEventListener('click', switchToRecordPage);
 // кнопка вкл/выкл звук
-// soundButton.addEventListener('click', sound);
+soundButton.addEventListener('click', soundOnOff);
 // кнопка закрытия модального окна
 
 // свайп окна, работает только на страницах rules и records
@@ -249,28 +253,77 @@ function windowMove(eo) {
     eo.preventDefault();
 }
 
-// function sound() {
-//     checkerText = checker.textContent;
-//         if (checkerText === 'Включить звук') {
-//             checker.textContent = 'Выключить звук';
-//             backAudio.currentTime = 0;
-//             backAudio.play();
-//         } else if (checkerText === 'Выключить звук') {
-//             checker.textContent = 'Включить звук';
-//             backAudio.pause();
-//         }
-// }
-window.addEventListener('beforeunload', goodbye);
-// реакция на закрытие и перезагрузку окна, добавить еще на уход со страницы
-function goodbye(eo) {
-    if (startFlag) {
-        eo.returnValue = 'В случае перезагрузки страницы прогресс игры будет утрачен!';
+// фоновый звук
+function loadMusic() {
+    backGroundMusic = new Audio('sound/backsound.mp3');
+    gameSound = new Audio('sound/sound.mp3');
+    gameOverSound = new Audio('sound/gameover.mp3');
+}
+loadMusic();
+
+export function clickSound() {
+    gameSound.currentTime = 0;
+    gameSound.play();
+}
+export function finishSound() {
+    gameOverSound.currentTime = 0;
+    gameOverSound.play();
+}
+
+function soundOnOff() {
+    let soundCheck = document.querySelector('.sound').src;
+    if (soundCheck === 'http://127.0.0.1:5500/images/sound_on_icon.svg') {
+        document.querySelector('.sound').src = 'http://127.0.0.1:5500/images/sound_off_icon.svg';
+        backGroundMusic.pause();
+        
+    }
+    if (soundCheck === 'http://127.0.0.1:5500/images/sound_off_icon.svg') {
+        document.querySelector('.sound').src = 'http://127.0.0.1:5500/images/sound_on_icon.svg';
+        backGroundMusic.currentTime = 0;
+        backGroundMusic.play();
     }
 }
 
-  // предупреждение о потере данных
-// function beforeUnload(EO) {
-//     EO=EO||window.event;
-//     if ( myModel.choiseArr.length != 0 ) // прописать какое то условие
-//       EO.returnValue='При смене страницы данные не будут сохранены!';
-//   };
+
+
+
+
+window.addEventListener('beforeunload', goodbye);
+// реакция на закрытие и перезагрузку окна, добавить еще на уход со страницы
+function goodbye(eo) {
+    eo = eo || window.event;
+    if (startFlag) {
+        eo.returnValue = ''; 
+        // if (eo.returnValue) {
+            
+        // }
+    }
+    }
+
+
+
+
+  
+
+// проверка ухода из игры
+// checkUnload() {
+//     window.addEventListener('beforeunload', (eo) => {
+//         if (!this.gameEnd && location.hash === '#Game') {
+//             eo.returnValue = 'You will lose your score!!!';
+//             if (eo.returnValue) {
+//                 window.location.reload();
+//             }
+//         }
+//     });
+
+//     window.addEventListener('popstate', (eo) => {
+//         if (location.hash === '#Play' && !this.gameEnd) {
+//             let conf = confirm('You will lose your score!!!');
+//             if (conf) {
+//                 window.location.reload();
+//             } else {
+//                 location.hash = '#Game';
+//             }
+//         }
+//     });
+// 

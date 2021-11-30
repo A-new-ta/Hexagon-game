@@ -5,7 +5,7 @@ import Tile from './tile.js';
 import Hex from './hex.js';
 import _, { every } from './underscore.js'
 import { hexHelperF } from './hexhelper.js';
-
+import { clickSound } from './index.js';
 
 
 export default class Board {
@@ -88,6 +88,7 @@ export default class Board {
   }
   removeFullLines() {
     //get full rows
+    // let gameSound = new Audio('sound/sound.mp3');
     var board = this;
     var fullRows = ["x", "y", "z"].reduce(function (allRows, axis) {
       for (var n = -board.boardSize; n <= board.boardSize; n++) {
@@ -108,6 +109,11 @@ export default class Board {
       });
       score += fullRow.length * 500 * multiplier;
       multiplier++;
+      // gameSound.play();
+      clickSound();
+      if (navigator.vibrate) {
+        window.navigator.vibrate(100);
+      }
     });
 
     return score;

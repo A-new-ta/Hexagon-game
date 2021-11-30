@@ -4,6 +4,7 @@ import Board from './board.js';
 import Shape from './shape.js';
 import { hexHelperF } from './hexhelper.js';
 import _, { values } from './underscore.js'
+import { finishSound } from './index.js';
 
 
 let canvas;
@@ -107,8 +108,6 @@ requestAnimationFrame(function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   board.draw();
   board.drawPotentialSlots(mouseCoords, shapeInHand);
-  // console.log(mouseCoords);
-  // console.log(shapeInHand);
   drawShapesInWaiting();
   drawShapeInHand();
   requestAnimationFrame(gameLoop);
@@ -152,11 +151,15 @@ function mouseAndTouchEnd(eo) {
     board.addTilesFromShape(pixels, shapeInHand);
     shapesInWaiting[shapeFrom] = new Shape(ctx);
     score += board.removeFullLines();
+    
     // console.log("score:", score);
     document.getElementById("score-value").innerText = score;
+    // gameSound.play();
     // вставить звук
-    if(!board.movesRemaining(_.values(shapesInWaiting)))
+    if (!board.movesRemaining(_.values(shapesInWaiting))) {
+      finishSound();
       alert("Игра окончена! Ходов больше нет!");
+    }
     // тоже можно звук
   }
   isMouseDown = false;
