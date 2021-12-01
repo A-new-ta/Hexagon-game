@@ -109,6 +109,7 @@ h2 {
     outline: none;
     background-color: rgb(187, 186, 186);
     font-size: 24px;
+    padding-left: 10px;
 }
 
 .menu__play-button:active {

@@ -31,19 +31,13 @@ function switchToStateFromURLHash() {
     // let addtoHTML = '';
     switch (spaState.pagename) {
         case 'Main':
-            // переход в меню из игры
-            // if (startFlag) {
-            //     toClose = confirm("В случае перезагрузки страницы прогресс игры будет утрачен!");
-            //     if (toClose) { // если подтвердили переход
-            //         hideGame();
-            //     }
-            //     else location.hash = 'Game';
-            // }
             hideInfo();
             hideGame();
             break;
         case 'Game':
-            startGame();
+            if (!startFlag) {
+                startGame();
+            }
             break;
         case 'Rules':
             showInfo('Rules');
@@ -284,46 +278,58 @@ function soundOnOff() {
     }
 }
 
-
-
-
-
+// реакция на закрытие и перезагрузку окна и уход со страницы
 window.addEventListener('beforeunload', goodbye);
-// реакция на закрытие и перезагрузку окна, добавить еще на уход со страницы
 function goodbye(eo) {
     eo = eo || window.event;
     if (startFlag) {
-        eo.returnValue = ''; 
+        eo.returnValue = '';
         // if (eo.returnValue) {
-            
+        //     window.location.reload();
         // }
     }
+}
+
+window.addEventListener('popstate', backspace);
+function backspace(eo) {
+    eo = eo || window.event;
+    if (location.hash === '#Main' && startFlag) {
+        let conf = confirm('Прогресс игры будет потерян!');
+        if (conf) {
+            location.hash = '#Main';
+        } else {
+           location.hash = '#Game';
+        }
     }
+}
 
 
+// всплывающее окно, когда игра заканчивается
+export function showGameOverWindow() {
+        startFlag = false;
+        let mainWindow = document.body;
+        let overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        mainWindow.appendChild(overlay);
+        let menuRules = document.createElement('div');
+        menuRules.className = 'menu__rules';
+        menuRules.style.animationName = 'info-show';
+        menuRules.style.animationDuration = '0.5s';
+        // menuRules.style.transform = 'translate(-50%, 0)';
+        overlay.appendChild(menuRules);
+        let menuContent = document.createElement('div');
+        menuContent.className = 'menu__rules-content';
+        menuRules.appendChild(menuContent);
+        let infoContent = document.createElement('p');
+        infoContent.className = 'info__content';
+        infoContent.textContent = ''
+        menuContent.appendChild(infoContent);
+        let closeButton = document.createElement('div');
+        closeButton.className = 'menu__close-button';
+        menuContent.appendChild(closeButton);
+        let a = document.createElement('a');
+        a.textContent = 'Main page';
+        closeButton.appendChild(a);
+        closeButton.addEventListener('click', switchToMainPage);
+}
 
-
-  
-
-// проверка ухода из игры
-// checkUnload() {
-//     window.addEventListener('beforeunload', (eo) => {
-//         if (!this.gameEnd && location.hash === '#Game') {
-//             eo.returnValue = 'You will lose your score!!!';
-//             if (eo.returnValue) {
-//                 window.location.reload();
-//             }
-//         }
-//     });
-
-//     window.addEventListener('popstate', (eo) => {
-//         if (location.hash === '#Play' && !this.gameEnd) {
-//             let conf = confirm('You will lose your score!!!');
-//             if (conf) {
-//                 window.location.reload();
-//             } else {
-//                 location.hash = '#Game';
-//             }
-//         }
-//     });
-// 

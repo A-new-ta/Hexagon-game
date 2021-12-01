@@ -4,7 +4,7 @@ import Board from './board.js';
 import Shape from './shape.js';
 import { hexHelperF } from './hexhelper.js';
 import _, { values } from './underscore.js'
-import { finishSound } from './index.js';
+import { finishSound, showGameOverWindow } from './index.js';
 
 
 let canvas;
@@ -140,7 +140,7 @@ export function listeners() {
         mouseCoords = getTouchPos(canvas, eo);
       }
     })
-  // window.addEventListener('beforeunload', goodbye);
+  
 }
 
 
@@ -151,14 +151,14 @@ function mouseAndTouchEnd(eo) {
     board.addTilesFromShape(pixels, shapeInHand);
     shapesInWaiting[shapeFrom] = new Shape(ctx);
     score += board.removeFullLines();
-    
-    // console.log("score:", score);
+     
     document.getElementById("score-value").innerText = score;
-    // gameSound.play();
-    // вставить звук
+    
     if (!board.movesRemaining(_.values(shapesInWaiting))) {
+      
       finishSound();
-      alert("Игра окончена! Ходов больше нет!");
+      showGameOverWindow();
+      // alert("Игра окончена! Ходов больше нет!");
     }
     // тоже можно звук
   }
@@ -201,36 +201,9 @@ function getTouchPos(canvas, eo) {
   };
 }
 
-// реакция на закрытие и перезагрузку окна, добавить еще на уход со страницы
-// function goodbye(e) {
-//   if(!e) e = window.event;
-//   e.cancelBubble = true;
-//   e.returnValue = 'You sure you want to leave?'; 
-//   if (e.stopPropagation) {
-//       e.stopPropagation();
-//       e.preventDefault();
-//   }
-// }
-// function goodbye(eo) {
-//   if (startFlag) {
-//       // if (!e) e = window.event;
-//       // e.cancelBubble = true;
-//       eo.returnValue = 'You sure you want to leave?';
-//       // if (e.stopPropagation) {
-//       //     e.stopPropagation();
-//       //     e.preventDefault();
-//       // }
-//   }
-  
-// }
 
 
-// window.onbeforeunload=goodbye; 
-// function beforeUnload(eo) { // указать какое то условие при котором должно выдаваться сообщение
-  
-//       eo.returnValue = 'А у вас есть несохранённые изменения!';
-  
-// }
+
 // не перерисовывает доску с фигурами
 // window.addEventListener('resize', function (eo) {
 //   if (window.innerWidth < 800) {
