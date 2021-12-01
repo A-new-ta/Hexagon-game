@@ -11,6 +11,13 @@ let spaState = {};
 let backGroundMusic;
 let gameSound;
 let gameOverSound;
+let playerName = document.querySelector('.menu__name-input').textContent;
+
+// для таблицы рекордов
+let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
+let updatePassword;
+let stringName='DAVLIUD_HEXAGONGAME_RECORDS';
+let dataRecords;
 //изменение состояния в зависимости от хэша
 
 // Переключение на УРЛ из Хэша
@@ -88,9 +95,45 @@ function showInfo(infoType) {
             break;
         
         case 'Records':
-            let infoRecords = document.querySelector('.info__content');
-            infoRecords.textContent = 'таблица рекордов подгруженная из AJAX';
+            // let infoRecords = document.querySelector('.info__content');
+            // infoRecords.textContent = 'таблица рекордов подгруженная из AJAX';
+            loadRecords();
             break;
+    }
+    // чтение таблицы рекордов с сервера
+    function loadRecords() {
+        $.ajax({
+            url: ajaxHandlerScript,
+            type: 'POST', dataType: 'json',
+            data: {f: 'READ', n: stringName},
+            cache: false,
+            success: readReady,
+            error: errorHandler 
+        })
+    }
+    // даные загружены и готовы к показу
+    function readReady(callresult) {
+        if (callresult.error !== undefined) {
+            alert(callresult.error);
+        } else {
+            dataRecords = JSON.parse(callresult.result);
+            showRecords(dataRecords);
+        }
+    }
+    // отображение таблицы рекордов
+    function showRecords(dataRecords) {
+        let str = '';
+        let infoContent = document.querySelector('.info__content');
+        str += '<ol>';
+        for (let i = 0; i < dataRecords.length; i++) {
+            let dataRec = dataRecords[i];
+            str += '<li>' + dataRec.name + ': ' + dataRec.score + '<li/><br>';
+        }
+        str += '</ol>';
+        infoContent.innerHTML = str;
+    }
+    function errorHandler(jqXHR, statusStr, errorStr) {
+        alert(statusStr + ' ' + errorStr);
     }
 }
 
@@ -111,6 +154,78 @@ function hideInfo() {
     
 }
 
+// обновление таблицы рекордов в конце игры
+function updateRecords() {
+    function readRecords() {
+        updatePassword = Math.random();
+        $.ajax({
+            url: ajaxHandlerScript,
+            type: 'POST', dataType: 'json',
+            data: {
+                f: 'LOCKGET', n: stringName,
+                p: updatePassword
+            },
+            cache: false,
+            success: lockGetReady,
+            error: errorHandler
+        })
+    }
+
+    // добавление нового рекорда, если он больше существующих
+    function lockGetReady(callresult) {
+        if (callresult.error !== undefined) {
+            alert(callresult.error)
+        } else {
+            dataRecords = JSON.parse(callresult.result);
+            let lastHighRecord = dataRecords[dataRecords.length - 1];
+            let scoreLastHighRecord = lastHighRecord.score;
+            if (score > scoreLastHighRecord || dataRecords.length < 10) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    //ошибки
+    function errorHandler(statusStr, errorStr) {
+        alert(statusStr + ' ' + errorStr);
+    }
+    readRecords();
+}
+
+function pushRecordsToTable(nickname) {
+    dataRecords.push({ 'name': nickname, 'scores': score });
+    function sort(x, y) {
+        return y.scores - x.scores;
+    }
+    dataRecords.sort(compare);
+    if (dataRecords.length > 10) {
+        dataRecords = dataRecords.slice(0, 10);
+    }
+    $.ajax({
+        url: ajaxHandlerScript,
+        type: 'POST', dataType: 'json',
+        data: {
+            f: 'UPDATE', n: stringName,
+            v: JSON.stringify(messages), p: updatePassword
+        },
+        cache: false,
+        success: updateReady,
+        error: errorHandler
+    }
+    )
+}
+
+function updateReady(callresult) {
+    if (callresult.error != undefined)
+        alert(callresult.error);
+}
+
+function errorHandler(statusStr, errorStr) {
+    alert(statusStr + ' ' + errorStr);
+}
+
+
 function hideGame() {
     if (document.querySelector('.game__start')) {
         let gameStart = document.querySelector('.game__start');
@@ -130,6 +245,10 @@ function startGame() {
     let score = document.createElement('div');
     score.className = 'score';
     gameStart.appendChild(score);
+    let nameText = playerName.value;
+    if (nameText == '') {
+        nameText = 'player1';
+    }
     let text = document.createElement('h2');
     text.textContent = 'Score';
     score.appendChild(text);
@@ -186,7 +305,7 @@ function switchToRecordPage() {
 // переключаемся в состояние, которое сейчас прописано в закладке УРЛ
 switchToStateFromURLHash();
 
-
+// слушатели всех событий
 let menuRulesBlock = document.querySelector('.menu__rules');
 let playButton = document.querySelector('.menu__play-button');
 let soundButton = document.querySelector('.sound__button');
@@ -195,13 +314,12 @@ let recordsButton = document.querySelector('.menu__records-button');
 let closeButton = document.querySelector('.menu__close-button');
 let rulesButtonBurger = document.querySelector('.menu__rules-burger');
 let recordsButtonBurger = document.querySelector('.menu__records-burger');
-// слушатели всех событий
+
 // для ресайзинга самой игры, написать когда-нибудь
 // window.addEventListener('resize', resizeCanvas);
+
 // изменение хэша урла
 window.addEventListener('hashchange', switchToStateFromURLHash);
-// перезагрузка или закрытие страницы
-// window.addEventListener('beforeunload', beforeUnload);
 
 // для меню бургер
 let menuMobile = document.querySelector('.menu__mobile');
@@ -320,7 +438,7 @@ export function showGameOverWindow() {
         let menuContent = document.createElement('div');
         menuContent.className = 'menu__rules-content';
         menuRules.appendChild(menuContent);
-        let infoContent = document.createElement('p');
+        let infoContent = document.createElement('div');
         infoContent.className = 'info__content';
         infoContent.textContent = 'Game over! No more moves!'
         menuContent.appendChild(infoContent);

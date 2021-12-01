@@ -1,3 +1,4 @@
+
 export function backGroundStart() {
   let c = document.getElementById('c');
   const ctx = c.getContext('2d');

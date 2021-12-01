@@ -157,6 +157,7 @@ function mouseAndTouchEnd(eo) {
     if (!board.movesRemaining(_.values(shapesInWaiting))) {
       finishSound();
       showGameOverWindow();
+      console.log(score);
     }
     
   }
