@@ -322,7 +322,7 @@ export function showGameOverWindow() {
         menuRules.appendChild(menuContent);
         let infoContent = document.createElement('p');
         infoContent.className = 'info__content';
-        infoContent.textContent = ''
+        infoContent.textContent = 'Game over! No more moves!'
         menuContent.appendChild(infoContent);
         let closeButton = document.createElement('div');
         closeButton.className = 'menu__close-button';

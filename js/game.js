@@ -155,12 +155,10 @@ function mouseAndTouchEnd(eo) {
     document.getElementById("score-value").innerText = score;
     
     if (!board.movesRemaining(_.values(shapesInWaiting))) {
-      
       finishSound();
       showGameOverWindow();
-      // alert("Игра окончена! Ходов больше нет!");
     }
-    // тоже можно звук
+    
   }
   isMouseDown = false;
   shapeInHand = false;
