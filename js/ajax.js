@@ -1,165 +1,216 @@
-'use strict'
+'use strict';
 
-// let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
+import { nameText } from './index.js';
+import {score} from './game.js'
 
-// function read() {
-
-//   // отдельно создаём набор POST-параметров запроса
-//   let sp = new URLSearchParams();
-//   sp.append('f', 'READ');
-//   sp.append('n', 'DANKOV_GAME');
-
-//   // когда получим данные, вызовем функцию addArrScore 
-//   fetch(ajaxHandlerScript, { method: 'post', body: sp })
-//     .then(response => response.json())
-//     .then(data => { addArrScore(data); })
-//     .catch(error => { console.error(error); });
+// чтение таблицы рекордов с сервера
+// function loadRecords() {
+//     $.ajax({
+//         url: ajaxHandlerScript,
+//         type: 'POST', dataType: 'json',
+//         data: {f: 'READ', n: stringName},
+//         cache: false,
+//         success: readReady,
+//         error: errorHandler 
+//     })
 // }
-
-
-// function addArrScore(arr) {
-
-//   // находим контейнер для таблицы
-//   let arrWrapper = document.querySelector(".tableWrapper");
-
-//   if (arrWrapper.children.length > 1) {
-//     while (arrWrapper.children.length !== 1) {
-//       arrWrapper.removeChild(arrWrapper.lastChild);
+// // даные загружены и готовы к показу
+// function readReady(callresult) {
+//     if (callresult.error !== undefined) {
+//         alert(callresult.error);
+//     } else {
+//         dataRecords = JSON.parse(callresult.result);
+//         showRecords(dataRecords);
 //     }
-//   }
-
-//   // если строка не пустая создаем таблицу и заполняем ее
-//   if (arr.result !== "") {
-
-//     let newArr = JSON.parse(arr.result);
-
-//     let table = document.createElement("table");
-//     table.style.margin = "auto";
-//     table.style.borderSpacing = "1vh 1vw";
-
-//     let tableBody = document.createElement("tbody");
-//     table.appendChild(tableBody);
-
-//     for (let i = 0; i < newArr.length; i++) {
-
-//       let tr = document.createElement("tr");
-//       tableBody.appendChild(tr);
-
-//       let tdNumber = document.createElement("td");
-//       tdNumber.innerText = i + 1;
-//       tr.appendChild(tdNumber);
-//       let tdName = document.createElement("td");
-//       tdName.innerText = newArr[i].name;
-//       tr.appendChild(tdName);
-//       let tdScore = document.createElement("td");
-//       tdScore.innerText = newArr[i].score;
-//       tr.appendChild(tdScore);
+// }
+// // отображение таблицы рекордов
+// function showRecords(dataRecords) {
+//     let str = '';
+//     let infoContent = document.querySelector('.info__content');
+//     str += '<ol>';
+//     for (let i = 0; i < dataRecords.length; i++) {
+//         let dataRec = dataRecords[i];
+//         str += '<li>' + dataRec.name + ': ' + dataRec.score + '<li/><br>';
 //     }
-//     arrWrapper.appendChild(table);
-//   }
+//     str += '</ol>';
+//     infoContent.innerHTML = str;
+//     }
 
-//   // если пустая, выдаем текст
-//   else {
-
-//     arrWrapper.append(document.createTextNode("В таблице рекордоа, нет результатов"));
-//   }
+// function errorHandler(statusStr, errorStr) {
+//     alert(statusStr + ' ' + errorStr);
 // }
 
-// //получаем данные и подписываемся на изменения
-// function lockGet(pass) {
 
-//    scoreData = {name: nicktext, score: newscore};
 
-//   let sp = new URLSearchParams();
-//   sp.append('f', 'LOCKGET');
-//   sp.append('n', 'DANKOV_GAME');
-//   sp.append('p', pass);
-
-//   fetch(ajaxHandlerScript, { method: 'post', body: sp })
-//     .then(response => response.json())
-//     .then(data => { newArr(data); })
-//     .catch(error => { console.error(error); });
-// }
-
-// function newArr(data) {
-
-//   let newArr = data.result;
-//   arrScore = newArr;
-//   update(randPass)
-
-// }
-
-// function update(pass) {
-
-//   let newArray = JSON.parse(arrScore);
-
- 
-// //Если счет больше чем в рекордах, меняем рекорды
-//   for (let i = 0; i < newArray.length; i++) {
-
-//     if (parseInt(scoreData.score) > parseInt(newArray[i].score)) {
-
-//       if (i === 0) {
-
-//         newArray[i + 2].name = newArray[i + 1].name;
-//         newArray[i + 2].score = newArray[i + 1].score;
-//         newArray[i + 1].name = newArray[i].name;
-//         newArray[i + 1].score = newArray[i].score;
-
-//         newArray[i].name = scoreData.name;
-//         newArray[i].score = scoreData.score;
-//         break;
+// обновление таблицы рекордов в конце игры
+// export function saveRecords() {
+//     let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
+//     let updatePassword;
+//     let stringName='DAVLIUD_HEXAGONGAME_RECORDS';
+//     updatePassword = Math.random();
+//     $.ajax({
+//         url: ajaxHandlerScript,
+//         type: 'POST', dataType: 'json',
+//         data: { f: 'LOCKGET', n: stringName, p: updatePassword },
+//         cache: false,
+//         success: lockGetReady,
+//         error: errorHandler
+//         })
+    
+// // добавление нового рекорда, если он больше существующих
+// function lockGetReady(callresult) {
+//     if ( callresult.error!=undefined ) {
+//         alert(callresult.error);
+//     }
+//     else {
+//       var recordsTable=JSON.parse(callresult.result);
+//       recordsTable.sort(function(a, b) {
+//         return b[1] - a[1];
+//       })
+//       if (recordsTable.length>=20) {
+//         for (var i=0; i<recordsTable.length; i++) {
+//           if (recordsTable[i][1]<score) {
+//             var name=prompt('Поздравляем! Вы попали в таблицу рекордов! Введите ваше имя');
+//             recordsTable.push([nameText, score]);
+//             recordsTable.sort(function(a, b) {
+//               return b[1] - a[1];
+//             })
+//             recordsTable=recordsTable.slice(0,20);
+//             break;
+//           }
+//           if (i===recordsTable.length-1) {
+//             alert('Игра окончена! К сожалению вы не попали в таблицу рекордов');
+//           }     
+//         }
 //       }
-
-//       else if (i === 1) {
-
-//         newArray[i + 1].name = newArray[i].name;
-//         newArray[i + 1].score = newArray[i].score;
-
-//         newArray[i].name = scoreData.name;
-//         newArray[i].score = scoreData.score;
-//         break;
-//       }
-
 //       else {
-
-//         newArray[i].name = scoreData.name;
-//         newArray[i].score = scoreData.score;
-//         break;
+//         var name=prompt('Поздравляем! Вы попали в таблицу рекордов! Введите ваше имя');
+//         recordsTable.push([nameText, score]);
+//         recordsTable.sort(function(a, b) {
+//           return b[1] - a[1];
+//         })
 //       }
+//       $.ajax( {
+//         url : ajaxHandlerScript, type: 'POST', cache: false, dataType:'json',
+//         data : { f: 'UPDATE', n: stringName, v: JSON.stringify(recordsTable), p: updatePassword },
+//         success : updateReady, error : errorHandler
+//       }
+//       );
 //     }
+
 //   }
 
-  
+//   function updateReady(callresult) {
+//     if ( callresult.error!=undefined )
+//         alert(callresult.error);
+//   }
 
-//   scoreData = null;
+//   function errorHandler(jqXHR,statusStr,errorStr) {
+//     alert(statusStr+' '+errorStr);
+//   }
 
-//   // для обнуления результатов
-//  /*
+// }
+    
+
+
+var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+var updatePassword;
+var stringName='DAVLIUD_HEXAGONGAME_RECORDS';
+
+export function storeInfo() {
+    updatePassword=Math.random();
+    $.ajax( {
+            url : ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
+            data : { f : 'LOCKGET', n : stringName, p : updatePassword },
+            success : lockGetReady, error : errorHandler
+        }
+    );
+}
+
+function lockGetReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+    else {
+        // нам всё равно, что было прочитано -
+        // всё равно перезаписываем
+        var info={
+            name : nameText,
+            scores : score
+        };
+        $.ajax( {
+                url : ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
+                data : { f : 'UPDATE', n : stringName, v : JSON.stringify(info), p : updatePassword },
+                success : updateReady, error : errorHandler
+            }
+        );
+    }
+}
+
+function updateReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+}
+
+function restoreInfo() {
+    $.ajax(
+        {
+            url : ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
+            data : { f : 'READ', n : stringName },
+            success : readReady, error : errorHandler
+        }
+    );
+}
+
+function readReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+    else if ( callresult.result!="" ) {
+        var info=JSON.parse(callresult.result);
+        nameText=info.name;
+        score=info.scores;
+    }
+}
+
+function errorHandler(jqXHR,statusStr,errorStr) {
+    alert(statusStr+' '+errorStr);
+}
+
+restoreInfo();
 
 
 
-//    for(let i=0; i < newArray.length; i++){
-   
-//     newArray[i].name = scoreData.name;
-//     newArray[i].score = scoreData.score;
-  
-//    }
-//   scoreData = null;
- 
-//   */
 
-//   let arrJson = JSON.stringify(newArray);
 
-//   let sp = new URLSearchParams();
-//   sp.append('f', 'UPDATE');
-//   sp.append('n', 'DANKOV_GAME');
-//   sp.append('p', pass);
-//   sp.append('v', arrJson);
 
-//   fetch(ajaxHandlerScript, { method: 'post', body: sp })
-//     .then(response => response.json())
-//     .then(data => { console.log(data); })
-//     .catch(error => { console.error(error); });
+
+// export function pushRecordsToTable(nameText, score) {
+//     dataRecords.push({ 'name': nameText, 'scores': score });
+//     function compare(x, y) {
+//         return y.scores - x.scores;
+//     }
+//     dataRecords.sort(compare);
+//     if (dataRecords.length > 10) {
+//         dataRecords = dataRecords.slice(0, 10);
+//     }
+//     $.ajax({
+//         url: ajaxHandlerScript,
+//         type: 'POST', dataType: 'json',
+//         data: {
+//             f: 'UPDATE', n: stringName,
+//             v: JSON.stringify(dataRecords), p: updatePassword
+//         },
+//         cache: false,
+//         success: updateReady,
+//         error: errorHandler
+//     }
+//     )
 // }
 
+// function updateReady(callresult) {
+//     if (callresult.error != undefined)
+//         alert(callresult.error);
+// }
+
+// function errorHandler(statusStr, errorStr) {
+//     alert(statusStr + ' ' + errorStr);
+// }

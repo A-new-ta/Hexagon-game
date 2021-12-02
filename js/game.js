@@ -5,7 +5,8 @@ import Shape from './shape.js';
 import { hexHelperF } from './hexhelper.js';
 import _, { values } from './underscore.js'
 import { finishSound, showGameOverWindow } from './index.js';
-
+import { nameText } from './index.js';
+import { storeInfo } from './ajax.js';
 
 let canvas;
 let ctx;
@@ -151,13 +152,16 @@ function mouseAndTouchEnd(eo) {
     board.addTilesFromShape(pixels, shapeInHand);
     shapesInWaiting[shapeFrom] = new Shape(ctx);
     score += board.removeFullLines();
-     
     document.getElementById("score-value").innerText = score;
     
     if (!board.movesRemaining(_.values(shapesInWaiting))) {
       finishSound();
+      storeInfo();
       showGameOverWindow();
-      console.log(score);
+      
+      // updateRecords();
+      // pushRecordsToTable(nameText, score);
+      // console.log(score);
     }
     
   }
@@ -231,3 +235,4 @@ function getTouchPos(canvas, eo) {
 
 export { width };
 export { height };
+export { score };

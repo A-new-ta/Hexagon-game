@@ -11,13 +11,13 @@ let spaState = {};
 let backGroundMusic;
 let gameSound;
 let gameOverSound;
-let playerName = document.querySelector('.menu__name-input').textContent;
-
+let playerName = document.querySelector('.menu__name-input');
+let nameText;
 // для таблицы рекордов
-let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
-let updatePassword;
-let stringName='DAVLIUD_HEXAGONGAME_RECORDS';
-let dataRecords;
+// let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
+// let updatePassword;
+// let stringName='DAVLIUD_HEXAGONGAME_RECORDS';
+// let dataRecords;
 //изменение состояния в зависимости от хэша
 
 // Переключение на УРЛ из Хэша
@@ -76,7 +76,7 @@ function showInfo(infoType) {
         let menuContent = document.createElement('div');
         menuContent.className = 'menu__rules-content';
         menuRules.appendChild(menuContent);
-        let infoContent = document.createElement('p');
+        let infoContent = document.createElement('div');
         infoContent.className = 'info__content';
         menuContent.appendChild(infoContent);
         let closeButton = document.createElement('div');
@@ -97,44 +97,44 @@ function showInfo(infoType) {
         case 'Records':
             // let infoRecords = document.querySelector('.info__content');
             // infoRecords.textContent = 'таблица рекордов подгруженная из AJAX';
-            loadRecords();
+            // loadRecords();
             break;
     }
     // чтение таблицы рекордов с сервера
-    function loadRecords() {
-        $.ajax({
-            url: ajaxHandlerScript,
-            type: 'POST', dataType: 'json',
-            data: {f: 'READ', n: stringName},
-            cache: false,
-            success: readReady,
-            error: errorHandler 
-        })
-    }
+    // function loadRecords() {
+    //     $.ajax({
+    //         url: ajaxHandlerScript,
+    //         type: 'POST', dataType: 'json',
+    //         data: {f: 'READ', n: stringName},
+    //         cache: false,
+    //         success: readReady,
+    //         error: errorHandler 
+    //     })
+    // }
     // даные загружены и готовы к показу
-    function readReady(callresult) {
-        if (callresult.error !== undefined) {
-            alert(callresult.error);
-        } else {
-            dataRecords = JSON.parse(callresult.result);
-            showRecords(dataRecords);
-        }
-    }
+    // function readReady(callresult) {
+    //     if (callresult.error !== undefined) {
+    //         alert(callresult.error);
+    //     } else {
+    //         dataRecords = JSON.parse(callresult.result);
+    //         showRecords(dataRecords);
+    //     }
+    // }
     // отображение таблицы рекордов
-    function showRecords(dataRecords) {
-        let str = '';
-        let infoContent = document.querySelector('.info__content');
-        str += '<ol>';
-        for (let i = 0; i < dataRecords.length; i++) {
-            let dataRec = dataRecords[i];
-            str += '<li>' + dataRec.name + ': ' + dataRec.score + '<li/><br>';
-        }
-        str += '</ol>';
-        infoContent.innerHTML = str;
-    }
-    function errorHandler(jqXHR, statusStr, errorStr) {
-        alert(statusStr + ' ' + errorStr);
-    }
+//     function showRecords(dataRecords) {
+//         let str = '';
+//         let infoContent = document.querySelector('.info__content');
+//         str += '<ol>';
+//         for (let i = 0; i < dataRecords.length; i++) {
+//             let dataRec = dataRecords[i];
+//             str += '<li>' + dataRec.name + ': ' + dataRec.score + '<li/><br>';
+//         }
+//         str += '</ol>';
+//         infoContent.innerHTML = str;
+//     }
+//     function errorHandler(statusStr, errorStr) {
+//         alert(statusStr + ' ' + errorStr);
+//     }
 }
 
 function hideInfo() {
@@ -155,75 +155,87 @@ function hideInfo() {
 }
 
 // обновление таблицы рекордов в конце игры
-function updateRecords() {
-    function readRecords() {
-        updatePassword = Math.random();
-        $.ajax({
-            url: ajaxHandlerScript,
-            type: 'POST', dataType: 'json',
-            data: {
-                f: 'LOCKGET', n: stringName,
-                p: updatePassword
-            },
-            cache: false,
-            success: lockGetReady,
-            error: errorHandler
-        })
-    }
+// export function updateRecords() {
+    
+//     function readRecords() {
+//         updatePassword = Math.random();
+//         $.ajax({
+//             url: ajaxHandlerScript,
+//             type: 'POST', dataType: 'json',
+//             data: {
+//                 f: 'LOCKGET', n: stringName,
+//                 p: updatePassword
+//             },
+//             cache: false,
+//             success: lockGetReady,
+//             error: errorHandler
+//         })
+//     }
 
     // добавление нового рекорда, если он больше существующих
-    function lockGetReady(callresult) {
-        if (callresult.error !== undefined) {
-            alert(callresult.error)
-        } else {
-            dataRecords = JSON.parse(callresult.result);
-            let lastHighRecord = dataRecords[dataRecords.length - 1];
-            let scoreLastHighRecord = lastHighRecord.score;
-            if (score > scoreLastHighRecord || dataRecords.length < 10) {
-                return true;
-            }
-            return false;
-        }
-    }
+    // function lockGetReady(callresult) {
+    //     console.log(callresult);
+    //     if (callresult.error !== undefined) {
+    //         alert(callresult.error)
+    //     } else {
+    //         dataRecords = JSON.parse(callresult.result);
+    //         if (readLast(dataRecords)) {
+    //             alert('Поздравляем, вы установили новый рекорд');
+    //         } else {
+    //             alert('Конец игры. <br> Вам не удалось поставить рекорд');
+    //         }
+           
+    //     }
+    // }
+
+    // function readLast(dataRecords) {
+    //     let lastHighScore = dataRecords[dataRecords.length - 1],
+    //         scoreLastHighScore = lastHighScore.score;
+    //         if (score > scoreLastHighScore ||   //если текущее значение больше текущего минимального рекорда
+    //             dataRecords.length < 10) {      //или рекордов меньше 10
+    //             return true        //запишем его в таблицу
+    //         }
+    //         return false
+    // }
 
     //ошибки
-    function errorHandler(statusStr, errorStr) {
-        alert(statusStr + ' ' + errorStr);
-    }
-    readRecords();
-}
+//     function errorHandler(statusStr, errorStr) {
+//         alert(statusStr + ' ' + errorStr);
+//     }
+//     readRecords();
+// }
 
-function pushRecordsToTable(nickname) {
-    dataRecords.push({ 'name': nickname, 'scores': score });
-    function sort(x, y) {
-        return y.scores - x.scores;
-    }
-    dataRecords.sort(compare);
-    if (dataRecords.length > 10) {
-        dataRecords = dataRecords.slice(0, 10);
-    }
-    $.ajax({
-        url: ajaxHandlerScript,
-        type: 'POST', dataType: 'json',
-        data: {
-            f: 'UPDATE', n: stringName,
-            v: JSON.stringify(messages), p: updatePassword
-        },
-        cache: false,
-        success: updateReady,
-        error: errorHandler
-    }
-    )
-}
+// export function pushRecordsToTable(nameText, score) {
+//     dataRecords.push({ 'name': nameText, 'scores': score });
+//     function compare(x, y) {
+//         return y.scores - x.scores;
+//     }
+//     dataRecords.sort(compare);
+//     if (dataRecords.length > 10) {
+//         dataRecords = dataRecords.slice(0, 10);
+//     }
+//     $.ajax({
+//         url: ajaxHandlerScript,
+//         type: 'POST', dataType: 'json',
+//         data: {
+//             f: 'UPDATE', n: stringName,
+//             v: JSON.stringify(dataRecords), p: updatePassword
+//         },
+//         cache: false,
+//         success: updateReady,
+//         error: errorHandler
+//     }
+//     )
+// }
 
-function updateReady(callresult) {
-    if (callresult.error != undefined)
-        alert(callresult.error);
-}
+// function updateReady(callresult) {
+//     if (callresult.error != undefined)
+//         alert(callresult.error);
+// }
 
-function errorHandler(statusStr, errorStr) {
-    alert(statusStr + ' ' + errorStr);
-}
+// function errorHandler(statusStr, errorStr) {
+//     alert(statusStr + ' ' + errorStr);
+// }
 
 
 function hideGame() {
@@ -245,10 +257,11 @@ function startGame() {
     let score = document.createElement('div');
     score.className = 'score';
     gameStart.appendChild(score);
-    let nameText = playerName.value;
+    nameText = playerName.value;
     if (nameText == '') {
         nameText = 'player1';
     }
+    console.log(nameText);
     let text = document.createElement('h2');
     text.textContent = 'Score';
     score.appendChild(text);
@@ -451,3 +464,4 @@ export function showGameOverWindow() {
         closeButton.addEventListener('click', switchToMainPage);
 }
 
+export { nameText };

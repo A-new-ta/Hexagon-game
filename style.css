@@ -264,7 +264,7 @@ img:hover {
 }
 .menu__close-button {
   /* position: relative; */
-  margin: 0 auto;
+  margin: 40px auto 0px auto;
   text-align: center;
   width: 33%;
   /* display: inline-block; */
