@@ -158,7 +158,7 @@ function mouseAndTouchEnd(eo) {
     if (!board.movesRemaining(_.values(shapesInWaiting))) {
       finishSound();
       // storeInfo();
-      refreshRecords();
+      // refreshRecords();
       saveRecords();
       showGameOverWindow();
       
