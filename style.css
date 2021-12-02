@@ -278,6 +278,14 @@ img:hover {
   padding: 10px;
   left: 42%;
 }
+.info__content {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.info__content li {
+  margin: 20px 0px;
+}
 
 @keyframes info-show {
   0% {

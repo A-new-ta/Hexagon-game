@@ -6,7 +6,7 @@ import { hexHelperF } from './hexhelper.js';
 import _, { values } from './underscore.js'
 import { finishSound, showGameOverWindow } from './index.js';
 import { nameText } from './index.js';
-import { storeInfo } from './ajax.js';
+import { refreshRecords, saveRecords } from './ajax.js';
 
 let canvas;
 let ctx;
@@ -28,6 +28,7 @@ let shapeInHand;
 let shapeFrom;
 let shapesInWaiting;
 let shapesInWaitingBoxes;
+
 
 export function getCanvasSize() {
   canvas = document.getElementById("game");
@@ -156,7 +157,9 @@ function mouseAndTouchEnd(eo) {
     
     if (!board.movesRemaining(_.values(shapesInWaiting))) {
       finishSound();
-      storeInfo();
+      // storeInfo();
+      refreshRecords();
+      saveRecords();
       showGameOverWindow();
       
       // updateRecords();

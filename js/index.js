@@ -3,6 +3,7 @@
 
 import { getCanvasSize, listeners, start } from './game.js'
 import { backGroundStart } from './background.js';
+import { refreshRecords } from './ajax.js';
 
 let startFlag = false;
 let windowStartMoveY;
@@ -13,11 +14,7 @@ let gameSound;
 let gameOverSound;
 let playerName = document.querySelector('.menu__name-input');
 let nameText;
-// для таблицы рекордов
-// let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
-// let updatePassword;
-// let stringName='DAVLIUD_HEXAGONGAME_RECORDS';
-// let dataRecords;
+
 //изменение состояния в зависимости от хэша
 
 // Переключение на УРЛ из Хэша
@@ -97,7 +94,7 @@ function showInfo(infoType) {
         case 'Records':
             // let infoRecords = document.querySelector('.info__content');
             // infoRecords.textContent = 'таблица рекордов подгруженная из AJAX';
-            // loadRecords();
+            refreshRecords();
             break;
     }
     // чтение таблицы рекордов с сервера
@@ -452,7 +449,7 @@ export function showGameOverWindow() {
         menuContent.className = 'menu__rules-content';
         menuRules.appendChild(menuContent);
         let infoContent = document.createElement('div');
-        infoContent.className = 'info__content';
+        infoContent.className = 'info__content_over';
         infoContent.textContent = 'Game over! No more moves!'
         menuContent.appendChild(infoContent);
         let closeButton = document.createElement('div');
