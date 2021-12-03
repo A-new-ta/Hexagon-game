@@ -67,7 +67,8 @@ function showInfo(infoType) {
         let menuRules = document.createElement('div');
         menuRules.className = 'menu__rules';
         menuRules.style.animationName = 'info-show';
-        menuRules.style.animationDuration = '0.5s';
+        menuRules.style.animationDuration = '1.0s';
+        menuRules.style.animationTimingFunction = 'ease-in-out';
         // menuRules.style.transform = 'translate(-50%, 0)';
         overlay.appendChild(menuRules);
         let menuContent = document.createElement('div');
@@ -411,7 +412,7 @@ window.addEventListener('beforeunload', goodbye);
 function goodbye(eo) {
     eo = eo || window.event;
     if (startFlag) {
-        eo.returnValue = '';
+        eo.returnValue = 'Game progress will be lost!';
         // if (eo.returnValue) {
         //     window.location.reload();
         // }
@@ -422,7 +423,7 @@ window.addEventListener('popstate', backspace);
 function backspace(eo) {
     eo = eo || window.event;
     if (location.hash === '#Main' && startFlag) {
-        let conf = confirm('Прогресс игры будет потерян!');
+        let conf = confirm('Game progress will be lost!');
         if (conf) {
             location.hash = '#Main';
         } else {
@@ -442,7 +443,8 @@ export function showGameOverWindow() {
         let menuRules = document.createElement('div');
         menuRules.className = 'menu__rules';
         menuRules.style.animationName = 'info-show';
-        menuRules.style.animationDuration = '0.5s';
+        menuRules.style.animationDuration = '1.0s';
+        menuRules.style.animationTimingFunction = 'ease-in-out';
         // menuRules.style.transform = 'translate(-50%, 0)';
         overlay.appendChild(menuRules);
         let menuContent = document.createElement('div');

@@ -20,7 +20,6 @@ export function refreshRecords() {
         error : errorHandler
     }
 );
-
 }
 
 function readReady(callresult) { // сообщения получены - показывает
@@ -47,11 +46,13 @@ function showRecords(recordsTable) {
     }
     str += '</ul>';
     infoContent.innerHTML = str;
-    }
+}
     
 function errorHandler(statusStr, errorStr) {
     alert(statusStr + ' ' + errorStr);
 }
+
+// refreshRecords();
 
 // обновление таблицы в конце игры, если рекорд устаовлен
 export function saveRecords() {
@@ -66,7 +67,7 @@ export function saveRecords() {
             success: lockGetReady,
             error: errorHandler
         })
-    // }
+// }
 
     // добавление нового рекорда, если он больше существующих
     function lockGetReady(callresult) {
@@ -113,7 +114,8 @@ export function saveRecords() {
           function errorHandler(jqXHR,statusStr,errorStr) {
             alert(statusStr+' '+errorStr);
         }
-    }
+}
+
 }
 
 
@@ -126,7 +128,7 @@ export function saveRecords() {
 //     alert(statusStr+' '+errorStr);
 //   }
 
-// refreshRecords();
+
 
 
 
