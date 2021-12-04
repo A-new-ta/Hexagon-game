@@ -85,7 +85,7 @@ h2 {
 }
 .menu__entername {
     color: rgb(167, 166, 166);
-    margin-bottom: 50px;
+    margin-bottom: 5vh;
 }
 .menu__play-button {
     display: block;
@@ -100,7 +100,7 @@ h2 {
     cursor: pointer;
 }
 .menu__name-input {
-    margin: 50px auto;
+    margin: 5vh auto;
     border-radius: 10px;
     height: 4vh;
     width: 20%;
@@ -131,10 +131,10 @@ path {
 }
 svg {
   width: 30%;
-  height: 300px;
+  height: 30vh;
   display: block;
   margin: 0 auto;
-  margin-bottom: 50px;
+  margin-bottom: 6vh;
 }
 
 @keyframes dash {
@@ -157,7 +157,7 @@ svg {
   width: 100%;
   text-align: center;
   font-size: 55px;
-  margin-bottom: 50px;
+  margin-bottom: 6vh;
   letter-spacing: .2em;
   animation: fade .5s ease-in-out forwards;
   animation-delay:2.5s;
@@ -281,7 +281,8 @@ img:hover {
 .info__content {
   text-align: center;
   padding: 0px 20px;
-  height: 480px;
+  /* height: 480px; */
+  margin-bottom: 50px;
 }
 .info__content li {
   margin-bottom: 20px;
@@ -311,6 +312,16 @@ img:hover {
   display: none;
 }
 
+@media (max-width: 700px) {
+  .menu__rules {
+    margin: 0 40px;
+  }
+  .menu__rules {
+    font-size: 20px;
+  }
+}
+
+
 @media (max-width: 479px) {
 .menu__rules-button, .menu__records-button, .menu__close-button, .menu__play-button, .menu__name-input {
     font-size: 18px;
@@ -319,10 +330,10 @@ img:hover {
 .menu__hexagon{
     font-size: 45px;
 }
-svg{
+/* svg{
     height: 200px;
     margin-bottom: 0px;
-  }
+  } */
 .menu__play-button {
     margin-bottom: 30px;
   }
@@ -392,7 +403,6 @@ svg{
   opacity:0;
   width:0;
 }
-
 .menu__burger{
   display: block;
   z-index:1;
@@ -407,17 +417,15 @@ svg{
   padding-top:20px;
   transition: all 0.3s ease-in-out;
 }
-
 .menu__burger.overlayM{
   visibility: visible;
   opacity: 1;
   padding-top:300px;
   background:rgba(0,0,0,0.8);
 }
-
-.menu__rules-burger, .menu__records-burger{
+/* .menu__rules-burger, .menu__records-burger{
   
-}
+} */
 .menu__rules-burger a, .menu__records-burger a{
   display: inline-block;
   color: rgb(226, 226, 226);
@@ -427,7 +435,6 @@ svg{
   text-decoration:none;
 }
 .menu__rules {
-  margin: 0 40px;
   font-size: 20px;
   top: -100%;
 
@@ -449,6 +456,24 @@ svg{
     transform: translateY(0px);
   }
 }
+}
+
+@media (max-width: 322px) {
+  /* .menu__hexagon {
+    margin-bottom: 20px;
+  } */
+  .menu__name-input {
+    margin-bottom: 30px ;
+  }
+  .menu__burger.overlayM {
+    padding-top: 200px;
+  }
+  .menu__rules {
+    font-size: 16px;
+  }
+  .menu__rules-button, .menu__records-button, .menu__close-button, .menu__play-button, .menu__name-input {
+    width: 50%;
+  }
 }
 
 
