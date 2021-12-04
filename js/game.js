@@ -187,7 +187,7 @@ function mouseAndTouchEnd(eo) {
 // })
   
 
-// window.addEventListener('resize', resize); // для изменения размера
+
 
 function getMousePos(canvas, eo) {
   var rect = canvas.getBoundingClientRect();
@@ -210,31 +210,80 @@ function getTouchPos(canvas, eo) {
 
 
 
-// не перерисовывает доску с фигурами
-// window.addEventListener('resize', function (eo) {
-//   if (window.innerWidth < 800) {
-//     canvas.width = window.innerWidth;
-//     let firstHexX = canvas.width * 0.25; //0.76
-//     let firstHexY = canvas.height * 0.875; //0.18
-//     let secondHexX = canvas.width * 0.5; //0.82
-//     let secondHexY = canvas.height * 0.875; //0.35
-//     let thirdHexX = canvas.width * 0.75; // 0.76
-//     let thirdHexY = canvas.height * 0.875; //0.53
-//     let proportion = canvas.width * 0.1 // 
-//         // canvas.height = window.innerHeight;
-//         shapesInWaiting.first.draw(firstHexX, firstHexY, .5); // координаты и размер для ожидающих фигур 650,150
-//         shapesInWaiting.second.draw(secondHexX, secondHexY, .5); // 700, 300
-//         shapesInWaiting.third.draw(thirdHexX, thirdHexY, .5); // 650, 450
-//         const shapesInWaitingBoxes = [
-//           {key: "first", bounds: [firstHexX - proportion, firstHexX + proportion, firstHexY - proportion, firstHexY + proportion]}, //600, 700, 100, 200
-//           {key: "second", bounds: [secondHexX - proportion, secondHexX + proportion, secondHexY - proportion, secondHexY + proportion]}, //600, 700, 250, 350
-//           {key: "third", bounds: [thirdHexX - proportion, thirdHexX + proportion, thirdHexY - proportion, thirdHexY + proportion]}, //600, 700, 400, 500
-//     ]
-//     whichShapeDidYouPick();
+// //не перерисовывает доску с фигурами
+// window.addEventListener('resize', resize);
+  
+//   function resize (eo) {
+  
+//   let container = document.querySelector('.game__start');
+//   let offsetWidth = container.clientWidth;
+//   let offsetHeight = container.clientHeight;
+//   let canvasRatio = 400 / 400;
+//   let windowRatio = (offsetWidth > offsetHeight) ? offsetHeight / offsetWidth : offsetWidth / offsetHeight;
+//   if (windowRatio < canvasRatio) {
+//       height = offsetHeight;
+//       width = height / canvasRatio;
+//       } else {
+//         width = offsetWidth;
+//         height = width * canvasRatio;
+//       }
     
+//   canvas.width = width;
+//   canvas.height = height;
+  
+//   // updateSize(width, height);
+  
     
+//   // if (window.innerWidth < 800) {
+//   //   canvas.width = window.innerWidth;
+//   //  }
+// }
+
+// function observer() {
+  // window.addEventListener('resize', () => {
+  //     setTimeout(() => {
+  //         resize();
+  //     }, 500);
+  // });
+// }
+
+// resize() {
+//   let container = document.querySelector('.zuma_field');
+
+
+//   let canvas = document.getElementById('canvas');
+//   let offsetWidth = container.clientWidth;
+//   let offsetHeight = container.clientHeight;
+//   let canvasRatio = 384 / 569;
+//   let windowRatio = (offsetWidth > offsetHeight) ? offsetHeight / offsetWidth : offsetWidth / offsetHeight;
+
+//   let width;
+//   let height;
+
+//   if (windowRatio < canvasRatio) {
+//       height = offsetHeight;
+//       width = height / canvasRatio;
+//   } else {
+//       width = offsetWidth;
+//       height = width * canvasRatio;
 //   }
-// })
+
+//   canvas.width = width;
+//   canvas.height = height;
+
+//   this.game.updateSize(width, height);
+//   this.frogController.updateSize(width, height);
+//   this.ballController.updateSize(width, height);
+// }
+
+// observer() {
+//   window.addEventListener('resize', () => {
+//       setTimeout(() => {
+//           this.resize();
+//       }, 500);
+//   });
+// }
+
 
 export { width };
 export { height };
