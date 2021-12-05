@@ -16,12 +16,16 @@ export default class Slot {
     this.hexHelper = hexHelperF();
   }
   draw() {
+    this.recalc();
     var image_width = (this.hexHelper.size * 1.9) - 2;
     var pixels = this.hex.toPixels();
     let img = this.tile == undefined ? defaultImage : this.tile.image;
     pixels = this.hexHelper.addVector2(pixels, this.hexHelper.boardOffset);
     pixels = this.hexHelper.subVector2(pixels, this.hexHelper.vector2Size);
     this._context.drawImage(img, pixels.x, pixels.y, image_width, image_width);
+  }
+  recalc() {
+    this.hexHelper = hexHelperF();
   }
 }
 

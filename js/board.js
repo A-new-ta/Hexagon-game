@@ -35,7 +35,7 @@ export default class Board {
     // console.log(shape);
     if (!shape)
       return;
-    let hexHelper = this.hexHelper;
+    let hexHelper = hexHelperF();
     let pixels = hexHelper.subVector2(mouseCoords, hexHelper.boardOffset);
     // console.log(hexHelper);
     if (!this.validDrop(pixels, shape))
@@ -159,7 +159,6 @@ export default class Board {
       slot.draw();
     });
   }
-
 }
 
 

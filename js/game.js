@@ -33,15 +33,21 @@ let shapesInWaitingBoxes;
 export function getCanvasSize() {
   canvas = document.getElementById("game");
   ctx = canvas.getContext('2d')
-width = canvas.width;
-height = canvas.height;
+  width = canvas.width;
+  height = canvas.height;
+  let canvasRatio = width / height;
 if (window.innerWidth < 800) {
-  width = canvas.width = window.innerWidth - 20;
+  width = canvas.width = window.innerWidth ;
 } else {
-  width = canvas.width = 800;
-}
-if (window.innerHeight < 800) {
-    height = canvas.height = window.innerHeight - 300;
+    width = canvas.width = 800;
+  }
+
+  if (window.innerHeight < 850) {
+    if (canvasRatio < 0.6) {
+      height = canvas.height = window.innerHeight - 250;
+    } else {
+      height = canvas.height = window.innerHeight - 150;
+    }
 } else {
   height = canvas.height = 800;
 }
@@ -211,33 +217,89 @@ function getTouchPos(canvas, eo) {
 
 
 // //не перерисовывает доску с фигурами
-// window.addEventListener('resize', resize);
+window.addEventListener('resize', resize);
   
-//   function resize (eo) {
+  function resize (eo) {
   
-//   let container = document.querySelector('.game__start');
-//   let offsetWidth = container.clientWidth;
-//   let offsetHeight = container.clientHeight;
-//   let canvasRatio = 400 / 400;
-//   let windowRatio = (offsetWidth > offsetHeight) ? offsetHeight / offsetWidth : offsetWidth / offsetHeight;
-//   if (windowRatio < canvasRatio) {
-//       height = offsetHeight;
-//       width = height / canvasRatio;
-//       } else {
-//         width = offsetWidth;
-//         height = width * canvasRatio;
-//       }
+  // let container = document.querySelector('.game__start');
+  // let offsetWidth = container.clientWidth;
+  // let offsetHeight = container.clientHeight;
+  // canvas = document.getElementById("game");
+  // ctx = canvas.getContext('2d')
+  // width = canvas.width;
+  // height = canvas.height;
+  let canvasRatio = width / height;
+if (window.innerWidth < 800) {
+  width = canvas.width = window.innerWidth ;
+} else {
+    width = canvas.width = 800;
+  }
+
+  if (window.innerHeight < 850) {
+    if (canvasRatio < 0.6) {
+      height = canvas.height = window.innerHeight - 250;
+    } else {
+      height = canvas.height = window.innerHeight - 150;
+    }
+} else {
+  height = canvas.height = 800;
+}
+//пропорции положения боковых фигур относительно размера канваса
+firstHexX = width * 0.25; //0.76
+firstHexY = height * 0.9 //0.18
+secondHexX = width * 0.5; //0.82
+secondHexY = height * 0.9; //0.35
+thirdHexX = width * 0.75; // 0.76
+thirdHexY = height * 0.9; //0.53
+proportion1 = width * 0.05 // 
+proportion2 = width * 0.1 // 
+score = 0;
+isMouseDown = false;
+var isTouch = false;
+
+// board = new Board(ctx);
+shapeInHand = false;
+shapeFrom = "zero";
+mouseCoords = {};
+var touchCoords = {};
+// shapesInWaiting = {
+//   first: new Shape(ctx),
+//   second: new Shape(ctx),
+//   third: new Shape(ctx)
+//   }
+
     
-//   canvas.width = width;
-//   canvas.height = height;
+shapesInWaitingBoxes = [
+  {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
+  {key: "second", bounds: [secondHexX - proportion2, secondHexX + proportion1, secondHexY - proportion2, secondHexY + proportion1]}, //600, 700, 250, 350
+  {key: "third", bounds: [thirdHexX - proportion2, thirdHexX + proportion1, thirdHexY - proportion2, thirdHexY + proportion1]}, //600, 700, 400, 500
+  ]
   
-//   // updateSize(width, height);
+  board.draw();
+  board.drawPotentialSlots(mouseCoords, shapeInHand);
+  drawShapesInWaiting();
+  drawShapeInHand();   
+    
+  // let canvasRatio = 384 / 569;
+  // let windowRatio = (offsetWidth > offsetHeight) ? offsetHeight / offsetWidth : offsetWidth / offsetHeight;
+  // if (windowRatio < canvasRatio) {
+  //     height = offsetHeight;
+  //     width = height / canvasRatio;
+  //     } else {
+  //       width = offsetWidth;
+  //       height = width * canvasRatio;
+  //     }
+    
+  // canvas.width = width;
+  // canvas.height = height;
+  
+  // updateSize(width, height);
   
     
-//   // if (window.innerWidth < 800) {
-//   //   canvas.width = window.innerWidth;
-//   //  }
-// }
+  // if (window.innerWidth < 800) {
+  //   canvas.width = window.innerWidth;
+  //  }
+}
 
 // function observer() {
   // window.addEventListener('resize', () => {

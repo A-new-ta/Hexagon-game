@@ -141,7 +141,7 @@ export default class Shape {
 
   
   draw(xOffset, yOffset, scale = 1) {
-    let hexHelper = this.hexHelper;
+    let hexHelper = hexHelperF();
     var image_width = (hexHelper.size * 1.9) - 2;
     var ctx = this._context;
     // console.log(this.hexHelper);
@@ -160,7 +160,7 @@ export default class Shape {
 
 
   drawScale(xOffset, yOffset, scale = 1) {
-    let hexHelper = this.hexHelper;
+    let hexHelper = hexHelperF();
     var image_width = (hexHelper.size * 2.0) - 2;
     var ctx = this._context;
     this.tiles.forEach(function (tileOpts) {
