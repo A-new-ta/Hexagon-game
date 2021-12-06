@@ -93,46 +93,9 @@ function showInfo(infoType) {
             break;
         
         case 'Records':
-            // let infoRecords = document.querySelector('.info__content');
-            // infoRecords.textContent = 'таблица рекордов подгруженная из AJAX';
             refreshRecords();
             break;
     }
-    // чтение таблицы рекордов с сервера
-    // function loadRecords() {
-    //     $.ajax({
-    //         url: ajaxHandlerScript,
-    //         type: 'POST', dataType: 'json',
-    //         data: {f: 'READ', n: stringName},
-    //         cache: false,
-    //         success: readReady,
-    //         error: errorHandler 
-    //     })
-    // }
-    // даные загружены и готовы к показу
-    // function readReady(callresult) {
-    //     if (callresult.error !== undefined) {
-    //         alert(callresult.error);
-    //     } else {
-    //         dataRecords = JSON.parse(callresult.result);
-    //         showRecords(dataRecords);
-    //     }
-    // }
-    // отображение таблицы рекордов
-//     function showRecords(dataRecords) {
-//         let str = '';
-//         let infoContent = document.querySelector('.info__content');
-//         str += '<ol>';
-//         for (let i = 0; i < dataRecords.length; i++) {
-//             let dataRec = dataRecords[i];
-//             str += '<li>' + dataRec.name + ': ' + dataRec.score + '<li/><br>';
-//         }
-//         str += '</ol>';
-//         infoContent.innerHTML = str;
-//     }
-//     function errorHandler(statusStr, errorStr) {
-//         alert(statusStr + ' ' + errorStr);
-//     }
 }
 
 function hideInfo() {
@@ -151,8 +114,6 @@ function hideInfo() {
     }
     
 }
-
-
 
 function hideGame() {
     if (document.querySelector('.game__start')) {
@@ -296,8 +257,10 @@ function windowTouchEnd(eo) {
     }
 }
 function windowMove(eo) {
-    eo = eo || window.event
-    eo.preventDefault();
+    if (spaState.pagename == 'Rules' || spaState.pagename == 'Records') {
+        eo = eo || window.event
+        eo.preventDefault();
+    }
 }
 
 // фоновый звук
