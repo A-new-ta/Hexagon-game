@@ -298,9 +298,9 @@ function windowMove(eo) {
 
 // фоновый звук
 function loadMusic() {
-    backGroundMusic = new Audio('./sound/backsound.mp3');
-    gameSound = new Audio('./sound/sound.mp3');
-    gameOverSound = new Audio('./sound/gameover.mp3');
+    backGroundMusic = new Audio('/sound/backsound.mp3');
+    gameSound = new Audio('/sound/sound.mp3');
+    gameOverSound = new Audio('/sound/gameover.mp3');
 }
 loadMusic();
 
@@ -315,13 +315,13 @@ export function finishSound() {
 
 function soundOnOff() {
     let soundCheck = document.querySelector('.sound').src;
-    if (soundCheck === './images/sound_on_icon.svg') {
-        document.querySelector('.sound').src = './images/sound_off_icon.svg';
+    if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
+        document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg';
         backGroundMusic.pause();
         
     }
-    if (soundCheck === './images/sound_off_icon.svg') {
-        document.querySelector('.sound').src = './images/sound_on_icon.svg';
+    if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg') {
+        document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg';
         backGroundMusic.currentTime = 0;
         backGroundMusic.play();
     }
