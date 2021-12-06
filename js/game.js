@@ -37,12 +37,12 @@ export function getCanvasSize() {
   width = canvas.width;
   height = canvas.height;
   
-  let canvasRatio = width / height;
-if (window.innerWidth < 800) {
-  width = window.innerWidth ;
-} else {
-    width = canvas.width = 800;
-  }
+//   let canvasRatio = width / height;
+// if (window.innerWidth < 800) {
+//   width = window.innerWidth ;
+// } else {
+//     width = canvas.width = 800;
+//   }
   
 
 
@@ -56,32 +56,32 @@ if (window.innerWidth < 800) {
 //   height = canvas.height = 800;
 // }
   
-// let widthToHeight = 4 / 4;
-// let newWidth = document.documentElement.clientWidth;
-// let newHeight = document.documentElement.clientHeight;
+let widthToHeight = 750 / 850;
+let newWidth = document.documentElement.clientWidth;
+let newHeight = document.documentElement.clientHeight;
 
-// let newWidthToHeight = newWidth / newHeight;
+let newWidthToHeight = newWidth / newHeight;
 
-//   if (newWidthToHeight > widthToHeight) {
-//     newWidth = newHeight * widthToHeight;
-//     if (window.innerWidth < 805 || window.innerHeight < 805) {
-//       height = canvas.height = newHeight;
-//       width = canvas.width = newWidth;
-//     } else {
-//       height = canvas.height = 800;
-//       width = canvas.width = 800;
-//     }
-//   } else {
-//     newHeight = newWidth / widthToHeight;
-//     if (window.innerWidth < 805 || window.innerHeight < 805) {
-//       width = canvas.width = newWidth;
-//       height = canvas.height = newHeight;
-//     } else {
-//       height = canvas.height = 800;
-//       width = canvas.width = 800;
-//     }
+  if (newWidthToHeight > widthToHeight) {
+    newWidth = newHeight * widthToHeight;
+    if (window.innerWidth < 805 || window.innerHeight < 805) {
+      height = canvas.height = newHeight;
+      width = canvas.width = newWidth;
+    } else {
+      height = canvas.height = 850;
+      width = canvas.width = 750;
+    }
+  } else {
+    newHeight = newWidth / widthToHeight;
+    if (window.innerWidth < 805 || window.innerHeight < 805) {
+      width = canvas.width = newWidth;
+      height = canvas.height = newHeight;
+    } else {
+      height = canvas.height = 850;
+      width = canvas.width = 750;
+    }
 
-// }
+}
   
   
   
@@ -251,7 +251,7 @@ function getTouchPos(canvas, eo) {
 export function resize() {
       
   // let gameArea = document.querySelector('.game__start');
-  let widthToHeight = 4 / 4;
+  let widthToHeight = 750 / 850;
   let newWidth = document.documentElement.clientWidth;
   let newHeight = document.documentElement.clientHeight;
 

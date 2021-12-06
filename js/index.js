@@ -186,9 +186,9 @@ function startGame() {
     value.setAttribute('id', 'score-value');
     value.textContent = '0';
     text.appendChild(value);
-    let background = document.createElement('canvas');
-    background.setAttribute('id', 'c');
-    gameStart.appendChild(background);
+    // let background = document.createElement('canvas');
+    // background.setAttribute('id', 'c');
+    // gameStart.appendChild(background);
     let mainGame = document.createElement('canvas');
     mainGame.setAttribute('id', 'game');
     gameStart.appendChild(mainGame);
@@ -200,7 +200,7 @@ function startGame() {
     start();
     // resize();
     addListeners();
-    backGroundStart();
+    // backGroundStart();
 }
 
 
