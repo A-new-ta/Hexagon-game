@@ -1,7 +1,7 @@
 'use strict'
 // controller
 
-import { getCanvasSize, listeners, start } from './game.js'
+import { getCanvasSize, addListeners, start, deleteListeners, resize } from './game.js'
 import { backGroundStart } from './background.js';
 import { refreshRecords } from './ajax.js';
 
@@ -162,6 +162,7 @@ function hideGame() {
         let startPage = document.querySelector('.main__window');
         startPage.classList.remove('hidden');
         startFlag = false;
+        deleteListeners();
     }
 }
 
@@ -197,7 +198,8 @@ function startGame() {
     startFlag = true;
     getCanvasSize();
     start();
-    listeners();
+    // resize();
+    addListeners();
     backGroundStart();
 }
 

@@ -51,8 +51,10 @@ export function backGroundStart() {
   }
   tick();
 
-  window.addEventListener('resize', function () {
+  window.addEventListener('resize', resizeBackground);
+    function resizeBackground(eo) {
     w = c.width = window.innerWidth;
     h = c.height = window.innerHeight;
-  });
+  };
+  
 }

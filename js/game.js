@@ -7,6 +7,7 @@ import _, { values } from './underscore.js'
 import { finishSound, showGameOverWindow } from './index.js';
 import { nameText } from './index.js';
 import { refreshRecords, saveRecords } from './ajax.js';
+import { backGroundStart } from './background.js';
 
 let canvas;
 let ctx;
@@ -35,22 +36,56 @@ export function getCanvasSize() {
   ctx = canvas.getContext('2d')
   width = canvas.width;
   height = canvas.height;
+  
   let canvasRatio = width / height;
 if (window.innerWidth < 800) {
-  width = canvas.width = window.innerWidth ;
+  width = window.innerWidth ;
 } else {
     width = canvas.width = 800;
   }
+  
 
-  if (window.innerHeight < 850) {
-    if (canvasRatio < 0.6) {
-      height = canvas.height = window.innerHeight - 250;
-    } else {
-      height = canvas.height = window.innerHeight - 150;
-    }
-} else {
-  height = canvas.height = 800;
-}
+
+//   if (window.innerHeight < 800) {
+//     // if (canvasRatio < 0.6) {
+//       height = canvas.height = window.innerHeight;
+//     // } else {
+//     //   height = canvas.height = window.innerHeight - 150;
+//     // }
+// } else {
+//   height = canvas.height = 800;
+// }
+  
+// let widthToHeight = 4 / 4;
+// let newWidth = document.documentElement.clientWidth;
+// let newHeight = document.documentElement.clientHeight;
+
+// let newWidthToHeight = newWidth / newHeight;
+
+//   if (newWidthToHeight > widthToHeight) {
+//     newWidth = newHeight * widthToHeight;
+//     if (window.innerWidth < 805 || window.innerHeight < 805) {
+//       height = canvas.height = newHeight;
+//       width = canvas.width = newWidth;
+//     } else {
+//       height = canvas.height = 800;
+//       width = canvas.width = 800;
+//     }
+//   } else {
+//     newHeight = newWidth / widthToHeight;
+//     if (window.innerWidth < 805 || window.innerHeight < 805) {
+//       width = canvas.width = newWidth;
+//       height = canvas.height = newHeight;
+//     } else {
+//       height = canvas.height = 800;
+//       width = canvas.width = 800;
+//     }
+
+// }
+  
+  
+  
+  
 // пропорции положения боковых фигур относительно размера канваса
 firstHexX = width * 0.25; //0.76
 firstHexY = height * 0.9 //0.18
@@ -72,7 +107,7 @@ shapesInWaiting = {
   first: new Shape(ctx),
   second: new Shape(ctx),
   third: new Shape(ctx)
-  }
+}
   
 shapesInWaitingBoxes = [
   {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
@@ -123,34 +158,50 @@ requestAnimationFrame(function gameLoop() {
 }
 // start();
 
-export function listeners() {
-
-    document.addEventListener('mousedown', function (eo) {
-      mouseCoords = getMousePos(canvas, eo);
-      isMouseDown = true;
-      shapeInHand = whichShapeDidYouPick();
-    })
-    document.addEventListener('touchstart', function (eo) {
-      // eo = eo || window.event;
-      mouseCoords = getTouchPos(canvas, eo);
-      isMouseDown = true;
-      shapeInHand = whichShapeDidYouPick();
-    })
-    document.addEventListener('mouseup', mouseAndTouchEnd);
-    document.addEventListener('touchend', mouseAndTouchEnd);
-    document.addEventListener('mousemove', function (eo) {
-      if(isMouseDown){
-        mouseCoords = getMousePos(canvas, eo);
-      }
-    })
-    document.addEventListener('touchmove', function (eo) {
-      if (isMouseDown) {
-        mouseCoords = getTouchPos(canvas, eo);
-      }
-    })
-  
+export function addListeners() {
+  document.addEventListener('mousedown', mousedown);
+  document.addEventListener('touchstart', touchstart);
+  document.addEventListener('mouseup', mouseAndTouchEnd);
+  document.addEventListener('touchend', mouseAndTouchEnd);
+  document.addEventListener('mousemove', mousemove);
+  document.addEventListener('touchmove', touchmove);
+  window.addEventListener('resize', resize);
 }
 
+export function deleteListeners() {
+  document.removeEventListener('mousedown', mousedown);
+  document.removeEventListener('touchstart', touchstart);
+  document.removeEventListener('mouseup', mouseAndTouchEnd);
+  document.removeEventListener('touchend', mouseAndTouchEnd);
+  document.removeEventListener('mousemove', mousemove);
+  document.removeEventListener('touchmove', touchmove);
+  window.removeEventListener('resize', resize);
+}
+
+function mousedown (eo) {
+  mouseCoords = getMousePos(canvas, eo);
+  isMouseDown = true;
+  shapeInHand = whichShapeDidYouPick();
+}
+
+function touchstart(eo) {
+  // eo = eo || window.event;
+  mouseCoords = getTouchPos(canvas, eo);
+  isMouseDown = true;
+  shapeInHand = whichShapeDidYouPick();
+}
+
+function mousemove(eo) {
+  if(isMouseDown){
+    mouseCoords = getMousePos(canvas, eo);
+  }
+}
+
+function touchmove (eo) {
+  if (isMouseDown) {
+    mouseCoords = getTouchPos(canvas, eo);
+  }
+}
 
 function mouseAndTouchEnd(eo) {
   let helper = hexHelperF();
@@ -172,28 +223,10 @@ function mouseAndTouchEnd(eo) {
       // pushRecordsToTable(nameText, score);
       // console.log(score);
     }
-    
   }
   isMouseDown = false;
   shapeInHand = false;
-  // isTouch = false;
-  // console.log(shapeInHand);
 }
-
-// document.addEventListener('mousemove', function (eo) {
-//   if(isMouseDown){
-//     mouseCoords = getMousePos(canvas, eo);
-//   }
-// })
-
-// document.addEventListener('touchmove', function (eo) {
-//   if (isMouseDown) {
-//     mouseCoords = getTouchPos(canvas, eo);
-//   }
-// })
-  
-
-
 
 function getMousePos(canvas, eo) {
   var rect = canvas.getBoundingClientRect();
@@ -214,36 +247,54 @@ function getTouchPos(canvas, eo) {
 }
 
 
+// responsive canvas
+export function resize() {
+      
+  // let gameArea = document.querySelector('.game__start');
+  let widthToHeight = 4 / 4;
+  let newWidth = document.documentElement.clientWidth;
+  let newHeight = document.documentElement.clientHeight;
 
-
-// //не перерисовывает доску с фигурами
-window.addEventListener('resize', resize);
+  let newWidthToHeight = newWidth / newHeight;
   
-  function resize (eo) {
+    if (newWidthToHeight > widthToHeight) {
+      newWidth = newHeight * widthToHeight;
+      if (window.innerWidth < 800) {
+        height = canvas.height = newHeight;
+        width = canvas.width = newWidth;
+      }
+    } else {
+      newHeight = newWidth / widthToHeight;
+      if (window.innerWidth < 800) {
+        width = canvas.width = newWidth;
+        height = canvas.height = newHeight;
+      }
   
-  // let container = document.querySelector('.game__start');
+  }
   // let offsetWidth = container.clientWidth;
   // let offsetHeight = container.clientHeight;
   // canvas = document.getElementById("game");
   // ctx = canvas.getContext('2d')
   // width = canvas.width;
   // height = canvas.height;
-  let canvasRatio = width / height;
-if (window.innerWidth < 800) {
-  width = canvas.width = window.innerWidth ;
-} else {
-    width = canvas.width = 800;
-  }
 
-  if (window.innerHeight < 850) {
-    if (canvasRatio < 0.6) {
-      height = canvas.height = window.innerHeight - 250;
-    } else {
-      height = canvas.height = window.innerHeight - 150;
-    }
-} else {
-  height = canvas.height = 800;
-}
+//   let canvasRatio = width / height;
+// if (window.innerWidth < 800) {
+//   width = canvas.width = window.innerWidth ;
+// } else {
+//     width = canvas.width = 800;
+//   }
+
+//   if (window.innerHeight < 800) {
+// //     if (canvasRatio < 0.6) {
+//       height = canvas.height = window.innerHeight;
+// //     } else {
+// //       height = canvas.height = window.innerHeight - 150;
+// //     }
+// } else {
+//   height = canvas.height = 800;
+// }
+  
 //пропорции положения боковых фигур относительно размера канваса
 firstHexX = width * 0.25; //0.76
 firstHexY = height * 0.9 //0.18
