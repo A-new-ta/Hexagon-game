@@ -1,7 +1,5 @@
 'use strict'
 
-import * as Game from './game.js';
-
 
 export default class Tile {
   constructor(image, context) {
@@ -11,8 +9,9 @@ export default class Tile {
     this._context = context;
     
   }
-
 }
+
+
 
 
 
