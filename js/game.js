@@ -37,24 +37,6 @@ export function getCanvasSize() {
   width = canvas.width;
   height = canvas.height;
   
-//   let canvasRatio = width / height;
-// if (window.innerWidth < 800) {
-//   width = window.innerWidth ;
-// } else {
-//     width = canvas.width = 800;
-//   }
-  
-
-
-//   if (window.innerHeight < 800) {
-//     // if (canvasRatio < 0.6) {
-//       height = canvas.height = window.innerHeight;
-//     // } else {
-//     //   height = canvas.height = window.innerHeight - 150;
-//     // }
-// } else {
-//   height = canvas.height = 800;
-// }
   
 let widthToHeight = 750 / 850;
 let newWidth = document.documentElement.clientWidth;
@@ -64,27 +46,24 @@ let newWidthToHeight = newWidth / newHeight;
 
   if (newWidthToHeight > widthToHeight) {
     newWidth = newHeight * widthToHeight;
-    if (window.innerWidth < 805 || window.innerHeight < 805) {
+    // if (window.innerWidth < 805 || window.innerHeight < 805) {
       height = canvas.height = newHeight;
       width = canvas.width = newWidth;
-    } else {
-      height = canvas.height = 850;
-      width = canvas.width = 750;
-    }
+    // } else {
+    //   height = canvas.height = 850;
+    //   width = canvas.width = 750;
+    // }
   } else {
     newHeight = newWidth / widthToHeight;
-    if (window.innerWidth < 805 || window.innerHeight < 805) {
+    // if (window.innerWidth < 805 || window.innerHeight < 805) {
       width = canvas.width = newWidth;
       height = canvas.height = newHeight;
-    } else {
-      height = canvas.height = 850;
-      width = canvas.width = 750;
-    }
+    // } else {
+    //   height = canvas.height = 850;
+    //   width = canvas.width = 750;
+    // }
 
 }
-  
-  
-  
   
 // пропорции положения боковых фигур относительно размера канваса
 firstHexX = width * 0.25; //0.76
@@ -259,42 +238,19 @@ export function resize() {
   
     if (newWidthToHeight > widthToHeight) {
       newWidth = newHeight * widthToHeight;
-      if (window.innerWidth < 800) {
+      // if (window.innerWidth < 800) {
         height = canvas.height = newHeight;
         width = canvas.width = newWidth;
-      }
+      // }
     } else {
       newHeight = newWidth / widthToHeight;
-      if (window.innerWidth < 800) {
+      // if (window.innerWidth < 800) {
         width = canvas.width = newWidth;
         height = canvas.height = newHeight;
-      }
+      // }
   
   }
-  // let offsetWidth = container.clientWidth;
-  // let offsetHeight = container.clientHeight;
-  // canvas = document.getElementById("game");
-  // ctx = canvas.getContext('2d')
-  // width = canvas.width;
-  // height = canvas.height;
-
-//   let canvasRatio = width / height;
-// if (window.innerWidth < 800) {
-//   width = canvas.width = window.innerWidth ;
-// } else {
-//     width = canvas.width = 800;
-//   }
-
-//   if (window.innerHeight < 800) {
-// //     if (canvasRatio < 0.6) {
-//       height = canvas.height = window.innerHeight;
-// //     } else {
-// //       height = canvas.height = window.innerHeight - 150;
-// //     }
-// } else {
-//   height = canvas.height = 800;
-// }
-  
+    
 //пропорции положения боковых фигур относительно размера канваса
 firstHexX = width * 0.25; //0.76
 firstHexY = height * 0.9 //0.18
@@ -331,71 +287,8 @@ shapesInWaitingBoxes = [
   drawShapesInWaiting();
   drawShapeInHand();   
     
-  // let canvasRatio = 384 / 569;
-  // let windowRatio = (offsetWidth > offsetHeight) ? offsetHeight / offsetWidth : offsetWidth / offsetHeight;
-  // if (windowRatio < canvasRatio) {
-  //     height = offsetHeight;
-  //     width = height / canvasRatio;
-  //     } else {
-  //       width = offsetWidth;
-  //       height = width * canvasRatio;
-  //     }
-    
-  // canvas.width = width;
-  // canvas.height = height;
-  
-  // updateSize(width, height);
-  
-    
-  // if (window.innerWidth < 800) {
-  //   canvas.width = window.innerWidth;
-  //  }
 }
 
-// function observer() {
-  // window.addEventListener('resize', () => {
-  //     setTimeout(() => {
-  //         resize();
-  //     }, 500);
-  // });
-// }
-
-// resize() {
-//   let container = document.querySelector('.zuma_field');
-
-
-//   let canvas = document.getElementById('canvas');
-//   let offsetWidth = container.clientWidth;
-//   let offsetHeight = container.clientHeight;
-//   let canvasRatio = 384 / 569;
-//   let windowRatio = (offsetWidth > offsetHeight) ? offsetHeight / offsetWidth : offsetWidth / offsetHeight;
-
-//   let width;
-//   let height;
-
-//   if (windowRatio < canvasRatio) {
-//       height = offsetHeight;
-//       width = height / canvasRatio;
-//   } else {
-//       width = offsetWidth;
-//       height = width * canvasRatio;
-//   }
-
-//   canvas.width = width;
-//   canvas.height = height;
-
-//   this.game.updateSize(width, height);
-//   this.frogController.updateSize(width, height);
-//   this.ballController.updateSize(width, height);
-// }
-
-// observer() {
-//   window.addEventListener('resize', () => {
-//       setTimeout(() => {
-//           this.resize();
-//       }, 500);
-//   });
-// }
 
 
 export { width };

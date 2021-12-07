@@ -1,1 +1,9 @@
-<svg id="etS4sLlhuRK1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 273 275" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"><g id="etS4sLlhuRK2"><polygon id="etS4sLlhuRK3" points="136.5,3 252.980417,70.25 252.980417,204.75 136.5,272 20.019583,204.75 20.019583,70.25" fill="rgb(63,63,63)" fill-rule="evenodd" stroke="rgb(63,63,63)" stroke-width="4"/></g></svg>
+<svg width="273" height="275" xmlns="http://www.w3.org/2000/svg" text-rendering="geometricPrecision" shape-rendering="geometricPrecision">
+
+ <g>
+  <title>Layer 1</title>
+  <g id="etS4sLlhuRK2">
+   <polygon stroke-width="4" stroke="rgb(63,63,63)" fill-rule="evenodd" fill="rgb(63,63,63)" points="136.5,3 252.980417,70.25 252.980417,204.75 136.5,272 20.019583,204.75 20.019583,70.25" id="etS4sLlhuRK3"/>
+  </g>
+ </g>
+</svg>

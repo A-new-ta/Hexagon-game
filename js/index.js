@@ -159,7 +159,7 @@ function startGame() {
     startFlag = true;
     getCanvasSize();
     start();
-    // resize();
+    resize();
     addListeners();
     window.removeEventListener('touchstart', windowTouchStart, {passive: false});
     window.removeEventListener('touchend', windowTouchEnd, {passive: false});
@@ -167,6 +167,8 @@ function startGame() {
 
     // backGroundStart();
 }
+
+
 
 
 
