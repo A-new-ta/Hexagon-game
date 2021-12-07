@@ -14,6 +14,7 @@ let gameSound;
 let gameOverSound;
 let playerName = document.querySelector('.menu__name-input');
 let nameText;
+let soundFlag = false;
 
 //изменение состояния в зависимости от хэша
 
@@ -85,7 +86,7 @@ function showInfo(infoType) {
         closeButton.appendChild(a);
     }
     
-// в зависимости нажатой кнопки, будем менять содержимое
+// в зависимости нажатой кнопки, меняется содержимое
     switch (infoType) {
         case 'Rules':
             let infoRules = document.querySelector('.info__content');
@@ -138,7 +139,7 @@ function startGame() {
     nameText = playerName.value;
     if (nameText == '') {
         nameText = 'player1';
-    }
+    } 
     console.log(nameText);
     let text = document.createElement('h2');
     text.textContent = 'Score';
@@ -285,12 +286,14 @@ function soundOnOff() {
     if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
         document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg';
         backGroundMusic.pause();
+        soundFlag = false;
         
     }
     if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg') {
         document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg';
         backGroundMusic.currentTime = 0;
         backGroundMusic.play();
+        soundFlag = true;
     }
 }
 
@@ -300,9 +303,6 @@ function goodbye(eo) {
     eo = eo || window.event;
     if (startFlag) {
         eo.returnValue = 'Game progress will be lost!';
-        // if (eo.returnValue) {
-        //     window.location.reload();
-        // }
     }
 }
 
@@ -318,7 +318,6 @@ function backspace(eo) {
         }
     }
 }
-
 
 // всплывающее окно, когда игра заканчивается
 export function showGameOverWindow() {

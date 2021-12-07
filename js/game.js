@@ -269,12 +269,6 @@ shapeInHand = false;
 shapeFrom = "zero";
 mouseCoords = {};
 var touchCoords = {};
-// shapesInWaiting = {
-//   first: new Shape(ctx),
-//   second: new Shape(ctx),
-//   third: new Shape(ctx)
-//   }
-
     
 shapesInWaitingBoxes = [
   {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
