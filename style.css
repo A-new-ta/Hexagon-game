@@ -40,14 +40,15 @@ h1 {
     z-index: 2;
 }
 h2 {
-  font-size: 30px;
+  font-size: 4vh;
   color: white;
   text-align: center;
 }
 
 #score-value {
-    display: block;
+    /* display: block; */
 }
+
 #c {
     position: absolute;
     top: 0;
@@ -56,18 +57,19 @@ h2 {
     /* z-index: 0; */
 }
 .score {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 15px;
+    position: absolute;
+    /* z-index: 2; */
+    /* margin-bottom: 15px; */
+    top: 5vh;
+    left: 5vw;
 }
 .hidden {
     display: none;
 }
-.game__start {
+/* .game__start {
   margin-top: 10px;
-}
+} */
 .main__window {
-  
     margin: 0 auto;
     max-width: 1450px;
     margin: 0 auto;

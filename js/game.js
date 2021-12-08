@@ -43,26 +43,20 @@ let newWidth = document.documentElement.clientWidth;
 let newHeight = document.documentElement.clientHeight;
 
 let newWidthToHeight = newWidth / newHeight;
-
+if (newWidthToHeight < 1) {
+  canvas.setAttribute('style', 'margin-top:100px');
+} else {
+  canvas.setAttribute('style', 'margin-top:0px');
+  }
+  
   if (newWidthToHeight > widthToHeight) {
     newWidth = newHeight * widthToHeight;
-    // if (window.innerWidth < 805 || window.innerHeight < 805) {
       height = canvas.height = newHeight;
       width = canvas.width = newWidth;
-    // } else {
-    //   height = canvas.height = 850;
-    //   width = canvas.width = 750;
-    // }
   } else {
     newHeight = newWidth / widthToHeight;
-    // if (window.innerWidth < 805 || window.innerHeight < 805) {
-      width = canvas.width = newWidth;
-      height = canvas.height = newHeight;
-    // } else {
-    //   height = canvas.height = 850;
-    //   width = canvas.width = 750;
-    // }
-
+    width = canvas.width = newWidth;
+    height = canvas.height = newHeight;
 }
   
 // пропорции положения боковых фигур относительно размера канваса
@@ -229,26 +223,25 @@ function getTouchPos(canvas, eo) {
 // responsive canvas
 export function resize() {
       
-  // let gameArea = document.querySelector('.game__start');
   let widthToHeight = 750 / 850;
   let newWidth = document.documentElement.clientWidth;
   let newHeight = document.documentElement.clientHeight;
 
   let newWidthToHeight = newWidth / newHeight;
-  
-    if (newWidthToHeight > widthToHeight) {
-      newWidth = newHeight * widthToHeight;
-      // if (window.innerWidth < 800) {
-        height = canvas.height = newHeight;
-        width = canvas.width = newWidth;
-      // }
-    } else {
-      newHeight = newWidth / widthToHeight;
-      // if (window.innerWidth < 800) {
-        width = canvas.width = newWidth;
-        height = canvas.height = newHeight;
-      // }
-  
+  if (newWidthToHeight < 1) {
+    canvas.setAttribute('style', 'margin-top:100px');
+  } else {
+    canvas.setAttribute('style', 'margin-top:0px');
+    }
+  if (newWidthToHeight > widthToHeight) {
+    newWidth = newHeight * widthToHeight;
+    height = canvas.height = newHeight;
+    width = canvas.width = newWidth;
+    
+  } else {
+    newHeight = newWidth / widthToHeight;
+    width = canvas.width = newWidth;
+    height = canvas.height = newHeight;
   }
     
 //пропорции положения боковых фигур относительно размера канваса

@@ -38,6 +38,9 @@ function switchToStateFromURLHash() {
         case 'Main':
             hideInfo();
             hideGame();
+            let storName=window.localStorage.getItem('isName');
+            if ( storName )
+            playerName.value = storName;
             break;
         case 'Game':
             if (!startFlag) {
@@ -140,9 +143,9 @@ function startGame() {
     if (nameText == '') {
         nameText = 'player1';
     } 
-    console.log(nameText);
+    // console.log(nameText);
     let text = document.createElement('h2');
-    text.textContent = 'Score';
+    text.textContent = 'Score: ';
     score.appendChild(text);
     let value = document.createElement('span');
     value.setAttribute('id', 'score-value');
@@ -156,7 +159,7 @@ function startGame() {
     gameStart.appendChild(mainGame);
     let startPage = document.querySelector('.main__window');
     startPage.classList.add('hidden');
-    console.log(startPage.className);
+    // console.log(startPage.className);
     startFlag = true;
     getCanvasSize();
     start();
@@ -283,18 +286,19 @@ export function finishSound() {
 
 function soundOnOff() {
     let soundCheck = document.querySelector('.sound').src;
-    if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
-        document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg';
+    if (soundCheck === 'http://127.0.0.1:5500/images/sound_on_icon.svg') {
+    // if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
+        document.querySelector('.sound').src = 'http://127.0.0.1:5500/images/sound_off_icon.svg';
         backGroundMusic.pause();
-        soundFlag = false;
-        
+                
     }
-    if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg') {
-        document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg';
+    if (soundCheck === 'http://127.0.0.1:5500/images/sound_off_icon.svg') {
+        document.querySelector('.sound').src = 'http://127.0.0.1:5500/images/sound_on_icon.svg';
         backGroundMusic.currentTime = 0;
         backGroundMusic.play();
-        soundFlag = true;
+        
     }
+
 }
 
 // реакция на закрытие и перезагрузку окна и уход со страницы
@@ -304,12 +308,14 @@ function goodbye(eo) {
     if (startFlag) {
         eo.returnValue = 'Game progress will be lost!';
     }
+    
 }
 
 window.addEventListener('popstate', backspace);
 function backspace(eo) {
     eo = eo || window.event;
     if (location.hash === '#Main' && startFlag) {
+        console.log(startFlag);
         let conf = confirm('Game progress will be lost!');
         if (conf) {
             location.hash = '#Main';
@@ -347,6 +353,8 @@ export function showGameOverWindow() {
         a.textContent = 'Main page';
         closeButton.appendChild(a);
         closeButton.addEventListener('click', switchToMainPage);
+        // сохранения имени игрока в localstprage
+        window.localStorage.setItem('isName', playerName.value);
 }
 
 export { nameText };
