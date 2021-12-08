@@ -14,6 +14,7 @@ let gameSound;
 let gameOverSound;
 let playerName = document.querySelector('.menu__name-input');
 let nameText;
+let soundFlag = false;
 
 //изменение состояния в зависимости от хэша
 
@@ -32,11 +33,14 @@ function switchToStateFromURLHash() {
     console.log(spaState);
     
     // обновляем вариабельную часть страницы под текущее состояние
-    // let addtoHTML = '';
+    
     switch (spaState.pagename) {
         case 'Main':
             hideInfo();
             hideGame();
+            let storName=window.localStorage.getItem('isName');
+            if ( storName )
+            playerName.value = storName;
             break;
         case 'Game':
             if (!startFlag) {
@@ -85,7 +89,7 @@ function showInfo(infoType) {
         closeButton.appendChild(a);
     }
     
-// в зависимости нажатой кнопки, будем менять содержимое
+// в зависимости нажатой кнопки, меняется содержимое
     switch (infoType) {
         case 'Rules':
             let infoRules = document.querySelector('.info__content');
@@ -138,10 +142,10 @@ function startGame() {
     nameText = playerName.value;
     if (nameText == '') {
         nameText = 'player1';
-    }
-    console.log(nameText);
+    } 
+    // console.log(nameText);
     let text = document.createElement('h2');
-    text.textContent = 'Score';
+    text.textContent = 'Score: ';
     score.appendChild(text);
     let value = document.createElement('span');
     value.setAttribute('id', 'score-value');
@@ -155,11 +159,11 @@ function startGame() {
     gameStart.appendChild(mainGame);
     let startPage = document.querySelector('.main__window');
     startPage.classList.add('hidden');
-    console.log(startPage.className);
+    // console.log(startPage.className);
     startFlag = true;
     getCanvasSize();
     start();
-    // resize();
+    resize();
     addListeners();
     window.removeEventListener('touchstart', windowTouchStart, {passive: false});
     window.removeEventListener('touchend', windowTouchEnd, {passive: false});
@@ -211,8 +215,6 @@ let closeButton = document.querySelector('.menu__close-button');
 let rulesButtonBurger = document.querySelector('.menu__rules-burger');
 let recordsButtonBurger = document.querySelector('.menu__records-burger');
 
-// для ресайзинга самой игры, написать когда-нибудь
-// window.addEventListener('resize', resizeCanvas);
 
 // изменение хэша урла
 window.addEventListener('hashchange', switchToStateFromURLHash);
@@ -283,15 +285,18 @@ export function finishSound() {
 function soundOnOff() {
     let soundCheck = document.querySelector('.sound').src;
     if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
+    // if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
         document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg';
         backGroundMusic.pause();
-        
+                
     }
     if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg') {
         document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg';
         backGroundMusic.currentTime = 0;
         backGroundMusic.play();
+        
     }
+
 }
 
 // реакция на закрытие и перезагрузку окна и уход со страницы
@@ -300,16 +305,15 @@ function goodbye(eo) {
     eo = eo || window.event;
     if (startFlag) {
         eo.returnValue = 'Game progress will be lost!';
-        // if (eo.returnValue) {
-        //     window.location.reload();
-        // }
     }
+    
 }
 
 window.addEventListener('popstate', backspace);
 function backspace(eo) {
     eo = eo || window.event;
     if (location.hash === '#Main' && startFlag) {
+        console.log(startFlag);
         let conf = confirm('Game progress will be lost!');
         if (conf) {
             location.hash = '#Main';
@@ -318,7 +322,6 @@ function backspace(eo) {
         }
     }
 }
-
 
 // всплывающее окно, когда игра заканчивается
 export function showGameOverWindow() {
@@ -348,6 +351,8 @@ export function showGameOverWindow() {
         a.textContent = 'Main page';
         closeButton.appendChild(a);
         closeButton.addEventListener('click', switchToMainPage);
+        // сохранения имени игрока в localstprage
+        window.localStorage.setItem('isName', playerName.value);
 }
 
 export { nameText };

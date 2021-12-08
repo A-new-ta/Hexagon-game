@@ -6,12 +6,9 @@ import { hexHelperF } from './hexhelper.js';
 import Hex from './hex.js';
 import _, { sample } from './underscore.js'
 
-
-
-// var image_width = (hexHelper.size * 1.9) - 2;
 // варианты возможных форм для фигурок
 
-// var image_width = (hexHelper.size * 1.9) - 2;
+
 const possibleShapes = [
   {
     image: "images/tile_hex_2.svg",
@@ -120,63 +117,59 @@ const possibleShapes = [
 ]
 
 export default class Shape {
-  constructor(context) {
-    this._context = context;
-    // this.tiles = this.makeTilesFromCoords((possibleShapes));
-    this.tiles = this.makeTilesFromCoords(_.sample(possibleShapes));
-    this.hexHelper = hexHelperF();
-    
-  }
-  makeTilesFromCoords(shapeOpts) {
-    var shape = this;
-    this.image = shapeOpts.image;
-    return shapeOpts.coords.map(function (coords) {
-      var [x, y, z] = coords;
-      return {
-        hex: new Hex(x, y, z),
-        tile: new Tile(shapeOpts.image)
-      };
-    });
-  }
-
+    constructor(context) {
+        this._context = context;
+        // this.tiles = this.makeTilesFromCoords((possibleShapes));
+        this.tiles = this.makeTilesFromCoords(_.sample(possibleShapes));
+        this.hexHelper = hexHelperF();
+      
+    }
   
-  draw(xOffset, yOffset, scale = 1) {
-    let hexHelper = hexHelperF();
-    var image_width = (hexHelper.size * 1.9) - 2;
-    var ctx = this._context;
-    // console.log(this.hexHelper);
-    this.tiles.forEach(function (tileOpts) {
-      // var [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);
-      let pixels = tileOpts.hex.toPixels();
-      
-      pixels.x = pixels.x * scale + xOffset - hexHelper.size;
-      pixels.y = pixels.y * scale + yOffset - hexHelper.size;
-      // console.log(k);
-      let img = tileOpts.tile.image;
-      ctx.drawImage(img, pixels.x, pixels.y, image_width * scale, image_width * scale);
-    });
-  }
+    makeTilesFromCoords(shapeOpts) {
+        let shape = this;
+        this.image = shapeOpts.image;
+        return shapeOpts.coords.map(function (coords) {
+            let [x, y, z] = coords;
+            return {
+                hex: new Hex(x, y, z),
+                tile: new Tile(shapeOpts.image)
+            };
+        });
+    }
+
+    
+    draw(xOffset, yOffset, scale = 1) {
+        let hexHelper = hexHelperF();
+        let image_width = (hexHelper.size * 1.9) - 2;
+        let ctx = this._context;
+        // console.log(this.hexHelper);
+        this.tiles.forEach(function (tileOpts) {
+          // let [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);
+            let pixels = tileOpts.hex.toPixels();
+            pixels.x = pixels.x * scale + xOffset - hexHelper.size;
+            pixels.y = pixels.y * scale + yOffset - hexHelper.size;
+            // console.log(k);
+            let img = tileOpts.tile.image;
+            ctx.drawImage(img, pixels.x, pixels.y, image_width * scale, image_width * scale);
+        });
+    }
 
 
 
-  drawScale(xOffset, yOffset, scale = 1) {
-    let hexHelper = hexHelperF();
-    var image_width = (hexHelper.size * 2.0) - 2;
-    var ctx = this._context;
-    this.tiles.forEach(function (tileOpts) {
-      // var [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);
-      let pixels = tileOpts.hex.toPixels();
-      
-      pixels.x = pixels.x * scale + xOffset - hexHelper.size;
-      pixels.y = pixels.y * scale + yOffset - hexHelper.size;
-
-      let img = tileOpts.tile.image;
-      
-      ctx.drawImage(img, pixels.x, pixels.y, image_width *0.8 * scale, image_width *0.8 * scale);
-      
-    });
-  }
-
+    drawScale(xOffset, yOffset, scale = 1) {
+        let hexHelper = hexHelperF();
+        let image_width = (hexHelper.size * 2.0) - 2;
+        let ctx = this._context;
+        this.tiles.forEach(function (tileOpts) {
+          // let [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);
+            let pixels = tileOpts.hex.toPixels();
+            pixels.x = pixels.x * scale + xOffset - hexHelper.size;
+            pixels.y = pixels.y * scale + yOffset - hexHelper.size;
+            let img = tileOpts.tile.image;
+            ctx.drawImage(img, pixels.x, pixels.y, image_width *0.8 * scale, image_width *0.8 * scale);
+        
+      });
+    }
 }
 
 

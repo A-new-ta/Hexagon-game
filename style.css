@@ -40,14 +40,15 @@ h1 {
     z-index: 2;
 }
 h2 {
-  font-size: 30px;
+  font-size: 4vw;
   color: white;
   text-align: center;
 }
 
-#score-value {
+/* #score-value {
     display: block;
-}
+} */
+
 #c {
     position: absolute;
     top: 0;
@@ -56,18 +57,19 @@ h2 {
     /* z-index: 0; */
 }
 .score {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 30px;
+    position: absolute;
+    /* z-index: 2; */
+    /* margin-bottom: 15px; */
+    top: 5vh;
+    left: 5vw;
 }
 .hidden {
     display: none;
 }
-.game__start {
-  margin-top: 30px;
-}
+/* .game__start {
+  margin-top: 10px;
+} */
 .main__window {
-  
     margin: 0 auto;
     max-width: 1450px;
     margin: 0 auto;
@@ -80,8 +82,8 @@ h2 {
 }
 .menu__entername, .menu__play-button, .menu__name-input, img, .option__button, .menu__rules-button, .menu__records-button {
     opacity: 0;
-    animation: fade .5s ease-in-out forwards;
-    animation-delay:2.5s;
+    animation: fade 1.0s ease-in-out forwards;
+    animation-delay:0.5s;
 }
 .menu__entername {
     color: rgb(167, 166, 166);
@@ -98,6 +100,7 @@ h2 {
     background-color: rgb(187, 186, 186);
     border: none;
     cursor: pointer;
+    
 }
 .menu__name-input {
     margin: 5vh auto;
@@ -118,15 +121,14 @@ h2 {
     box-shadow: 0px 0px 20px #000000 inset;
 }
 
-
 path {
   stroke-dasharray: 300;
   stroke-dashoffset: 300;
   stroke-width: 1;
   fill-opacity: 0;
   fill: rgb(187, 186, 186);
-  animation: dash 2s ease-in-out forwards;
-  animation-delay:0.5s;
+  animation: dash 2.0s ease-in-out forwards;
+  animation-delay: 0.8s;
   transform-origin: center center;
 }
 svg {
@@ -159,8 +161,8 @@ svg {
   font-size: 55px;
   margin-bottom: 6vh;
   letter-spacing: .2em;
-  animation: fade .5s ease-in-out forwards;
-  animation-delay:2.5s;
+  animation: fade 1.0s ease-in-out forwards;
+  animation-delay:0.5s;
   color: rgb(167, 166, 166);
   /* -webkit-font-smoothing: antialiased; */
   
@@ -168,7 +170,7 @@ svg {
 @keyframes fade {
   0% {
     opacity: 0;
-    margin-top: -10px;
+    margin-top: -30px;
   }
   100% {
     opacity: 1;
@@ -243,7 +245,7 @@ img:hover {
   margin: 0 auto;
   /* width: auto;
   height: auto; */
-  min-width: 70%;
+  min-width: 50%;
   max-width: 600px;
   max-height: 600px;
   padding: 20px;
