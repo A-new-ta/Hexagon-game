@@ -22,13 +22,12 @@ export function refreshRecords() {
 );
 }
 
-function readReady(callresult) { // сообщения получены - показывает
+function readReady(callresult) { 
     if ( callresult.error!=undefined )
         alert(callresult.error);
     else {
         recordsTable=[];
-        if ( callresult.result!="" ) { // либо строка пустая - сообщений нет
-            // либо в строке - JSON-представление массива сообщений
+        if ( callresult.result!="" ) { 
             recordsTable = JSON.parse(callresult.result);
             showRecords(recordsTable);
         }
@@ -52,13 +51,12 @@ function errorHandler(statusStr, errorStr) {
     alert(statusStr + ' ' + errorStr);
 }
 
-// refreshRecords();
+
 
 // обновление таблицы в конце игры, если рекорд устаовлен
 export function saveRecords() {
     
-    // function readRecordsTable() {
-        updatePassword = Math.random();
+    updatePassword = Math.random();
         $.ajax({
             url: ajaxHandlerScript,
             type: 'POST', dataType: 'json',
@@ -67,7 +65,6 @@ export function saveRecords() {
             success: lockGetReady,
             error: errorHandler
         })
-// }
 
     // добавление нового рекорда, если он больше существующих
     function lockGetReady(callresult) {
@@ -95,38 +92,27 @@ export function saveRecords() {
                     recordsTable = recordsTable.slice(0, 10);
                 }
             }
-
-            // showRecords();
+            
             $.ajax({
                 url: ajaxHandlerScript, type: 'POST', cache: false, dataType: 'json',
                 data: { f: 'UPDATE', n: stringName, v: JSON.stringify(recordsTable), p: updatePassword },
                 success: updateReady, error: errorHandler
             }
             );
-
-            
         }
+
         function updateReady(callresult) {
             if ( callresult.error!=undefined )
                 alert(callresult.error);
         }
-        
-          function errorHandler(jqXHR,statusStr,errorStr) {
+        function errorHandler(jqXHR,statusStr,errorStr) {
             alert(statusStr+' '+errorStr);
         }
+    }
 }
 
-}
 
 
-// function updateReady(callresult) {
-//     if ( callresult.error!=undefined )
-//         alert(callresult.error);
-//   }
-
-//   function errorHandler(jqXHR,statusStr,errorStr) {
-//     alert(statusStr+' '+errorStr);
-//   }
 
 
 

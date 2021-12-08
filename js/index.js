@@ -33,7 +33,7 @@ function switchToStateFromURLHash() {
     console.log(spaState);
     
     // обновляем вариабельную часть страницы под текущее состояние
-    // let addtoHTML = '';
+    
     switch (spaState.pagename) {
         case 'Main':
             hideInfo();
@@ -215,8 +215,6 @@ let closeButton = document.querySelector('.menu__close-button');
 let rulesButtonBurger = document.querySelector('.menu__rules-burger');
 let recordsButtonBurger = document.querySelector('.menu__records-burger');
 
-// для ресайзинга самой игры, написать когда-нибудь
-// window.addEventListener('resize', resizeCanvas);
 
 // изменение хэша урла
 window.addEventListener('hashchange', switchToStateFromURLHash);
@@ -286,14 +284,14 @@ export function finishSound() {
 
 function soundOnOff() {
     let soundCheck = document.querySelector('.sound').src;
-    if (soundCheck === 'http://127.0.0.1:5500/images/sound_on_icon.svg') {
+    if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
     // if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
-        document.querySelector('.sound').src = 'http://127.0.0.1:5500/images/sound_off_icon.svg';
+        document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg';
         backGroundMusic.pause();
                 
     }
-    if (soundCheck === 'http://127.0.0.1:5500/images/sound_off_icon.svg') {
-        document.querySelector('.sound').src = 'http://127.0.0.1:5500/images/sound_on_icon.svg';
+    if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg') {
+        document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg';
         backGroundMusic.currentTime = 0;
         backGroundMusic.play();
         

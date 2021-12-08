@@ -40,14 +40,14 @@ h1 {
     z-index: 2;
 }
 h2 {
-  font-size: 4vh;
+  font-size: 4vw;
   color: white;
   text-align: center;
 }
 
-#score-value {
-    /* display: block; */
-}
+/* #score-value {
+    display: block;
+} */
 
 #c {
     position: absolute;
@@ -82,8 +82,8 @@ h2 {
 }
 .menu__entername, .menu__play-button, .menu__name-input, img, .option__button, .menu__rules-button, .menu__records-button {
     opacity: 0;
-    animation: fade .5s ease-in-out forwards;
-    animation-delay:2.5s;
+    animation: fade 1.0s ease-in-out forwards;
+    animation-delay:0.5s;
 }
 .menu__entername {
     color: rgb(167, 166, 166);
@@ -127,8 +127,8 @@ path {
   stroke-width: 1;
   fill-opacity: 0;
   fill: rgb(187, 186, 186);
-  animation: dash 2s ease-in-out forwards;
-  animation-delay:0.5s;
+  animation: dash 2.0s ease-in-out forwards;
+  animation-delay: 0.8s;
   transform-origin: center center;
 }
 svg {
@@ -161,8 +161,8 @@ svg {
   font-size: 55px;
   margin-bottom: 6vh;
   letter-spacing: .2em;
-  animation: fade .5s ease-in-out forwards;
-  animation-delay:2.5s;
+  animation: fade 1.0s ease-in-out forwards;
+  animation-delay:0.5s;
   color: rgb(167, 166, 166);
   /* -webkit-font-smoothing: antialiased; */
   
@@ -170,7 +170,7 @@ svg {
 @keyframes fade {
   0% {
     opacity: 0;
-    margin-top: -10px;
+    margin-top: -30px;
   }
   100% {
     opacity: 1;
@@ -245,7 +245,7 @@ img:hover {
   margin: 0 auto;
   /* width: auto;
   height: auto; */
-  min-width: 70%;
+  min-width: 50%;
   max-width: 600px;
   max-height: 600px;
   padding: 20px;
