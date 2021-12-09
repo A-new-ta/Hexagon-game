@@ -29,13 +29,11 @@ body {
     position: relative;
     display: block;
     z-index: 2;
-    /* position: fixed; */
 }
 
 h1 {
     text-align: center;
     color: white;
-    /* margin-bottom: 50px; */
     padding-right: 4vw;
     z-index: 2;
 }
@@ -45,17 +43,8 @@ h2 {
   text-align: center;
 }
 
-/* #c {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.7; 
-    z-index: 0;
-} */
 .score {
     position: absolute;
-    /* z-index: 2; */
-    /* margin-bottom: 15px; */
     top: 5vh;
     left: 5vw;
 }
@@ -67,7 +56,6 @@ h2 {
     margin: 0 auto;
     max-width: 1450px;
     margin: 0 auto;
-    /* width: 50%; */
     text-align: center;
     min-height: 100%;
 }
@@ -158,9 +146,8 @@ svg {
   animation: fade 1.0s ease-in-out forwards;
   animation-delay:0.5s;
   color: rgb(167, 166, 166);
-  /* -webkit-font-smoothing: antialiased; */
-  
 }
+
 @keyframes fade {
   0% {
     opacity: 0;
@@ -179,15 +166,6 @@ svg {
     top: 0px;
 }
 
-/* .sound__button {
-  background-image: url('./images/sound_on_icon.svg');
-  opacity: 0;
-    width: 45px;
-    height: 45px;
-    margin-right: 30px;
-    cursor: pointer;
-    transition: 0.5s;
-} */
 img{
     opacity: 0;
     width: 45px;
@@ -231,21 +209,13 @@ img:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .menu__rules{
-  
-  /* pointer-events: none; */
   position: relative;
-  /* transform:translate(50%, 50%); */
   top:-100%;
   margin: 0 auto;
-  /* width: auto;
-  height: auto; */
   min-width: 50%;
   max-width: 600px;
   max-height: 600px;
   padding: 20px;
-  /* animation-name: info-show;
-  animation-duration:0.5; */
-  /* animation-timing-function:ease, step-start, cubic-bezier(0.1, -0.7, 1.0, 0.1); */
   animation-fill-mode: forwards;
   z-index: 10;
   box-shadow: 0px 0px 30px #dbdada;
@@ -259,11 +229,9 @@ img:hover {
   text-align: center;
 }
 .menu__close-button {
-  /* position: relative; */
   margin: 20px auto 0px auto;
   text-align: center;
   width: 33%;
-  /* display: inline-block; */
   background: grey;
   transition: 0.5s;
   border-radius: 10px;
@@ -277,7 +245,6 @@ img:hover {
 .info__content {
   text-align: center;
   padding: 0px 20px;
-  /* height: 480px; */
   margin-bottom: 50px;
 }
 .info__content li {
@@ -326,10 +293,7 @@ img:hover {
 .menu__hexagon{
     font-size: 45px;
 }
-/* svg{
-    height: 200px;
-    margin-bottom: 0px;
-  } */
+
 .menu__play-button {
     margin-bottom: 30px;
   }
@@ -419,9 +383,7 @@ img:hover {
   padding-top:300px;
   background:rgba(0,0,0,0.8);
 }
-/* .menu__rules-burger, .menu__records-burger{
-  
-} */
+
 .menu__rules-burger a, .menu__records-burger a{
   display: inline-block;
   color: rgb(226, 226, 226);
@@ -455,9 +417,7 @@ img:hover {
 }
 
 @media (max-width: 322px) {
-  /* .menu__hexagon {
-    margin-bottom: 20px;
-  } */
+  
   .menu__name-input {
     margin-bottom: 30px ;
   }
