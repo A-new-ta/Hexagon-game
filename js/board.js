@@ -6,7 +6,7 @@ import Hex from './hex.js';
 import _, { every } from './underscore.js'
 import { hexHelperF } from './hexhelper.js';
 import { clickSound } from './index.js';
-
+import { soundFlag } from './index.js';
 
 export default class Board {
     constructor(context) {
@@ -97,9 +97,9 @@ export default class Board {
             });
             score += fullRow.length * 500 * multiplier;
             multiplier++;
-            clickSound();
+            if (soundFlag) clickSound();
             if (navigator.vibrate) {
-                window.navigator.vibrate(100);
+                window.navigator.vibrate(200);
             }
         });
 

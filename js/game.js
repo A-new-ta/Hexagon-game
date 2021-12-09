@@ -7,7 +7,8 @@ import _, { values } from './underscore.js'
 import { finishSound, showGameOverWindow } from './index.js';
 import { nameText } from './index.js';
 import { refreshRecords, saveRecords } from './ajax.js';
-import { backGroundStart } from './background.js';
+import { soundFlag } from './index.js';
+
 
 let canvas;
 let ctx;
@@ -181,7 +182,7 @@ function mouseAndTouchEnd(eo) {
         document.getElementById("score-value").innerText = score;
         
         if (!board.movesRemaining(_.values(shapesInWaiting))) {
-          finishSound();
+          if (soundFlag) finishSound();
           saveRecords();
           showGameOverWindow();
         }
