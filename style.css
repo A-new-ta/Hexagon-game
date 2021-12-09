@@ -45,17 +45,13 @@ h2 {
   text-align: center;
 }
 
-/* #score-value {
-    display: block;
-} */
-
-#c {
+/* #c {
     position: absolute;
     top: 0;
     left: 0;
-    /* opacity: 0.7; */
-    /* z-index: 0; */
-}
+    opacity: 0.7; 
+    z-index: 0;
+} */
 .score {
     position: absolute;
     /* z-index: 2; */
@@ -66,9 +62,7 @@ h2 {
 .hidden {
     display: none;
 }
-/* .game__start {
-  margin-top: 10px;
-} */
+
 .main__window {
     margin: 0 auto;
     max-width: 1450px;
