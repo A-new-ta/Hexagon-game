@@ -1,9 +1,10 @@
 'use strict'
 // controller
 
-import { getCanvasSize, addGameListeners, start, deleteGameListeners, resize } from './game.js'
-import { backGroundStart } from './background.js';
+import { getCanvasSize, start, resize } from './game.js'
 import { refreshRecords } from './ajax.js';
+import {addGameListeners, deleteGameListeners} from './game.js'
+
 
 let startFlag = false;
 let windowStartMoveY;
@@ -24,7 +25,7 @@ function switchToStateFromURLHash() {
     let URLHash = window.location.hash;
     // убираем из закладки УРЛа решётку
     let stateStr = URLHash.substr(1);
-    if (stateStr != "") { // если закладка непустая, читаем из неё состояние и отображаем
+    if (stateStr != "") { 
         spaState = { pagename: stateStr } // первая часть закладки - номер страницы
     } else {
         spaState = { pagename: 'Main' }  // иначе показываем главную страницу
@@ -73,7 +74,6 @@ function showInfo(infoType) {
         menuRules.style.animationName = 'info-show';
         menuRules.style.animationDuration = '1.0s';
         menuRules.style.animationTimingFunction = 'ease-in-out';
-        // menuRules.style.transform = 'translate(-50%, 0)';
         overlay.appendChild(menuRules);
         let menuContent = document.createElement('div');
         menuContent.className = 'menu__rules-content';
@@ -155,7 +155,6 @@ function startGame() {
     gameStart.appendChild(mainGame);
     let startPage = document.querySelector('.main__window');
     startPage.classList.add('hidden');
-    // console.log(startPage.className);
     startFlag = true;
     getCanvasSize();
     start();
@@ -168,8 +167,8 @@ function startGame() {
 }
 
 
-// устанавливает в закладке УРЛа новое состояние приложения
-// и затем устанавливает+отображает это состояние
+// устанавливает в закладке УРЛа новое состояние приложения, затем устанавливаем и отображаем это состояние
+
 function switchToState(newState) {
 
 let stateStr=newState.pagename;
@@ -216,15 +215,12 @@ menuMobile.addEventListener('click',function(){
 
 // кнопка Play
 playButton.addEventListener('click', switchToGamePage);
-
 // кнопка Rules
 rulesButton.addEventListener('click', switchToRulesPage);
 rulesButtonBurger.addEventListener('click', switchToRulesPage);
-
 // кнопка Records
 recordsButton.addEventListener('click', switchToRecordPage);
 recordsButtonBurger.addEventListener('click', switchToRecordPage);
-
 // кнопка вкл/выкл звук
 soundButton.addEventListener('click', soundOnOff);
 

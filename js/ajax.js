@@ -1,6 +1,6 @@
 'use strict';
 
-import { nameText } from './index.js';
+import { nameText } from './main.js';
 import { score } from './game.js';
 
 

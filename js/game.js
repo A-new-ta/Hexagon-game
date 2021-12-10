@@ -4,10 +4,10 @@ import Board from './board.js';
 import Shape from './shape.js';
 import { hexHelperF } from './hexhelper.js';
 import _, { values } from './underscore.js'
-import { finishSound, showGameOverWindow } from './index.js';
-import { nameText } from './index.js';
-import { refreshRecords, saveRecords } from './ajax.js';
-import { backGroundStart } from './background.js';
+import { finishSound, showGameOverWindow } from './main.js';
+import { nameText } from './main.js';
+import { saveRecords } from './ajax.js';
+
 
 let canvas;
 let ctx;
@@ -152,7 +152,6 @@ function mousedown (eo) {
 }
 
 function touchstart(eo) {
-    // eo = eo || window.event;
     mouseCoords = getTouchPos(canvas, eo);
     isMouseDown = true;
     shapeInHand = whichShapeDidYouPick();
@@ -197,7 +196,7 @@ function getMousePos(canvas, eo) {
     };
 }
 
-// сделала по Y меньше чтобы при таче была видна фигура 
+// по Y меньше чтобы при таче была видна фигура(нажимать чуть ниже)
 function getTouchPos(canvas, eo) {
     let rect = canvas.getBoundingClientRect();
     return {
@@ -240,7 +239,6 @@ export function resize() {
     proportion2 = width * 0.1 // 
     score = 0;
     isMouseDown = false;
-    
     shapeInHand = false;
     shapeFrom = "zero";
     mouseCoords = {};
@@ -257,28 +255,6 @@ export function resize() {
     drawShapeInHand();   
 }
 
-// реакция на закрытие и перезагрузку окна и уход со страницы
-window.addEventListener('beforeunload', goodbye);
-function goodbye(eo) {
-    eo = eo || window.event;
-    if (startFlag) {
-        eo.returnValue = 'Game progress will be lost!';
-    }
-}
-
-window.addEventListener('popstate', backspace);
-function backspace(eo) {
-    eo = eo || window.event;
-    if (location.hash === '#Main' && startFlag) {
-        console.log(startFlag);
-        let conf = confirm('Game progress will be lost!');
-        if (conf) {
-            location.hash = '#Main';
-        } else {
-           location.hash = '#Game';
-        }
-    }
-}
 
 export { width };
 export { height };
