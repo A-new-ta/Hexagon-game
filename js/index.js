@@ -294,7 +294,6 @@ function soundOnOff() {
         soundFlag = true;
         backGroundMusic.currentTime = 0;
         backGroundMusic.play();
-     
     }
 
 }
