@@ -3,11 +3,6 @@
 import { width } from './game.js';
 import { height } from './game.js';
 
-// var size = width / 18; // наружный радиус 23
-// var boardOffset = {x: 300, y: 300};
-// export { width };
-// export { height };
-
 export default class Hex {
     constructor(x, y, z) {
         this.x = x;

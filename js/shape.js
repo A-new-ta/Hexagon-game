@@ -1,13 +1,11 @@
 'use strict'
 
-
 import Tile from './tile.js';
 import { hexHelperF } from './hexhelper.js';
 import Hex from './hex.js';
 import _, { sample } from './underscore.js'
 
 // варианты возможных форм для фигурок
-
 
 const possibleShapes = [
   {
