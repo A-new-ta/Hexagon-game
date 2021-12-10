@@ -149,6 +149,7 @@ export function deleteListeners() {
 
 function mousedown (eo) {
     mouseCoords = getMousePos(canvas, eo);
+    // console.log(mouseCoords);
     isMouseDown = true;
     shapeInHand = whichShapeDidYouPick();
 }
