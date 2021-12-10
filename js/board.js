@@ -5,7 +5,7 @@ import Tile from './tile.js';
 import Hex from './hex.js';
 import _, { every } from './underscore.js'
 import { hexHelperF } from './hexhelper.js';
-import { clickSound } from './main.js';
+import { clickSound, soundFlag } from './main.js';
 
 
 export default class Board {
@@ -97,9 +97,9 @@ export default class Board {
             });
             score += fullRow.length * 500 * multiplier;
             multiplier++;
-            clickSound();
+            if (soundFlag) clickSound();
             if (navigator.vibrate) {
-                window.navigator.vibrate(100);
+                window.navigator.vibrate(200);
             }
         });
 

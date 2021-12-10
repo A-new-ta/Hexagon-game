@@ -4,7 +4,7 @@ import Board from './board.js';
 import Shape from './shape.js';
 import { hexHelperF } from './hexhelper.js';
 import _, { values } from './underscore.js'
-import { finishSound, showGameOverWindow } from './main.js';
+import { finishSound, showGameOverWindow, soundFlag } from './main.js';
 import { nameText } from './main.js';
 import { saveRecords } from './ajax.js';
 
@@ -147,6 +147,7 @@ export function deleteGameListeners() {
 
 function mousedown (eo) {
     mouseCoords = getMousePos(canvas, eo);
+    // console.log(mouseCoords);
     isMouseDown = true;
     shapeInHand = whichShapeDidYouPick();
 }
@@ -179,7 +180,7 @@ function mouseAndTouchEnd(eo) {
         document.getElementById("score-value").innerText = score;
         
         if (!board.movesRemaining(_.values(shapesInWaiting))) {
-          finishSound();
+          if (soundFlag) finishSound();
           saveRecords();
           showGameOverWindow();
         }

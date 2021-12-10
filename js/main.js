@@ -271,14 +271,14 @@ function soundOnOff() {
     if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
     // if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
         document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg';
+        soundFlag = false;
         backGroundMusic.pause();
-                
     }
     if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg') {
         document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg';
+        soundFlag = true;
         backGroundMusic.currentTime = 0;
         backGroundMusic.play();
-        
     }
 }
 
@@ -337,3 +337,4 @@ export function showGameOverWindow() {
 }
 
 export { nameText };
+export { soundFlag };
