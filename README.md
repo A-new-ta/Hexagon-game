@@ -1,3 +1,3 @@
 # Hexagon-game
 
-https://a-new-ta.github.io/Hexagon-game/index.html
+https://a-new-ta.github.io/Hexagon-game/
