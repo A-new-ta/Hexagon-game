@@ -5,8 +5,8 @@ import Tile from './tile.js';
 import Hex from './hex.js';
 import _, { every } from './underscore.js'
 import { hexHelperF } from './hexhelper.js';
-import { clickSound } from './index.js';
-import { soundFlag } from './index.js';
+import { clickSound } from './main.js';
+
 
 export default class Board {
     constructor(context) {

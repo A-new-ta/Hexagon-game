@@ -209,6 +209,7 @@ img:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .menu__rules{
+  
   position: relative;
   top:-100%;
   margin: 0 auto;
