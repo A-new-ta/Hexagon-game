@@ -113,7 +113,6 @@ function whichShapeDidYouPick() {
 }
 
 
-// board.addRandomTiles();
 export function start (){
   requestAnimationFrame(function gameLoop() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -126,7 +125,7 @@ export function start (){
 }
 
 
-export function addListeners() {
+export function addGameListeners() {
     document.addEventListener('mousedown', mousedown);
     document.addEventListener('touchstart', touchstart);
     document.addEventListener('mouseup', mouseAndTouchEnd);
@@ -136,7 +135,7 @@ export function addListeners() {
     window.addEventListener('resize', resize);
 }
 
-export function deleteListeners() {
+export function deleteGameListeners() {
     document.removeEventListener('mousedown', mousedown);
     document.removeEventListener('touchstart', touchstart);
     document.removeEventListener('mouseup', mouseAndTouchEnd);
@@ -210,7 +209,7 @@ function getTouchPos(canvas, eo) {
 
 // responsive canvas
 export function resize() {
-      
+    
     let widthToHeight = 750 / 850;
     let newWidth = document.documentElement.clientWidth;
     let newHeight = document.documentElement.clientHeight;
@@ -241,14 +240,11 @@ export function resize() {
     proportion2 = width * 0.1 // 
     score = 0;
     isMouseDown = false;
-    // let isTouch = false;
-
-    // board = new Board(ctx);
+    
     shapeInHand = false;
     shapeFrom = "zero";
     mouseCoords = {};
-    // let touchCoords = {};
-      
+          
     shapesInWaitingBoxes = [
         {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
         {key: "second", bounds: [secondHexX - proportion2, secondHexX + proportion1, secondHexY - proportion2, secondHexY + proportion1]}, //600, 700, 250, 350
@@ -259,10 +255,30 @@ export function resize() {
     board.drawPotentialSlots(mouseCoords, shapeInHand);
     drawShapesInWaiting();
     drawShapeInHand();   
-    
 }
 
+// реакция на закрытие и перезагрузку окна и уход со страницы
+window.addEventListener('beforeunload', goodbye);
+function goodbye(eo) {
+    eo = eo || window.event;
+    if (startFlag) {
+        eo.returnValue = 'Game progress will be lost!';
+    }
+}
 
+window.addEventListener('popstate', backspace);
+function backspace(eo) {
+    eo = eo || window.event;
+    if (location.hash === '#Main' && startFlag) {
+        console.log(startFlag);
+        let conf = confirm('Game progress will be lost!');
+        if (conf) {
+            location.hash = '#Main';
+        } else {
+           location.hash = '#Game';
+        }
+    }
+}
 
 export { width };
 export { height };

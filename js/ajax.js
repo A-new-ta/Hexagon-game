@@ -1,7 +1,7 @@
 'use strict';
 
 import { nameText } from './index.js';
-import {score} from './game.js'
+import { score } from './game.js';
 
 
 let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";

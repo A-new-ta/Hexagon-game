@@ -1,7 +1,7 @@
 'use strict'
 // controller
 
-import { getCanvasSize, addListeners, start, deleteListeners, resize } from './game.js'
+import { getCanvasSize, addGameListeners, start, deleteGameListeners, resize } from './game.js'
 import { backGroundStart } from './background.js';
 import { refreshRecords } from './ajax.js';
 
@@ -127,7 +127,7 @@ function hideGame() {
         let startPage = document.querySelector('.main__window');
         startPage.classList.remove('hidden');
         startFlag = false;
-        deleteListeners();
+        deleteGameListeners();
     }
 }
 
@@ -143,7 +143,6 @@ function startGame() {
     if (nameText == '') {
         nameText = 'player1';
     } 
-    // console.log(nameText);
     let text = document.createElement('h2');
     text.textContent = 'Score: ';
     score.appendChild(text);
@@ -151,9 +150,6 @@ function startGame() {
     value.setAttribute('id', 'score-value');
     value.textContent = '0';
     text.appendChild(value);
-    // let background = document.createElement('canvas');
-    // background.setAttribute('id', 'c');
-    // gameStart.appendChild(background);
     let mainGame = document.createElement('canvas');
     mainGame.setAttribute('id', 'game');
     gameStart.appendChild(mainGame);
@@ -164,29 +160,20 @@ function startGame() {
     getCanvasSize();
     start();
     resize();
-    addListeners();
+    addGameListeners();
     window.removeEventListener('touchstart', windowTouchStart, {passive: false});
     window.removeEventListener('touchend', windowTouchEnd, {passive: false});
     window.removeEventListener('touchmove', windowMove, { passive: false });
 
-    // backGroundStart();
 }
-
-
-
 
 
 // устанавливает в закладке УРЛа новое состояние приложения
 // и затем устанавливает+отображает это состояние
 function switchToState(newState) {
-// устанавливаем закладку УРЛа
-// нужно для правильной работы кнопок навигации браузера
-// (т.к. записывается новый элемент истории просмотренных страниц)
-// и для возможности передачи УРЛа другим лицам
+
 let stateStr=newState.pagename;
 location.hash = stateStr;
-// АВТОМАТИЧЕСКИ вызовется switchToStateFromURLHash()
-// т.к. закладка УРЛа изменилась (ЕСЛИ она действительно изменилась)
 };
 
 function switchToMainPage() {
@@ -229,16 +216,17 @@ menuMobile.addEventListener('click',function(){
 
 // кнопка Play
 playButton.addEventListener('click', switchToGamePage);
-// playButton.addEventListener('tap', play, { passive: false });
+
 // кнопка Rules
 rulesButton.addEventListener('click', switchToRulesPage);
 rulesButtonBurger.addEventListener('click', switchToRulesPage);
+
 // кнопка Records
 recordsButton.addEventListener('click', switchToRecordPage);
 recordsButtonBurger.addEventListener('click', switchToRecordPage);
+
 // кнопка вкл/выкл звук
 soundButton.addEventListener('click', soundOnOff);
-// кнопка закрытия модального окна
 
 // свайп окна, работает только на страницах rules и records
 window.addEventListener('touchstart', windowTouchStart, {passive: false});
@@ -296,7 +284,6 @@ function soundOnOff() {
         backGroundMusic.play();
         
     }
-
 }
 
 // реакция на закрытие и перезагрузку окна и уход со страницы
@@ -306,7 +293,6 @@ function goodbye(eo) {
     if (startFlag) {
         eo.returnValue = 'Game progress will be lost!';
     }
-    
 }
 
 window.addEventListener('popstate', backspace);
@@ -335,7 +321,6 @@ export function showGameOverWindow() {
         menuRules.style.animationName = 'info-show';
         menuRules.style.animationDuration = '1.0s';
         menuRules.style.animationTimingFunction = 'ease-in-out';
-        // menuRules.style.transform = 'translate(-50%, 0)';
         overlay.appendChild(menuRules);
         let menuContent = document.createElement('div');
         menuContent.className = 'menu__rules-content';
