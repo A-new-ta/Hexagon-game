@@ -4,7 +4,7 @@ import Board from './board.js';
 import Shape from './shape.js';
 import { hexHelperF } from './hexhelper.js';
 import _, { values } from './underscore.js'
-import { finishSound, showGameOverWindow } from './main.js';
+import { finishSound, showGameOverWindow, soundFlag } from './main.js';
 import { nameText } from './main.js';
 import { saveRecords } from './ajax.js';
 
