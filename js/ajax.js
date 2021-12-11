@@ -1,4 +1,5 @@
 'use strict';
+// чтение и занесение в таблицу новых рекордов
 
 import { nameText } from './main.js';
 import { score } from './game.js';

@@ -1,9 +1,11 @@
 'use strict'
+// составляем фигуры из координат и картинок
 
 import Tile from './tile.js';
 import { hexHelperF } from './hexhelper.js';
 import Hex from './hex.js';
-import _, { sample } from './underscore.js'
+import _, { sample } from './underscore.js' // рандомный выбор одной из фигур
+
 
 // варианты возможных форм для фигурок
 
@@ -122,7 +124,7 @@ export default class Shape {
         this.hexHelper = hexHelperF();
       
     }
-  
+    // создание фигур, координаты+картинка
     makeTilesFromCoords(shapeOpts) {
         let shape = this;
         this.image = shapeOpts.image;
@@ -135,14 +137,14 @@ export default class Shape {
         });
     }
 
-    
+    // рисуем фигуры внизу доски
     draw(xOffset, yOffset, scale = 1) {
         let hexHelper = hexHelperF();
         let image_width = (hexHelper.size * 1.9) - 2;
         let ctx = this._context;
         // console.log(this.hexHelper);
         this.tiles.forEach(function (tileOpts) {
-          // let [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);
+          
             let pixels = tileOpts.hex.toPixels();
             pixels.x = pixels.x * scale + xOffset - hexHelper.size;
             pixels.y = pixels.y * scale + yOffset - hexHelper.size;
@@ -153,13 +155,13 @@ export default class Shape {
     }
 
 
-
+    // рисуем увеличенные фигуры, при нажатии мышью или таче
     drawScale(xOffset, yOffset, scale = 1) {
         let hexHelper = hexHelperF();
         let image_width = (hexHelper.size * 2.0) - 2;
         let ctx = this._context;
         this.tiles.forEach(function (tileOpts) {
-          // let [x,y] = hexHelper.hexToPixels(tileOpts.x, tileOpts.y, tileOpts.z).map(n => n * scale);
+         
             let pixels = tileOpts.hex.toPixels();
             pixels.x = pixels.x * scale + xOffset - hexHelper.size;
             pixels.y = pixels.y * scale + yOffset - hexHelper.size;

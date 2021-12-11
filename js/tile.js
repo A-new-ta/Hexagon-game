@@ -1,5 +1,5 @@
 'use strict'
-
+// выбор картинки из библиотеки
 export default class Tile {
     constructor(image, context) {
         this.image = new Image();

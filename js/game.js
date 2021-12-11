@@ -1,9 +1,9 @@
 'use strict'
-
+// процесс игры, расчет ширины, высоты, отрисовка доски и фигур, слушатели событий мыши и тача, ресайз игры
 import Board from './board.js';
 import Shape from './shape.js';
 import { hexHelperF } from './hexhelper.js';
-import _, { values } from './underscore.js'
+import _, { values } from './underscore.js'; // получение значений свойств объекта
 import { finishSound, showGameOverWindow, soundFlag } from './main.js';
 import { nameText } from './main.js';
 import { saveRecords } from './ajax.js';
@@ -30,7 +30,7 @@ let shapeFrom;
 let shapesInWaiting;
 let shapesInWaitingBoxes;
 
-
+// определение размера канваса относительно размера окна
 export function getCanvasSize() {
     canvas = document.getElementById("game");
     ctx = canvas.getContext('2d')
@@ -76,7 +76,7 @@ export function getCanvasSize() {
         second: new Shape(ctx),
         third: new Shape(ctx)
     }
-      
+    // координаты боксов фигурок внизу  
     shapesInWaitingBoxes = [
         {key: "first", bounds: [firstHexX - proportion2, firstHexX + proportion1, firstHexY - proportion2, firstHexY + proportion1]}, //600, 700, 100, 200
         {key: "second", bounds: [secondHexX - proportion2, secondHexX + proportion1, secondHexY - proportion2, secondHexY + proportion1]}, //600, 700, 250, 350
@@ -85,14 +85,14 @@ export function getCanvasSize() {
 }
 
 
-
+// рисуем фигуры внизу
 function drawShapesInWaiting() {
     shapesInWaiting.first.draw(firstHexX, firstHexY, .5); // координаты и размер для ожидающих фигур 650,150
     shapesInWaiting.second.draw(secondHexX, secondHexY, .5); // 700, 300
     shapesInWaiting.third.draw(thirdHexX, thirdHexY, .5); // 650, 450
 }
 
-// увеличение фигур при нажатии мышью или тачем
+// рисуем увеличенные фигуры при нажатии мышью или тачем
 function drawShapeInHand(){
     if(isMouseDown && shapeInHand) {
       shapeInHand.drawScale(mouseCoords.x, mouseCoords.y);
@@ -112,7 +112,7 @@ function whichShapeDidYouPick() {
     }, false)
 }
 
-
+// запуск игры
 export function start (){
   requestAnimationFrame(function gameLoop() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -124,7 +124,7 @@ export function start (){
   });
 }
 
-
+// создаем и удаляем слушатели событий мыши и тача
 export function addGameListeners() {
     document.addEventListener('mousedown', mousedown);
     document.addEventListener('touchstart', touchstart);
@@ -174,7 +174,7 @@ function mouseAndTouchEnd(eo) {
     let helper = hexHelperF();
     let pixels = helper.subVector2(mouseCoords, helper.boardOffset);
     if(shapeInHand && board.validDrop(pixels, shapeInHand)){
-        board.addTilesFromShape(pixels, shapeInHand);
+        board.addTilesFromShape(pixels, shapeInHand); // рисуем фигуру на доске
         shapesInWaiting[shapeFrom] = new Shape(ctx);
         score += board.removeFullLines();
         document.getElementById("score-value").innerText = score;

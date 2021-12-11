@@ -42,8 +42,7 @@ export function hexHelperF() {
         pixelsToHex: function(x, y) {
             let [q, r] = this.pixelsToAxial(x, y);
             return this.axialToCube(q, r)
-            // let [fx, fy, fz] = this.axialToCube(q, r);
-            // return this.cubeRound(fx, fy, fz);
+            
         },
         
         axialRound: function(q, r) {

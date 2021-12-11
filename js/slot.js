@@ -1,4 +1,5 @@
 'use strict'
+// рисование одиночного шестиугольника,к координатам добавляем картинку
 
 import { hexHelperF } from './hexhelper.js';
 
