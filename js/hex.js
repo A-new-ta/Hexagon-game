@@ -3,6 +3,7 @@
 import { width } from './game.js';
 import { height } from './game.js';
 
+// получаем координаты  шестиугольников
 export default class Hex {
     constructor(x, y, z) {
         this.x = x;

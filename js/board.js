@@ -1,9 +1,10 @@
 'use strict'
+// доска, фигуры, их передвижение, сгорание линий, добавление новых фигур, 
 
 import Slot from './slot.js';
 import Tile from './tile.js';
 import Hex from './hex.js';
-import _, { every } from './underscore.js'
+import _, { every } from './underscore.js' // определяем все ли элементы проходят проверку на истинность
 import { hexHelperF } from './hexhelper.js';
 import { clickSound, soundFlag } from './main.js';
 
@@ -13,7 +14,7 @@ export default class Board {
         this.boardSize = 4;
         this.slots = [];
         this.hexHelper = hexHelperF();
-        // рассчитываем координаты шестиугольников доски, заносим в массив
+        // рассчитываем координаты шестиугольников доски/фигур снизу, заносим в массив
         for (let x = -this.boardSize; x <= this.boardSize; x++) {
             for (let y = -this.boardSize; y <= this.boardSize; y++) {
                 for (let z = -this.boardSize; z <= this.boardSize; z++) {
@@ -26,6 +27,7 @@ export default class Board {
         }
     }
   
+    // добавление фигур внизу
     addRandomTiles() {
         this.slots.forEach(function (slot) {
             if (Math.random() > .8)
@@ -33,6 +35,7 @@ export default class Board {
         });
     }
     
+    // подсвечиваем места, куда можно поставить фигуры на доске
     drawPotentialSlots(mouseCoords, shape) {
         if (!shape)
         return;
@@ -46,6 +49,7 @@ export default class Board {
         shape.draw(center.x, center.y);
     }
   
+    // проверка подходит ли фигура, можно ли ее поставить на доску
     validDrop(pixels, shape) {
       if (!shape)
         return;
@@ -54,6 +58,7 @@ export default class Board {
       return this.validShapeAtCoords(hex, shape);
     }
   
+    //
     coordsToSlot(x, y, z) {
         let matchCoords = [x, y, z];
         return this.slots.reduce(function (slot, slotToCheck) {
@@ -61,7 +66,7 @@ export default class Board {
         return _.isEqual(matchCoords, currentCoords) ? slotToCheck : slot;
       }, false);
     }
-  
+    // рисуем на доске фигуру, когда она туда установлена
     addTilesFromShape(pixels, shape) {
         if (!shape)
         return;
@@ -75,7 +80,8 @@ export default class Board {
             board.hexToSlot(hex.add(tileOpts.hex)).tile = tile;
         });
     }
-  
+    
+    // когда заполняется одна из линий доски
     removeFullLines() {
             
         let board = this;
@@ -106,7 +112,7 @@ export default class Board {
 
         return score;
     }
-  
+    
     validShapeAtCoords(hex, shape) {
         if (!shape)
             return;
@@ -133,7 +139,7 @@ export default class Board {
             return slot.hex[axis] == rowNumber;
         });
     }
-  
+    // проверяем есть ли доступные варианты для расстановки фигур
     movesRemaining(shapes) {
         let board = this;
         return _.any(this.slots, function (slot) {

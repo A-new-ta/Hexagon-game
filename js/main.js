@@ -1,5 +1,5 @@
 'use strict'
-// controller
+// главное меню, переключение состояния spa, слушатели, адаптив, музыка
 
 import { getCanvasSize, start, resize } from './game.js'
 import { refreshRecords } from './ajax.js';
@@ -273,7 +273,7 @@ export function finishSound() {
 function soundOnOff() {
     let soundCheck = document.querySelector('.sound').src;
     if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
-    // if (soundCheck === 'https://a-new-ta.github.io/Hexagon-game/images/sound_on_icon.svg') {
+    
         document.querySelector('.sound').src = 'https://a-new-ta.github.io/Hexagon-game/images/sound_off_icon.svg';
         soundFlag = false;
         backGroundMusic.pause();
