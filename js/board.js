@@ -13,6 +13,7 @@ export default class Board {
         this.boardSize = 4;
         this.slots = [];
         this.hexHelper = hexHelperF();
+        // рассчитываем координаты шестиугольников доски, заносим в массив
         for (let x = -this.boardSize; x <= this.boardSize; x++) {
             for (let y = -this.boardSize; y <= this.boardSize; y++) {
                 for (let z = -this.boardSize; z <= this.boardSize; z++) {

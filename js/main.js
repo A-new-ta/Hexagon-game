@@ -16,7 +16,7 @@ let gameOverSound;
 let playerName = document.querySelector('.menu__name-input');
 let nameText;
 let soundFlag = false;
-
+// location.hash = 'Main';
 //изменение состояния в зависимости от хэша
 
 // Переключение на УРЛ из Хэша
@@ -50,9 +50,11 @@ function switchToStateFromURLHash() {
             break;
         case 'Rules':
             showInfo('Rules');
+            swipe();
             break;
         case 'Records':
             showInfo('Records');
+            swipe();
             break;
     }
     if (document.querySelector('.menu__close-button')) {
@@ -111,7 +113,7 @@ function hideInfo() {
         menuRules.style.animationFillMode='forwards';
         setTimeout(removeInfo, 500);
       }
-      function removeInfo() {    
+      function removeInfo() {
         let overlay = document.querySelector('.overlay');
         let mainWindow = document.body;
         mainWindow.removeChild(overlay);
@@ -225,9 +227,11 @@ recordsButtonBurger.addEventListener('click', switchToRecordPage);
 soundButton.addEventListener('click', soundOnOff);
 
 // свайп окна, работает только на страницах rules и records
+function swipe() {
 window.addEventListener('touchstart', windowTouchStart, {passive: false});
 window.addEventListener('touchend', windowTouchEnd, {passive: false});
 window.addEventListener('touchmove', windowMove, { passive: false });
+}
 
 function windowTouchStart(eo) {
     if (spaState.pagename == 'Rules' || spaState.pagename == 'Records') {
@@ -334,6 +338,7 @@ export function showGameOverWindow() {
         closeButton.addEventListener('click', switchToMainPage);
         // сохранения имени игрока в localstprage
         window.localStorage.setItem('isName', playerName.value);
+        
 }
 
 export { nameText };

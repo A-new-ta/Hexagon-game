@@ -110,7 +110,7 @@ path {
   fill-opacity: 0;
   fill: rgb(187, 186, 186);
   animation: dash 2.0s ease-in-out forwards;
-  animation-delay: 0.8s;
+  animation-delay: 0.5s;
   transform-origin: center center;
 }
 svg {
@@ -168,7 +168,7 @@ svg {
 
 img{
     opacity: 0;
-    width: 45px;
+    /* width: 45px; */
     height: 45px;
     margin-right: 30px;
     cursor: pointer;
